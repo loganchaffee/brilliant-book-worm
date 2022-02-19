@@ -1,0 +1,71 @@
+.side-table { 
+    display: flex; 
+    overflow-x: auto; 
+}
+.side-table::-webkit-scrollbar { display: none; }
+
+.side-table__book-container {
+    margin: 0 5px;
+}
+
+.side-table__book {
+    background: rgb(128, 128, 128);
+    color: white;
+    width: 100px;
+    height: 140px;
+    padding: 0;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.side-table__book__spine {
+    background: rgb(97, 97, 97);
+    width: 15px;
+    height: 100%;
+}
+
+.side-table__book__paper {
+    background: rgb(255, 250, 241);
+    width: 100%;
+    border-top: 3px solid rgb(97, 97, 97);
+    border-left: 3px solid rgb(97, 97, 97);
+    border-bottom: 3px solid rgb(97, 97, 97);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    height: 20px;
+    overflow: hidden;
+    transform: translateY(-100%);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.side-table__book__paper__line {
+    background: lightgray;
+    width: 100%;
+    height: 1px;
+}
+
+.side-table__book__title-container {
+    width: 85px;
+    height: 140px;
+    margin-left: 15px;
+    transform: translateY(calc(-100% - 20px));
+    display: flex;
+    justify-content: center;
+}
+
+.side-table__book__title {
+    width: 75px; /* Javascript: 80% of book width */
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px; /* Javascript: 25% of book height */
+    margin-left: 0; /* Javascript: 25% of book height */
+}

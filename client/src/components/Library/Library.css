@@ -1,0 +1,21 @@
+.LibraryCard-container {
+    /* background: lightblue; */
+}
+
+.Library__books-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    row-gap: 10px;
+}
+
+.Library__toggle-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.Library__toggle-btn-container button:focus {
+    outline: none;
+    box-shadow: none;
+}

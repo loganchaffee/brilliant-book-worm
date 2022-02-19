@@ -1,0 +1,46 @@
+@import './index.css';
+
+.flex {
+    display: flex;
+}
+
+.main-container,
+.TopNavbar__content,
+.BottomNavBar__content {
+    max-width: 600px;
+}
+
+.back-arrow {
+    font-size: 30px;
+    color: var(--bs-primary);
+}
+
+.ellipsis-btn {
+    font-size: 30px;
+    color: var(--bs-secondary);
+}
+
+.full-width-btn {
+    width: 100%;
+}
+
+a,
+a p,
+a h1,
+a h2,
+a h3 {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.main-form {
+    background: var(--bs-gray-300);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.main-form {
+   color: var(--bs-secondary);
+   font-weight: 500;
+}

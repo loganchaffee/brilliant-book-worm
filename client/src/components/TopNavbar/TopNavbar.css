@@ -1,0 +1,16 @@
+.TopNavbar .navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.TopNavbar {
+    border-bottom: 1px solid var(--bs-gray-300);
+    height: 50px;
+    padding: 8px 0px;
+    font-size: 20px;
+}
+
+.TopNavbar__profile {
+    
+}

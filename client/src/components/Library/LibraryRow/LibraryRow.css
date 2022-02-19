@@ -1,0 +1,58 @@
+.LibraryRow {
+    margin-bottom: 10px;
+    transition: ease-in-out .1s;
+}
+.LibraryRow:hover {
+    transform: scale(1.01);
+    z-index: 1;
+}
+
+.LibraryRow__body {
+    display: flex;
+}
+
+.LibraryRow__book-icon-container {
+    display: flex;
+}
+
+.LibraryRow__book-icon {
+    font-size: 40px;
+    /* margin-top: 3px; */
+    color: var(--bs-info);
+}
+
+.LibraryRow__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.LibraryRow__subtitle {
+    font-size: 12px;
+    color: var(--bs-secondary);
+    margin-bottom: 0;
+}
+
+.LibraryRow__time {
+    font-size: 12px;
+    margin: 0;
+}
+
+.LibraryRow__pages-container {
+    display: flex;
+    align-items: center;
+}
+
+.LibraryRow__pages-col {
+    width: 75px;
+}
+
+.LibraryRow__pages {
+    font-size: 10px;
+    margin: 0;
+    color: var(--bs-secondary);
+}
+
+.LibraryRow__ProgressBar {
+    height: 5px;
+}

@@ -1,0 +1,57 @@
+.CurrentlyReadingCard {
+    margin-bottom: 10px;
+    transition: ease-in-out .1s;
+}
+.CurrentlyReadingCard:hover {
+    transform: scale(1.01);
+    z-index: 1;
+}
+
+.CurrentlyReadingCard__body {
+    display: flex;
+}
+
+.CurrentlyReadingCard__book-icon-container {
+    display: flex;
+}
+
+.CurrentlyReadingCard__book-icon {
+    font-size: 40px;
+    margin-top: 3px;
+    color: var(--bs-info);
+}
+
+.CurrentlyReadingCard__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.CurrentlyReadingCard__subtitle {
+    font-size: 12px;
+    color: var(--bs-secondary);
+}
+
+.CurrentlyReadingCard__time {
+    font-size: 12px;
+    margin: 0;
+}
+
+.CurrentlyReadingCard__pages-container {
+    display: flex;
+    align-items: center;
+}
+
+.CurrentlyReadingCard__pages-col {
+    width: 75px;
+}
+
+.CurrentlyReadingCard__pages {
+    font-size: 10px;
+    margin: 0;
+    color: var(--bs-secondary);
+}
+
+.CurrentlyReadingCard__ProgressBar {
+    height: 5px;
+}

@@ -1,0 +1,43 @@
+.profile-image-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-image {
+    background: var(--bs-light);
+    width: 75px;
+    height: 75px;
+    font-size: 30px;
+    color: var(--bs-secondary);
+    border: 1px solid var(--bs-secondary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-name {
+    color: var(--bs-secondary);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 5px 10px;
+}
+
+.profile-level {
+    width: fit-content;
+    font-size: 16px;
+    color: var(--bs-success);
+    padding: 2px 10px;
+    margin: 0 0 0 10px;
+    border: 1px solid var(--bs-success);
+    border-radius: 25px;
+}
+
+.profile-image-change-btn {
+    width: fit-content;
+    color: var(--bs-secondary);
+    font-size: 12px;
+    margin: 10px auto;
+}
+

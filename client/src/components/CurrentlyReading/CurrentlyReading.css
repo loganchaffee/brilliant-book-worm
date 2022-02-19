@@ -1,0 +1,20 @@
+/* Styles for both forms linked to from this page */
+
+.short-form-label {
+    width: 50%;
+    margin: 0;
+}
+
+.short-form-input {
+    width: 50%;
+}
+
+.date-of-publication-form-group,
+.num-of-pages-form-group {
+    display: flex;
+    align-items: center;
+}
+
+.add-new-book-btn {
+    margin-bottom: 10px;
+}

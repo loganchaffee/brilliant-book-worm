@@ -1,0 +1,53 @@
+.LibraryBook {
+    width: fit-content;
+    height: fit-content;
+    min-height: 150px;
+    max-height: 200px;
+    padding: 0;
+    margin: 0;
+    transition: ease-in-out .1s;
+}
+.LibraryBook:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.LibraryBook__body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.LibraryBook p {
+    margin-top: 10px;
+    max-height: calc(200px - 42px);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.LibraryBook__title {
+    font-size: 12px;
+    line-height: 14px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: var(--bs-dark);
+    font-weight: 500;
+    margin: 0;
+    text-align: start;
+}
+
+.LibraryBook__author {
+    max-height: calc(200px - 32px);
+    font-size: 10px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: var(--bs-secondary);
+    margin: 0;
+    text-align: end;
+}
+
+.LibraryBook__book-mark {
+    position: absolute;
+    color: var(--bs-info);
+    transform: translate(1px, -16px);
+}

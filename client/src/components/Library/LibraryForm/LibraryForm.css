@@ -1,0 +1,29 @@
+.LibraryForm__star {
+    font-size: 30px;
+}
+.LibraryForm__star:hover {
+    font-size: 30px;
+    color: var(--bs-warning) !important;
+    cursor: pointer;
+}
+
+.LibraryForm__textarea {
+    min-height: 100px !important;
+}
+
+.LibraryForm__subtitle {
+    font-size: 16px;
+    color: var(--bs-secondary);
+    margin-bottom: 25px;
+}
+
+.LibraryForm__section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.LibraryForm__ellipsis-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}

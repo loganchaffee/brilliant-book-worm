@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --title-font: 'Abril Fatface', serif;
+    --body-font: 'Poppins', sans-serif;
+
+    --primary: #007bff;
+    --primary-darkened: #0668d1;
+    --secondary: #6c757d;
+    --secondary-darkened: #3f4549;
+    --success: #28a745;
+    --success-darkened: #22913a;
+    --info: #17a2b8;
+    --info-darkened: #0e6f7e;
+    --warning: #ffc107;
+    --warning-darkened: #dba608;
+    --danger: #dc3545;
+    --danger-darkened: #b62c3a;
+    --light: #f8f9fa;
+    --light-darkened: #afb1b3;
+    --dark: #343a40;
+    --dark-darkened: #1e2225;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--body-font);
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,14 @@
+.switch-form-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.switch-form-label {
+    margin-right: 10px;
+}
+
+.switch-form-btn {
+    text-decoration: underline;
+    cursor: pointer;
+}
