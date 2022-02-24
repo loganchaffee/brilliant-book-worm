@@ -3,8 +3,6 @@ import mongoose from 'mongoose';
 import Book from "../models/Book.js"
 
 export const getBooks = async (req, res) => {
-    console.log(req.userId);
-
     try {
         const books = await Book.find({createdBy: req.userId})
 
@@ -48,8 +46,6 @@ export const updateBook = async (req, res) => {
 export const deleteBook = async (req, res) => {
     try {
         const id = req.params.id
-
-        console.log(id);
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).send('No book with that id')

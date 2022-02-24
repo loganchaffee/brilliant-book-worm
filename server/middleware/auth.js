@@ -10,8 +10,6 @@ const auth = async (req, res, next) => {
         if (token) {
             decodedData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
-            console.log(decodedData)
-
             req.userId = decodedData?.id
         }
 
