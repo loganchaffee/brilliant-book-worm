@@ -19,6 +19,7 @@ function TopNavbar() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.auth)
 
+
     return (
         <Row>
             <Navbar className="TopNavbar" fixed="top" bg="light" variant="light" >
@@ -28,7 +29,7 @@ function TopNavbar() {
                             <span className="TopNavbar__profile">
                                 <Link to="/profile" >
                                     <FontAwesomeIcon icon={faUser} />
-                                    {user && ' ' + user.firstName}
+                                    {user && ` ${user.name}`}
                                 </Link>
                             </span>
                         </Nav.Item>

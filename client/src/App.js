@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,22 +25,31 @@ const App = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
+    
+    // The user data is stored in the redux store, but the boolean of isLoggedIn is stored here
+    // In the main app component so that we can conditionally render the authentication form or the home page.
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
 
-
+    // Check for token in local storage and request user details
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem('user'))) {
-            dispatch(getUserInfo())
+        if (!user) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                dispatch(getUserInfo(navigate, setIsLoggedIn))
+            } else {
+                setIsLoggedIn(false)
+                navigate('/auth')
+            }
+        } else {
+            setIsLoggedIn(true)
         }
-        if (user === null) {
-            navigate('/auth')
-        }
-    }, [])
+        console.log(user);
+    }, [user])
     
     return (
         <div id='App'>
             <Container className="main-container" xs={12}>
-                <TopNavbar />
-                <div style={{height: '60px'}}/>
+                { isLoggedIn && <><TopNavbar /><div style={{height: '60px'}}/></>}
+
                 <Routes >
                     {/* Authentication */}
                     <Route path='/auth' element={<Auth />} />
@@ -61,8 +70,8 @@ const App = () => {
                     {/* News Feed */}
                     <Route path='/feed' element={<Feed />} />
                 </Routes>
-                <div style={{height: '100px'}}/>
-                <BottomNavbar />
+
+                { isLoggedIn && <><div style={{height: '100px'}}/><BottomNavbar /></> }
             </Container>
         </div>
     );
