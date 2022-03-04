@@ -54,11 +54,20 @@ export const signout = () => async (dispatch) => {
     }
 }
 
-export const updateUser = (formData) => async (dispatch, navigate) => {
+export const updateUser = (formData, setErrorMessage) => async (dispatch) => {
     try {
         const {data} = await api.updateUser(formData)
-
         dispatch({ type: 'AUTH', payload: data.updatedUser })
+        setErrorMessage('')
+    } catch (error) {
+        setErrorMessage('Name or email address is already in use')
+    }
+}
+
+export const updateUserProfileImage = (imageFormData) => async (dispatch) => {
+    try {
+        const {data} = await api.updateUserProfileImage(imageFormData)
+        dispatch({ type: 'AUTH', payload: data })
     } catch (error) {
         console.log(error);
     }

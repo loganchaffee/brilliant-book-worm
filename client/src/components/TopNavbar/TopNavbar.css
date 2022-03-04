@@ -11,6 +11,6 @@
     font-size: 20px;
 }
 
-.TopNavbar__profile {
-    
+.TopNavbar__profile a:hover {
+    color: var(--bs-dark);
 }

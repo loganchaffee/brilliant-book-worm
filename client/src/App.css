@@ -33,6 +33,14 @@ a h3 {
     text-decoration: none;
 }
 
+p,
+h1,
+h2,
+h3,
+button {
+    margin-bottom: 10px;
+}
+
 .main-form {
     background: var(--bs-gray-300);
     padding: 10px;

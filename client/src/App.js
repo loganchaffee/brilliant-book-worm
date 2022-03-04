@@ -17,6 +17,9 @@ import EditBookForm from './components/CurrentlyReading/EditBookForm/EditBookFor
 import LibraryForm from './components/Library/LibraryForm/LibraryForm';
 import Profile from './components/Profile/Profile';
 import Auth from './Auth/Auth';
+import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest';
+import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestCompletion/ReadingSpeedTestCompletion';
+
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from './actions/auth';
@@ -42,7 +45,6 @@ const App = () => {
         } else {
             setIsLoggedIn(true)
         }
-        console.log(user);
     }, [user])
     
     return (
@@ -66,6 +68,8 @@ const App = () => {
 
                     {/* Challenge */}
                     <Route path='/challenge' element={<Challenge />} />
+                    <Route path='/reading-speed-test' element={<ReadingSpeedTest />} />
+                    <Route path='/reading-speed-test-completion' element={<ReadingSpeedTestCompletion />} />
 
                     {/* News Feed */}
                     <Route path='/feed' element={<Feed />} />

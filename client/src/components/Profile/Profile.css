@@ -4,7 +4,7 @@
     margin-bottom: 30px;
 }
 
-.profile-image {
+.profile-image-circle {
     background: var(--bs-light);
     width: 75px;
     height: 75px;
@@ -15,6 +15,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 100%;
 }
 
 .profile-name {
