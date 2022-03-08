@@ -64,9 +64,19 @@ export const updateUser = (formData, setErrorMessage) => async (dispatch) => {
     }
 }
 
+export const updateUserWpm = (wpm, navigate) => async (dispatch) => {
+    try {
+        const { data } = await api.updateUserWpm(wpm)
+        dispatch({ type: 'AUTH', payload: data })
+        navigate('/profile')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const updateUserProfileImage = (imageFormData) => async (dispatch) => {
     try {
-        const {data} = await api.updateUserProfileImage(imageFormData)
+        const { data } = await api.updateUserProfileImage(imageFormData)
         dispatch({ type: 'AUTH', payload: data })
     } catch (error) {
         console.log(error);

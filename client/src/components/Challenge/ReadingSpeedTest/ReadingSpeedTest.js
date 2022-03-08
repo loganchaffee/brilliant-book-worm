@@ -14,14 +14,15 @@ import { faAngleLeft, faLeaf } from '@fortawesome/free-solid-svg-icons'
 
 import './ReadingSpeedTest.css'
 import { getBookExcerpt } from '../../../api/index'
+import { updateWpm } from '../../../actions/wpm'
 
 function ReadingSpeedTest() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
+    const wpm = useSelector((state) => state.wpm)
 
     const [text, setText] = useState('')
-    const [wpm, setWpm] = useState('')
     const [timerDetails, setTimerDetails] = useState({
         hasStarted: false,
         hasEnded: false,
@@ -53,14 +54,13 @@ function ReadingSpeedTest() {
     const handleFinish = () => {
         clearInterval(timerDetails.id)
         setTimerDetails({ ...timerDetails, hasEnded: true })
-        // const wordPerMinute = / (timerDetails.totalTime / 60)
         const wordCount =  text.split(" ").length
         const minutes = Math.round(100 * (timerDetails.totalTime / 60)) / 100
         const wordsPerMinute = Math.round( wordCount / minutes)
-        setWpm(wordsPerMinute)
+        dispatch(updateWpm(wordsPerMinute))
+        navigate('/reading-speed-test/results')
     }
 
-    
 
     return (
         <Container className='ReadingSpeedTest'>

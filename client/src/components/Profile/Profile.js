@@ -24,6 +24,14 @@ const Profile = () => {
     const [formData, setFormData] = useState({ displayName: '', email: ''})
     const [profileImage, setProfileImage] = useState({ base64: '' })
     const [errorMessage, setErrorMessage] = useState('')
+    const [localUser, setLocalUser] = useState({
+        _id: '',
+        name:'' ,
+        email: '',
+        password: '',
+        wordsPerMinute: '',
+        profileImage: ''
+    })
 
     useEffect(() => {
         if (user) {
@@ -34,6 +42,7 @@ const Profile = () => {
                 ${user.name.split(' ')[1].charAt(0).toUpperCase() + user.name.split(' ')[1].slice(1)}
             `)
             setFormData({ ...formData, displayName: user.name, email: user.email })
+            setLocalUser(user)
         }
     }, [user])
 
@@ -96,28 +105,46 @@ const Profile = () => {
                 </Col>
             </Row>
             <Row>
-                <Col xs={12} className="profile-image-container">
+                <Col xs={12}>
                     <Button variant="outline-primary" className="full-width-btn" onClick={handleUpdateUser}>Update Account Details</Button>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12} className="profile-image-container">
                     <Button variant="outline-secondary" className="full-width-btn" onClick={handleSignout}>Sign Out</Button>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12} className="profile-image-container">
                     <Button variant="outline-danger" className="full-width-btn" onClick={handleDeleteUser} disabled>Delete Account</Button>
                 </Col>
             </Row>
             <Row>
-                <Col xs={12} className="profile-image-container">
+                <Col xs={12}>
                     {errorMessage && <Alert variant="warning">{errorMessage}</Alert>}
                 </Col>
             </Row>
-          
+            <Row>
+                <Col xs={12}>
+                    <h3>Statistics</h3>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Reading Speed</Col>
+                <Col  xs={6}><p className="statistics__value">{localUser.wordsPerMinute} WPM</p></Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Books Read</Col>
+                <Col xs={6}><p className="statistics__value">0</p></Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Reviews Written</Col>
+                <Col xs={6}><p className="statistics__value">0</p></Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Following</Col>
+                <Col xs={6}><p className="statistics__value">0</p></Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Followers</Col>
+                <Col xs={6}><p className="statistics__value">0</p></Col>
+            </Row>
+
+
+            {/* Invisible input clicked when profile image is clicked */}
             <Form.Control id="fileInput" style={{display: 'none'}} type="file" onChange={(e) => handleUpdateProfileImage(e)} />
-        
         </Container>
     )
 }

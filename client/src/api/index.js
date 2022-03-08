@@ -21,6 +21,7 @@ export const signin = (formData) => API.post('/users/signin', formData)
 export const signup = (formData) => API.post('/users/signup', formData)
 export const getUserInfo = () => API.post('/users/get-info')
 export const updateUser = (formData) => API.post('/users/update', formData)
+export const updateUserWpm = (wpm) => API.post('/users/update-wpm', wpm)
 export const updateUserProfileImage = (imageData) => API.post('/users/update-profile-image', imageData)
 export const deleteUser = () => API.post('/users/delete')
 

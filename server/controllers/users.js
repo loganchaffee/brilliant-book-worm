@@ -65,10 +65,12 @@ export const getUserInfo = async (req, res) => {
     }
 }
 
+// Update email and password
 export const updateUser = async (req, res) => {
     try {
         const id = req.userId
         const body = req.body
+        console.log(body);
 
         // Check for taken usernames and emails
         const userWithSameName = await User.findOne({ name: body.displayName })
@@ -98,6 +100,25 @@ export const updateUserProfileImage = async (req, res) => {
 
         // Update user
         const updatedUser = await User.findByIdAndUpdate(id, { profileImage: body.base64 }, { returnDocument: 'after' })
+        if (!updatedUser) return res.status(404).json({ message: 'This user does not exist.' })
+
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error)
+    }
+}
+
+// Update user's words per minute
+export const updateUserWpm = async (req, res) => {
+    try {
+        const id = req.userId
+        const body = req.body
+
+        console.log(body);
+
+        // Update user
+        const updatedUser = await User.findByIdAndUpdate(id, { wordsPerMinute: body.wpm }, { returnDocument: 'after' })
         if (!updatedUser) return res.status(404).json({ message: 'This user does not exist.' })
 
         res.status(200).json(updatedUser)

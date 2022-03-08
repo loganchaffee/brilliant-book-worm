@@ -18,7 +18,7 @@ import LibraryForm from './components/Library/LibraryForm/LibraryForm';
 import Profile from './components/Profile/Profile';
 import Auth from './Auth/Auth';
 import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest';
-import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestCompletion/ReadingSpeedTestCompletion';
+import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults';
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -69,7 +69,7 @@ const App = () => {
                     {/* Challenge */}
                     <Route path='/challenge' element={<Challenge />} />
                     <Route path='/reading-speed-test' element={<ReadingSpeedTest />} />
-                    <Route path='/reading-speed-test-completion' element={<ReadingSpeedTestCompletion />} />
+                    <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />} />
 
                     {/* News Feed */}
                     <Route path='/feed' element={<Feed />} />

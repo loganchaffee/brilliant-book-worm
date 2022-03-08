@@ -51,9 +51,11 @@ function AddBookForm() {
                 <Col xs={12}>
                     <Form className="mb-3 main-form">
                         <Form.Group className="mb-3">
+                            <Form.Label>Title</Form.Label>
                             <Form.Control type="name" placeholder="Book Title" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
+                            <Form.Label>Author</Form.Label>
                             <Form.Control type="name" placeholder="Author" value={formData.author} onChange={(e) => setFormData({...formData, author: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3 date-of-publication-form-group">
