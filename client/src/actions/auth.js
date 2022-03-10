@@ -54,35 +54,6 @@ export const signout = () => async (dispatch) => {
     }
 }
 
-export const updateUser = (formData, setErrorMessage) => async (dispatch) => {
-    try {
-        const {data} = await api.updateUser(formData)
-        dispatch({ type: 'AUTH', payload: data.updatedUser })
-        setErrorMessage('')
-    } catch (error) {
-        setErrorMessage('Name or email address is already in use')
-    }
-}
-
-export const updateUserWpm = (wpm, navigate) => async (dispatch) => {
-    try {
-        const { data } = await api.updateUserWpm(wpm)
-        dispatch({ type: 'AUTH', payload: data })
-        navigate('/profile')
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export const updateUserProfileImage = (imageFormData) => async (dispatch) => {
-    try {
-        const { data } = await api.updateUserProfileImage(imageFormData)
-        dispatch({ type: 'AUTH', payload: data })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export const deleteUser = () => async (dispatch, navigate) => {
     try {
         navigate('/auth')
@@ -91,5 +62,25 @@ export const deleteUser = () => async (dispatch, navigate) => {
         dispatch({ type: 'AUTH', payload: null })
     } catch (error) {
         console.log(error);
+    }
+}
+
+/**
+ * Sends user data to server, receives updated user data, passes updated user data to redux reducer
+ * Two optional functions to handle page redirects
+ * @param {object} formData Modified user object
+ * @param {function} setErrorMessage Update errorMessage state in component it was passed from
+ * @param {function} navigate useNavigate hook redirects user to a different page
+ * @param {string} whereToNavigate page to redirect user to
+ * @return {object} Use redux thunk method "dispatch" to return an action object to redux reducer
+*/
+export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate) => async (dispatch) => {
+    try {
+        const { data } = await api.updateUser(formData)
+        dispatch({ type: 'AUTH', payload: data.updatedUser })
+        if (setErrorMessage) setErrorMessage('')
+        if (navigate) navigate(whereToNavigate)
+    } catch (error) {
+        setErrorMessage(error.response.data)
     }
 }

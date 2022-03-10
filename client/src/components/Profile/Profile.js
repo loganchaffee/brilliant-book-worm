@@ -10,19 +10,19 @@ import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {signout, deleteUser, updateUser, updateUserProfileImage} from '../../actions/auth'
+import { signout, deleteUser, updateUser } from '../../actions/auth'
 
 import './Profile.css'
 
 const Profile = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.auth)
+    const books = useSelector((state) => state.books)
     const navigate = useNavigate()
-    
-    const [initials, setInitials] = useState('')
+
     const [formattedName, setFormattedName] = useState('') // Capitalized Name
-    const [formData, setFormData] = useState({ displayName: '', email: ''})
-    const [profileImage, setProfileImage] = useState({ base64: '' })
+    const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
+    const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
     const [localUser, setLocalUser] = useState({
         _id: '',
@@ -33,16 +33,22 @@ const Profile = () => {
         profileImage: ''
     })
 
+    console.log(bookData);
+
     useEffect(() => {
         if (user) {
-            setInitials(`${user.name.toUpperCase().split(' ')[0].split('')[0]}${user.name.toUpperCase().split(' ')[1].split('')[0]}`)
-            setProfileImage( { base64: user.profileImage} )
             setFormattedName(`
                 ${user.name.split(' ')[0].charAt(0).toUpperCase() + user.name.split(' ')[0].slice(1)}
                 ${user.name.split(' ')[1].charAt(0).toUpperCase() + user.name.split(' ')[1].slice(1)}
             `)
-            setFormData({ ...formData, displayName: user.name, email: user.email })
+            setFormData({ ...formData, name: user.name, email: user.email })
             setLocalUser(user)
+        }
+        if (books) {
+            console.log('fire');
+            const completedBooks = books.filter((book) => book.isCompleted)
+            const reviewedBooks = books.filter((book) => book.review)
+            setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks})
         }
     }, [user])
 
@@ -53,14 +59,13 @@ const Profile = () => {
     const handleUpdateProfileImage = (e) => {
         const reader = new FileReader()
         reader.addEventListener('load', () =>  {
-            setProfileImage({ base64: reader.result })
-            dispatch(updateUserProfileImage({ base64: reader.result }))
+            dispatch(updateUser({ ...user, profileImage: reader.result }, setErrorMessage))
         })
         reader.readAsDataURL(e.target.files[0])
     }
 
-    const handleUpdateUser = () => {
-        dispatch(updateUser(formData, setErrorMessage))
+    const handleUpdateUserCred = () => {
+        dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
     }
 
     const handleSignout = () => {
@@ -81,8 +86,8 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={12} className="profile-image-container">
-                    <div className="profile-image-circle">
-                        {profileImage.base64 ? <img className='profile-image' src={profileImage.base64} onClick={handleProfileImageClick}/> : 'LC'}
+                    <div className="profile-image-circle" onClick={handleProfileImageClick}>
+                        {localUser.profileImage ? <img className='profile-image' src={localUser.profileImage} /> : localUser.name.split('')[0]}
                     </div>
                     <div>
                         <p className="profile-name">{formattedName}</p>
@@ -95,7 +100,7 @@ const Profile = () => {
                     <Form className="profile-details main-form">
                         <Form.Group className="mb-3">
                             <Form.Label>Display Name</Form.Label>
-                            <Form.Control type="name" value={formData.displayName} onChange={(e) => setFormData({...formData, displayName: e.target.value.toLowerCase()})} />
+                            <Form.Control type="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value.toLowerCase()})} />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Email Address</Form.Label>
@@ -106,7 +111,7 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={12}>
-                    <Button variant="outline-primary" className="full-width-btn" onClick={handleUpdateUser}>Update Account Details</Button>
+                    <Button variant="outline-primary" className="full-width-btn" onClick={handleUpdateUserCred}>Update Account Details</Button>
                     <Button variant="outline-secondary" className="full-width-btn" onClick={handleSignout}>Sign Out</Button>
                     <Button variant="outline-danger" className="full-width-btn" onClick={handleDeleteUser} disabled>Delete Account</Button>
                 </Col>
@@ -127,11 +132,11 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={6}>Books Read</Col>
-                <Col xs={6}><p className="statistics__value">0</p></Col>
+                <Col xs={6}><p className="statistics__value">{bookData.completedBooks.length}</p></Col>
             </Row>
             <Row>
                 <Col xs={6}>Reviews Written</Col>
-                <Col xs={6}><p className="statistics__value">0</p></Col>
+                <Col xs={6}><p className="statistics__value">{bookData.reviewedBooks.length}</p></Col>
             </Row>
             <Row>
                 <Col xs={6}>Following</Col>

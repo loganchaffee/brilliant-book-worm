@@ -8,16 +8,18 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/esm/Button';
 
-import { updateUserWpm } from '../../../../actions/auth'
+import { updateUser } from '../../../../actions/auth'
 
 const ReadingSpeedTestCompletion = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
     const wpm = useSelector((state) => state.wpm)
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const handleSave = () => {
-        dispatch(updateUserWpm({ wpm }, navigate))
+    const handleSave = async () => {
+        console.log(user);
+        dispatch(updateUser({ ...user, wordsPerMinute: wpm}, setErrorMessage, navigate, '/profile'))
     }
 
     const handleDiscard = () => {

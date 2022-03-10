@@ -65,63 +65,24 @@ export const getUserInfo = async (req, res) => {
     }
 }
 
-// Update email and password
+// Update User
 export const updateUser = async (req, res) => {
     try {
         const id = req.userId
-        const body = req.body
-        console.log(body);
+        const user = req.body
+        delete user.password
 
         // Check for taken usernames and emails
-        const userWithSameName = await User.findOne({ name: body.displayName })
-        const userWithSameEmail = await User.findOne({ email: body.email })
-        if (userWithSameName) {
-            if (userWithSameName._id.toString() !== id ) return res.status(400).json({ message: 'user with that name already exists' })
-        }
-        if (userWithSameEmail) {
-            if (userWithSameEmail._id.toString() !== id) return res.status(400).json({ message: 'user with that email already exists' })
+        const userWithCredMatch = await User.findOne({ $or: [ { name: user.name }, { email: user.email } ] })
+        if (userWithCredMatch) {
+            if (userWithCredMatch._id.toString() !== id ) return res.status(400).send('A user with that name already exists')
         }
        
         // Update user
-        const updatedUser = await User.findByIdAndUpdate(req.userId, {name: req.body.displayName, email: req.body.email}, {returnDocument: 'after'})
-        if (!updatedUser) return res.status(404).json({ message: 'This user does not exist.' })
+        const updatedUser = await User.findByIdAndUpdate(id, { ...user }, { returnDocument: 'after' })
+        if (!updatedUser) return res.status(404).send('User not found')
 
         res.status(200).json({ updatedUser })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error)
-    }
-}
-
-export const updateUserProfileImage = async (req, res) => {
-    try {
-        const id = req.userId
-        const body = req.body
-
-        // Update user
-        const updatedUser = await User.findByIdAndUpdate(id, { profileImage: body.base64 }, { returnDocument: 'after' })
-        if (!updatedUser) return res.status(404).json({ message: 'This user does not exist.' })
-
-        res.status(200).json(updatedUser)
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error)
-    }
-}
-
-// Update user's words per minute
-export const updateUserWpm = async (req, res) => {
-    try {
-        const id = req.userId
-        const body = req.body
-
-        console.log(body);
-
-        // Update user
-        const updatedUser = await User.findByIdAndUpdate(id, { wordsPerMinute: body.wpm }, { returnDocument: 'after' })
-        if (!updatedUser) return res.status(404).json({ message: 'This user does not exist.' })
-
-        res.status(200).json(updatedUser)
     } catch (error) {
         console.log(error);
         res.status(500).json(error)
