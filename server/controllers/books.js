@@ -31,6 +31,8 @@ export const updateBook = async (req, res) => {
         const id = req.params.id
         const book = req.body
 
+        console.log(book);
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).send('No book with that id')
         }

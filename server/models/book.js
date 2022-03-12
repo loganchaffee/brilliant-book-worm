@@ -9,6 +9,7 @@ const bookSchema = mongoose.Schema({
     review: String,
     numberOfStars: Number,
     createdBy: String,
+    deadline: String,
     isCompleted: {
         type: Boolean,
         default: false
