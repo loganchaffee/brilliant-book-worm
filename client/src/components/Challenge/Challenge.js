@@ -11,7 +11,7 @@ function Challenge() {
         <Container className="Challenge">
             <Row>
                 <Col xs={12}>
-                    <h4 style={{ paddingLeft: '0' }}>Challenge</h4>
+                    <h4 style={{ paddingLeft: '0' }}>Challenges</h4>
                 </Col>
             </Row>
             <Row>

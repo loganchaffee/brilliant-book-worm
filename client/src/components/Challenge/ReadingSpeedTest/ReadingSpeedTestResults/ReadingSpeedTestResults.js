@@ -21,7 +21,7 @@ const ReadingSpeedTestCompletion = () => {
         if (user.wordsPerMinute < wpm) {
             dispatch(updateUser({ ...user, wordsPerMinute: wpm, points: user.points + 50 }, setErrorMessage, navigate, '/profile'))
         } else {
-            dispatch(updateUser({ ...user, wordsPerMinute: wpm, points: user.points - 50 }, setErrorMessage, navigate, '/profile'))
+            dispatch(updateUser({ ...user, wordsPerMinute: wpm }, setErrorMessage, navigate, '/profile'))
         }
     }
 
@@ -32,13 +32,15 @@ const ReadingSpeedTestCompletion = () => {
     const handleRestart = () => {
         navigate('/reading-speed-test')
     }
+
     
     return (
         <Container className='ReadingSpeedCompletion' style={{margin: 'auto 0'}}>
             <Row>
                 <Col xs={12}>
-                    <h3 className='text-center'>Your words per minute is:</h3>
+                    <h3 className='text-center'>Your words per minute was:</h3>
                     <h3 className='text-center'>{wpm}</h3>
+                    {wpm < user.wordsPerMinute && <p style={{textAlign:'center'}}>Your personal best is {user.wordsPerMinute}.<br />Are you sure you wish to overwrite your record?</p>}
                 </Col>
             </Row>
             <Row>
