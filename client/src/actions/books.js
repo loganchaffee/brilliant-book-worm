@@ -12,22 +12,38 @@ export const getBooks = () => async (dispatch) => {
 }
 
 export const createBook = (newBook) => async (dispatch) => {
-    const response = await api.createBook(newBook)
-    const data = response.data
+    try {
+        const response = await api.createBook(newBook)
+        const data = response.data
 
-    dispatch({type: 'CREATE', payload: data})
+        dispatch({type: 'CREATE', payload: data})
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const updateBook = (id, updatedBook) => async (dispatch) => {
-    const response = await api.updateBook(id, updatedBook)
-    const data = response.data
-
-    dispatch({type: 'UPDATE_BOOK', payload: data})
+export const updateBook = (id, updatedBook, setAlertMessage) => async (dispatch) => {
+    try {
+        const response = await api.updateBook(id, updatedBook)
+        const data = response.data
+        dispatch({type: 'UPDATE_BOOK', payload: data})
+        if (setAlertMessage) {
+            setAlertMessage('Deadline was successfully set! Finish on time to earn some points!')
+        }
+    } catch (error) {
+        console.log(error);
+        setAlertMessage('There was an error')
+    }
 }
 
 export const deleteBook = (id) => async (dispatch) => {
-    const response = await api.deleteBook(id)
-    const data = response.data
-
-    dispatch({type: 'DELETE_BOOK', payload: id})
+    try {
+        const response = await api.deleteBook(id)
+        const data = response.data
+    
+        dispatch({type: 'DELETE_BOOK', payload: id})
+    } catch (error) {
+        console.log(error);
+    }
+   
 }

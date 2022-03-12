@@ -13,6 +13,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 
 import './AddBookForm.css'
 import { createBook } from '../../../actions/books';
+import { updateUser } from '../../../actions/auth';
 
 function AddBookForm() {
     const dispatch = useDispatch()
@@ -30,6 +31,7 @@ function AddBookForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createBook({ ...formData, createdBy: user._id}))
+        dispatch(updateUser({ ...user, points: user.points + 5 }))
         navigate('/')
     }
 

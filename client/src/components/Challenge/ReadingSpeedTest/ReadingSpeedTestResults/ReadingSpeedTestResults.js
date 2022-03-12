@@ -18,8 +18,11 @@ const ReadingSpeedTestCompletion = () => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleSave = async () => {
-        console.log(user);
-        dispatch(updateUser({ ...user, wordsPerMinute: wpm}, setErrorMessage, navigate, '/profile'))
+        if (user.wordsPerMinute < wpm) {
+            dispatch(updateUser({ ...user, wordsPerMinute: wpm, points: user.points + 50 }, setErrorMessage, navigate, '/profile'))
+        } else {
+            dispatch(updateUser({ ...user, wordsPerMinute: wpm, points: user.points - 50 }, setErrorMessage, navigate, '/profile'))
+        }
     }
 
     const handleDiscard = () => {

@@ -19,6 +19,7 @@ import Profile from './components/Profile/Profile';
 import Auth from './Auth/Auth';
 import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest';
 import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults';
+import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline';
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,22 +55,23 @@ const App = () => {
 
                 <Routes >
                     {/* Authentication */}
-                    <Route path='/auth' element={<Auth />} />
-                    <Route path='/profile' element={<Profile />} />
+                    <Route path='/auth' element={<Auth />}/>
+                    <Route path='/profile' element={<Profile />}/>
                     
                     {/* Currently Reading */}
-                    <Route path='/' element={<CurrentlyReading />} />
-                    <Route path='/add-book' element={<AddBookForm />} />
-                    <Route path='/edit-book' element={<EditBookForm />} />
+                    <Route path='/' element={<CurrentlyReading />}/>
+                    <Route path='/add-book' element={<AddBookForm />}/>
+                    <Route path='/edit-book' element={<EditBookForm />}/>
 
                     {/* Library */}
-                    <Route path='/library' exact element={<Library />} />
-                    <Route path='/library-form' exact element={<LibraryForm />} />
+                    <Route path='/library' exact element={<Library />}/>
+                    <Route path='/library-form' exact element={<LibraryForm />}/>
 
                     {/* Challenge */}
-                    <Route path='/challenge' element={<Challenge />} />
-                    <Route path='/reading-speed-test' element={<ReadingSpeedTest />} />
-                    <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />} />
+                    <Route path='/challenge' element={<Challenge />}/>
+                    <Route path='/reading-speed-test' element={<ReadingSpeedTest />}/>
+                    <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />}/>
+                    <Route path='/challenge/reading-deadline' element={<ReadingDeadline />}/>
 
                     {/* News Feed */}
                     <Route path='/feed' element={<Feed />} />

@@ -33,8 +33,6 @@ const Profile = () => {
         profileImage: ''
     })
 
-    console.log(bookData);
-
     useEffect(() => {
         if (user) {
             setFormattedName(`
@@ -45,7 +43,6 @@ const Profile = () => {
             setLocalUser(user)
         }
         if (books) {
-            console.log('fire');
             const completedBooks = books.filter((book) => book.isCompleted)
             const reviewedBooks = books.filter((book) => book.review)
             setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks})
@@ -128,7 +125,7 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={6}>Reading Speed</Col>
-                <Col  xs={6}><p className="statistics__value">{localUser.wordsPerMinute} WPM</p></Col>
+                <Col xs={6}><p className="statistics__value">{localUser.wordsPerMinute} WPM</p></Col>
             </Row>
             <Row>
                 <Col xs={6}>Books Read</Col>
@@ -137,6 +134,10 @@ const Profile = () => {
             <Row>
                 <Col xs={6}>Reviews Written</Col>
                 <Col xs={6}><p className="statistics__value">{bookData.reviewedBooks.length}</p></Col>
+            </Row>
+            <Row>
+                <Col xs={6}>Points</Col>
+                <Col xs={6}><p className="statistics__value">{localUser.points}</p></Col>
             </Row>
             <Row>
                 <Col xs={6}>Following</Col>
@@ -155,4 +156,3 @@ const Profile = () => {
 }
 
 export default Profile
-

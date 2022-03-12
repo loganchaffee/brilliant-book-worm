@@ -1,0 +1,23 @@
+.ReadingDeadline__calendar {
+    width: 100%;
+    /* max-width: 450px; */
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid var(--bs-gray-300);
+    border-radius: 5px;
+}
+.ReadingDeadline__calendar button {
+    border-radius: 5px;
+}
+.react-calendar__tile--now {
+    background: var(--bs-gray-300);
+}
+.react-calendar__tile--now {
+    background: var(--bs-gray-300);
+}
+.react-calendar__tile:hover {
+    background: var(--bs-gray-300) !important;
+}
+.react-calendar__tile--active {
+    background: var(--primary) !important;
+}

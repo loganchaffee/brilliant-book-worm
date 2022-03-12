@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBook, deleteBook } from '../../../actions/books';
+import { updateUser } from '../../../actions/auth';
 
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -18,7 +19,10 @@ const LibraryBookForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const currentBook = useSelector((state) => state.currentBook)
+    const user = useSelector((state) => state.auth)
+    const starArray = new Array(5).fill('')
 
+    const [reviewWasEmpty, setReviewWasEmpty] = useState(true)
     const [formData, setFormData] = useState({
         numberOfStars: 4,
         review: ''
@@ -26,9 +30,10 @@ const LibraryBookForm = () => {
 
     useEffect(() => {
         setFormData({...currentBook})
+        if (currentBook.review) {
+            setReviewWasEmpty(false)
+        }
     }, [])
-
-    const starArray = new Array(5).fill('')
 
     const handleStarClick = (index) => {
         setFormData({...formData, numberOfStars: index + 1})
@@ -36,6 +41,9 @@ const LibraryBookForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (reviewWasEmpty) {
+            dispatch(updateUser({ ...user, points: user.points + 5 }))
+        }
         dispatch(updateBook(currentBook._id, formData))
         navigate('/library')
     }

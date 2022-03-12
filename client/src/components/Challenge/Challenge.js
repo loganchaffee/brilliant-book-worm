@@ -31,9 +31,9 @@ function Challenge() {
                 <Col xs={12}>
                     <Card style={{marginBottom: '10px'}}>
                         <Card.Body>
-                            <Card.Title>Book In A Week Challenge</Card.Title>
+                            <Card.Title>Set a Reading Deadline</Card.Title>
                             <Card.Text>Hold yourself to a deadline to finish the books your reading and reach your reading goals</Card.Text>
-                            <Link to="#">
+                            <Link to="/challenge/reading-deadline">
                                 <Button variant="primary">Start</Button>
                             </Link>
                         </Card.Body>

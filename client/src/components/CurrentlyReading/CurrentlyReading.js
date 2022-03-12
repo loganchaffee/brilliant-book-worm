@@ -15,6 +15,7 @@ import CurrentlyReadingCard from './CurrentlyReadingCard/CurrentlyReadingCard';
 import './CurrentlyReading.css'
 
 import { setCurrentBook } from '../../actions/currentBook';
+import { updateUser } from '../../actions/auth';
 
 
 function CurrentlyReading() {

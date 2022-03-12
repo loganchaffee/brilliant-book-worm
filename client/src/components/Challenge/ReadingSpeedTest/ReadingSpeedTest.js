@@ -61,7 +61,6 @@ function ReadingSpeedTest() {
         navigate('/reading-speed-test/results')
     }
 
-
     return (
         <Container className='ReadingSpeedTest'>
             <Row>
@@ -108,6 +107,8 @@ function ReadingSpeedTest() {
                     </Col>
                 </Row>
             }
+           
+
         </Container>
     );
 }
