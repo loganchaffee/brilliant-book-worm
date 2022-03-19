@@ -10,9 +10,11 @@ app.get('/', (req, res) => {
     res.send('Hello to the Book Worm API')
 })
 
+// import routes
 import bookRoutes from './routes/books.js'
 import userRoutes from './routes/users.js'
 import readingTestRoutes from './routes/readingTest.js'
+import allUsersRoutes from './routes/all-users.js'
 
 app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
@@ -21,6 +23,7 @@ app.use(cors())
 app.use('/books', bookRoutes)
 app.use('/users', userRoutes)
 app.use('/reading-test', readingTestRoutes)
+app.use('/all-users', allUsersRoutes)
 
 const PORT = process.env.PORT || 5000
 

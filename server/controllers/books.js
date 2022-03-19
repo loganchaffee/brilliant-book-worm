@@ -12,6 +12,19 @@ export const getBooks = async (req, res) => {
     }
 }
 
+// Allow user to see other user's books
+export const fetchVisitedUserBooks = async (req, res) => {
+    try {
+        const visitedUserId = req.body.visitedUserId
+
+        const books = await Book.find({ createdBy: visitedUserId })
+
+        res.status(200).json(books)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
 export const createBook = async (req, res) => {
     try {
         const book = req.body
@@ -25,13 +38,11 @@ export const createBook = async (req, res) => {
         res.status(409).json(error)
     }
 }
-
+ 
 export const updateBook = async (req, res) => {
     try {
         const id = req.params.id
         const book = req.body
-
-        console.log(book);
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).send('No book with that id')
