@@ -8,9 +8,12 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
+import Card from 'react-bootstrap/Card'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { signout, deleteUser, updateUser, follow } from '../../actions/auth'
+import { getCurrentVisitedUser,  } from '../../actions/currentVisitedUser';
+import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks';
 
 import './Profile.css'
 
@@ -20,6 +23,8 @@ const Profile = () => {
     const books = useSelector((state) => state.books)
     const navigate = useNavigate()
 
+    const [showFollowers, setShowFollowers] = useState(false)
+    const [showFollowing, setShowFollowing] = useState(false)
     const [formattedName, setFormattedName] = useState('') // Capitalized Name
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
@@ -85,6 +90,12 @@ const Profile = () => {
     const handleDeleteUser = () => {
         dispatch(deleteUser(navigate))
     }
+
+    // Visit another user's public profile page
+    const handleClickUser = (userId) => {
+        dispatch(fetchVisitedUserBooks(userId))
+        dispatch(getCurrentVisitedUser(userId, navigate))
+    }
         
     return (
         <Container className="Profile">
@@ -136,30 +147,73 @@ const Profile = () => {
                 </Col>
             </Row>
             <Row>
-                <Col xs={6}>Reading Speed</Col>
+                <Col xs={6}><p>Reading Speed</p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.wordsPerMinute} WPM</p></Col>
             </Row>
             <Row>
-                <Col xs={6}>Books Read</Col>
+                <Col xs={6}><p>Books Read</p></Col>
                 <Col xs={6}><p className="statistics__value">{bookData.completedBooks.length}</p></Col>
             </Row>
             <Row>
-                <Col xs={6}>Reviews Written</Col>
+                <Col xs={6}><p>Reviews Written</p></Col>
                 <Col xs={6}><p className="statistics__value">{bookData.reviewedBooks.length}</p></Col>
             </Row>
             <Row>
-                <Col xs={6}>Points</Col>
+                <Col xs={6}><p >Points</p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.points}</p></Col>
             </Row>
             <Row>
-                <Col xs={6}>Following</Col>
+                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowing(!showFollowing)}>Following</p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.following.length}</p></Col>
             </Row>
+            {
+                showFollowing
+                &&
+                <Row>
+                    <Col xs={12}>
+                        <Card style={{marginBottom: '10px'}}>
+                            <Card.Body>
+                                { localUser.following.length <= 0 && <p>Not following anybody yet {':('}</p> }
+                                { 
+                                    localUser.following.map((followee) => {
+                                        return (
+                                            <div key={followee.id} onClick={() => handleClickUser(followee.id)}>
+                                                <Link to="" >{followee.name}</Link>
+                                            </div>
+                                        )
+                                    }) 
+                                }
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            }
             <Row>
-                <Col xs={6}>Followers</Col>
+                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowers(!showFollowers)}>Followers</p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.followers.length}</p></Col>
             </Row>
-
+            {
+                showFollowers
+                &&
+                <Row>
+                    <Col xs={12}>
+                        <Card style={{marginBottom: '10px'}}>
+                            <Card.Body>
+                                { localUser.followers.length <= 0 && <p>No followers yet {':('}</p> }
+                                { 
+                                    localUser.followers.map((follower) => {
+                                        return (
+                                            <div key={follower.id} onClick={() => handleClickUser(follower.id)}>
+                                                <Link to="" >{follower.name}</Link>
+                                            </div>
+                                        )
+                                    }) 
+                                }
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            }
 
             {/* Invisible input clicked when profile image is clicked */}
             <Form.Control id="fileInput" style={{display: 'none'}} type="file" onChange={(e) => handleUpdateProfileImage(e)} />
