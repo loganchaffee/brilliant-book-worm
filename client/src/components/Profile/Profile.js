@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { signout, deleteUser, updateUser } from '../../actions/auth'
+import { signout, deleteUser, updateUser, follow } from '../../actions/auth'
 
 import './Profile.css'
 
@@ -24,15 +24,19 @@ const Profile = () => {
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
+    const [userLevel, setUserLevel] = useState(1)
     const [localUser, setLocalUser] = useState({
         _id: '',
         name:'' ,
         email: '',
         password: '',
         wordsPerMinute: '',
-        profileImage: ''
+        profileImage: '',
+        following: [],
+        followers: []
     })
 
+    // Set Initial Data
     useEffect(() => {
         if (user) {
             setFormattedName(`
@@ -41,6 +45,13 @@ const Profile = () => {
             `)
             setFormData({ ...formData, name: user.name, email: user.email })
             setLocalUser(user)
+             
+            let level
+            if (user.points >= 2000) { level = 4 }
+            if (user.points < 2000 && user.points >= 1000) { level = 3 }
+            if (user.points < 1000 && user.points >= 500) { level = 2 }
+            if (user.points < 500) { level = 1 }
+            setUserLevel(level)
         }
         if (books) {
             const completedBooks = books.filter((book) => book.isCompleted)
@@ -56,13 +67,14 @@ const Profile = () => {
     const handleUpdateProfileImage = (e) => {
         const reader = new FileReader()
         reader.addEventListener('load', () =>  {
-            dispatch(updateUser({ ...user, profileImage: reader.result }, setErrorMessage))
+            dispatch(updateUser({ profileImage: reader.result }, setErrorMessage))
         })
         reader.readAsDataURL(e.target.files[0])
     }
 
     const handleUpdateUserCred = () => {
-        dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
+        // dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
+        dispatch(updateUser({ ...formData}, setErrorMessage))
     }
 
     const handleSignout = () => {
@@ -88,7 +100,7 @@ const Profile = () => {
                     </div>
                     <div>
                         <p className="profile-name">{formattedName}</p>
-                        <p className="profile-level">Level 1</p>
+                        <p className={`profile-level-${userLevel}`}>Level {userLevel}</p>
                     </div>
                 </Col>
             </Row>
@@ -141,11 +153,11 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={6}>Following</Col>
-                <Col xs={6}><p className="statistics__value">0</p></Col>
+                <Col xs={6}><p className="statistics__value">{localUser.following.length}</p></Col>
             </Row>
             <Row>
                 <Col xs={6}>Followers</Col>
-                <Col xs={6}><p className="statistics__value">0</p></Col>
+                <Col xs={6}><p className="statistics__value">{localUser.followers.length}</p></Col>
             </Row>
 
 

@@ -84,3 +84,15 @@ export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate)
         setErrorMessage(error.response.data)
     }
 }
+
+export const follow = (user, visitedUser) => {
+    api.follow({user, visitedUser})
+
+    return { type: 'FOLLOW', payload: visitedUser }
+}
+
+export const unfollow = (user, visitedUser) => {
+    api.unfollow({user, visitedUser})
+
+    return { type: 'UNFOLLOW', payload: visitedUser }
+}

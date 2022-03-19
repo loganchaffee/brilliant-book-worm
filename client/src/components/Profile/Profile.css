@@ -30,15 +30,28 @@
     margin: 0 0 5px 10px;
 }
 
-.profile-level {
+.profile-level-1,
+.profile-level-2,
+.profile-level-3,
+.profile-level-4 {
     width: fit-content;
     font-size: 16px;
-    color: var(--bs-success);
+    background: var(--bs-yellow);;
+    color: white;
     padding: 2px 10px;
     margin: 0 0 0 10px;
-    border: 1px solid var(--bs-success);
     border-radius: 25px;
 }
+.profile-level-2 {
+    background: var(--bs-green);
+}
+.profile-level-3 {
+    background: var(--bs-purple);
+}
+.profile-level-4 {
+    background: black;
+}
+
 
 .profile-image-change-btn {
     width: fit-content;

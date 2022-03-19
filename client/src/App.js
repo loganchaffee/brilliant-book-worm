@@ -20,7 +20,7 @@ import Auth from './Auth/Auth';
 import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest';
 import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults';
 import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline';
-
+import PublicProfile from './components/Profile/PublicProfile/PublicProfile';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from './actions/auth';
@@ -75,6 +75,7 @@ const App = () => {
 
                     {/* News Feed */}
                     <Route path='/feed' element={<Feed />} />
+                    <Route path='/feed/public-user' element={<PublicProfile />} />
                 </Routes>
 
                 { isLoggedIn && <><div style={{height: '100px'}}/><BottomNavbar /></> }

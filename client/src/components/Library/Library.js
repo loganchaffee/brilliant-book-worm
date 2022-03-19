@@ -42,10 +42,7 @@ function Library() {
                             return (
                                 <Col xs={12} key={book.title + index}>
                                     <Link to={`/library-form?id=${book._id}`} onClick={() => dispatch(setCurrentBook(book))} style={{width: 'fit-content', height: 'fit-content', padding: '0'}}>
-                                        <LibraryRow
-                                            title={book.title}
-                                            author={book.author}
-                                        />
+                                        <LibraryRow title={book.title}  author={book.author} />
                                     </Link>
                                 </Col>
                             )
