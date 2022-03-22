@@ -27,6 +27,7 @@
     color: var(--bs-secondary);
     font-size: 22px;
     font-weight: 500;
+    text-transform: capitalize;
     margin: 0 0 5px 10px;
 }
 
@@ -62,4 +63,23 @@
 
 .statistics__value {
     text-align: end;
+}
+
+.following-followers-btn {
+    font-size: 10px;
+    margin-left: 5px;
+    transform: translate(0, -2px);
+}
+
+.following-followers {
+    margin-bottom: 10px;
+}
+
+.following-followers__name {
+    font-weight: 500;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.following-followers div :last-child div p {
+    margin-bottom: 0;
 }

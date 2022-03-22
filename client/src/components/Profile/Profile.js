@@ -15,6 +15,9 @@ import { signout, deleteUser, updateUser, follow } from '../../actions/auth'
 import { getCurrentVisitedUser,  } from '../../actions/currentVisitedUser';
 import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import './Profile.css'
 
 const Profile = () => {
@@ -25,7 +28,6 @@ const Profile = () => {
 
     const [showFollowers, setShowFollowers] = useState(false)
     const [showFollowing, setShowFollowing] = useState(false)
-    const [formattedName, setFormattedName] = useState('') // Capitalized Name
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
@@ -44,10 +46,6 @@ const Profile = () => {
     // Set Initial Data
     useEffect(() => {
         if (user) {
-            setFormattedName(`
-                ${user.name.split(' ')[0].charAt(0).toUpperCase() + user.name.split(' ')[0].slice(1)}
-                ${user.name.split(' ')[1].charAt(0).toUpperCase() + user.name.split(' ')[1].slice(1)}
-            `)
             setFormData({ ...formData, name: user.name, email: user.email })
             setLocalUser(user)
              
@@ -110,7 +108,7 @@ const Profile = () => {
                         {localUser.profileImage ? <img className='profile-image' src={localUser.profileImage} /> : localUser.name.split('')[0]}
                     </div>
                     <div>
-                        <p className="profile-name">{formattedName}</p>
+                        <p className="profile-name">{localUser.name}</p>
                         <p className={`profile-level-${userLevel}`}>Level {userLevel}</p>
                     </div>
                 </Col>
@@ -163,7 +161,10 @@ const Profile = () => {
                 <Col xs={6}><p className="statistics__value">{localUser.points}</p></Col>
             </Row>
             <Row>
-                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowing(!showFollowing)}>Following</p></Col>
+                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowing(!showFollowing)}>
+                    Following
+                    { showFollowing ? <FontAwesomeIcon className='following-followers-btn' icon={faMinus} /> : <FontAwesomeIcon className='following-followers-btn' icon={faPlus} /> }
+                </p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.following.length}</p></Col>
             </Row>
             {
@@ -171,15 +172,17 @@ const Profile = () => {
                 &&
                 <Row>
                     <Col xs={12}>
-                        <Card style={{marginBottom: '10px'}}>
+                        <Card className='following-followers'>
                             <Card.Body>
                                 { localUser.following.length <= 0 && <p>Not following anybody yet {':('}</p> }
                                 { 
                                     localUser.following.map((followee) => {
                                         return (
-                                            <div key={followee.id} onClick={() => handleClickUser(followee.id)}>
-                                                <Link to="" >{followee.name}</Link>
-                                            </div>
+                                            <Row key={followee.id} onClick={() => handleClickUser(followee.id)}>
+                                                <Col>
+                                                    <p className="following-followers__name">@{followee.name} <FontAwesomeIcon icon={faAngleRight} /></p>
+                                                </Col>
+                                            </Row>
                                         )
                                     }) 
                                 }
@@ -189,7 +192,10 @@ const Profile = () => {
                 </Row>
             }
             <Row>
-                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowers(!showFollowers)}>Followers</p></Col>
+                <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowers(!showFollowers)}>
+                    Followers
+                    { showFollowers ? <FontAwesomeIcon className='following-followers-btn' icon={faMinus} /> : <FontAwesomeIcon className='following-followers-btn' icon={faPlus} /> }
+                </p></Col>
                 <Col xs={6}><p className="statistics__value">{localUser.followers.length}</p></Col>
             </Row>
             {
@@ -197,15 +203,17 @@ const Profile = () => {
                 &&
                 <Row>
                     <Col xs={12}>
-                        <Card style={{marginBottom: '10px'}}>
+                        <Card className='following-followers'>
                             <Card.Body>
                                 { localUser.followers.length <= 0 && <p>No followers yet {':('}</p> }
                                 { 
                                     localUser.followers.map((follower) => {
                                         return (
-                                            <div key={follower.id} onClick={() => handleClickUser(follower.id)}>
-                                                <Link to="" >{follower.name}</Link>
-                                            </div>
+                                            <Row key={follower.id} onClick={() => handleClickUser(follower.id)}>
+                                                <Col>
+                                                    <p className="following-followers__name">@{follower.name} <FontAwesomeIcon icon={faAngleRight} /></p>
+                                                </Col>
+                                            </Row>
                                         )
                                     }) 
                                 }

@@ -16,6 +16,7 @@ import { fetchVisitedUserBooks } from '../../../actions/currentVisitedUserBooks'
 
 // Custom Components
 import LibraryRow from '../../Library/LibraryRow/LibraryRow'
+import ScrollToTopOnMount from '../../ScrollToTopOnMount/ScrollToTopOnMount';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -60,6 +61,7 @@ const PublicProfile = () => {
 
     return (
         <Container className="Profile">
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={12}>
                     <Link to="/feed" className='back-arrow'>
@@ -79,16 +81,19 @@ const PublicProfile = () => {
                        { visitedUser.points < 2000 && visitedUser.points >= 1000 ? <p className={`profile-level-${3}`}>Level {33}</p> : undefined }
                        { visitedUser.points >= 2000 ? <p className={`profile-level-${4}`}>Level {4}</p> : undefined }
                     </div>
-                    <div style={{marginLeft: 'auto'}}>
-                        { 
-                            user.following.findIndex((user) => user.id === visitedUser._id) === -1 
-                            ? 
-                            <Button variant='outline-primary' style={{borderRadius: '25px'}} onClick={handleFollow}><FontAwesomeIcon icon={faPlus} /> Follow</Button>
-                            :
-                            <Button variant='outline-secondary' style={{borderRadius: '25px'}} onClick={handleUnfollow}><FontAwesomeIcon icon={faMinus} /> Unfollow</Button>
-                        }
-
-                    </div>
+                    {
+                        user._id !== visitedUser._id
+                        &&
+                        <div style={{marginLeft: 'auto'}}>
+                            { 
+                                user.following.findIndex((user) => user.id === visitedUser._id) === -1 
+                                ? 
+                                <Button variant='outline-primary' style={{borderRadius: '25px'}} onClick={handleFollow}><FontAwesomeIcon icon={faPlus} /> Follow</Button>
+                                :
+                                <Button variant='outline-secondary' style={{borderRadius: '25px'}} onClick={handleUnfollow}><FontAwesomeIcon icon={faMinus} /> Unfollow</Button>
+                            }
+                        </div>
+                    }
                 </Col>
             </Row>
 
