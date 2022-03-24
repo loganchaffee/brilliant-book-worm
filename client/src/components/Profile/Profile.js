@@ -31,7 +31,6 @@ const Profile = () => {
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
-    const [userLevel, setUserLevel] = useState(1)
     const [localUser, setLocalUser] = useState({
         _id: '',
         name:'' ,
@@ -40,7 +39,8 @@ const Profile = () => {
         wordsPerMinute: '',
         profileImage: '',
         following: [],
-        followers: []
+        followers: [],
+        level: '',
     })
 
     // Set Initial Data
@@ -48,13 +48,6 @@ const Profile = () => {
         if (user) {
             setFormData({ ...formData, name: user.name, email: user.email })
             setLocalUser(user)
-             
-            let level
-            if (user.points >= 2000) { level = 4 }
-            if (user.points < 2000 && user.points >= 1000) { level = 3 }
-            if (user.points < 1000 && user.points >= 500) { level = 2 }
-            if (user.points < 500) { level = 1 }
-            setUserLevel(level)
         }
         if (books) {
             const completedBooks = books.filter((book) => book.isCompleted)
@@ -109,7 +102,7 @@ const Profile = () => {
                     </div>
                     <div>
                         <p className="profile-name">{localUser.name}</p>
-                        <p className={`profile-level-${userLevel}`}>Level {userLevel}</p>
+                        { <p className={`profile-level-${localUser.level}`}>Level {localUser.level}</p> }
                     </div>
                 </Col>
             </Row>

@@ -17,6 +17,7 @@ import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks'
 
 // Styles
 import './Feed.css'
+import Post from './Post/Post'
 
 function Feed() {
     const dispatch = useDispatch()
@@ -87,6 +88,11 @@ function Feed() {
                     }
                 </Col>
             </Row>
+
+            <Post  />
+            <Post  />
+            <Post  />
+            <Post  />
         </Container>
     )
 }

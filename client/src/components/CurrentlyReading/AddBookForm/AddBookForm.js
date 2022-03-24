@@ -31,7 +31,7 @@ function AddBookForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createBook({ ...formData, createdBy: user._id}))
-        dispatch(updateUser({ ...user, points: user.points + 5 }))
+        dispatch(updateUser({ points: user.points + 5 }))
         navigate('/')
     }
 

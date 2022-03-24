@@ -77,6 +77,9 @@ export const deleteUser = () => async (dispatch, navigate) => {
 export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate) => async (dispatch) => {
     try {
         const { data } = await api.updateUser(formData)
+
+        console.log(data.updatedUser);
+
         dispatch({ type: 'AUTH', payload: data.updatedUser })
         if (setErrorMessage) setErrorMessage('')
         if (navigate) navigate(whereToNavigate)

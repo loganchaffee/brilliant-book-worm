@@ -70,7 +70,6 @@ export const updateUser = async (req, res) => {
     try {
         const id = req.userId
         const body = req.body
-        // delete user.password
 
         // Check for taken usernames and emails
         const userWithCredMatch = await User.findOne({ $or: [ { name: body.name }, { email: body.email } ] })

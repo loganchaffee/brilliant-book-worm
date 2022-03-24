@@ -76,10 +76,7 @@ const PublicProfile = () => {
                     </div>
                     <div>
                         <p className="profile-name">{formattedName}</p>
-                       { visitedUser.points < 500 ? <p className={`profile-level-${1}`}>Level {1}</p> : undefined }
-                       { visitedUser.points < 1000 && visitedUser.points >= 500 ? <p className={`profile-level-${2}`}>Level {2}</p> : undefined }
-                       { visitedUser.points < 2000 && visitedUser.points >= 1000 ? <p className={`profile-level-${3}`}>Level {33}</p> : undefined }
-                       { visitedUser.points >= 2000 ? <p className={`profile-level-${4}`}>Level {4}</p> : undefined }
+                        { <p className={`profile-level-${visitedUser.level}`}>Level {visitedUser.level}</p> }
                     </div>
                     {
                         user._id !== visitedUser._id

@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
 
     wordsPerMinute: {type: Number, default: 0}, 
     dateOfLastReading: {type: String, default: ''},
-    points: {type: Number, default: 0}, 
+    points: {type: Number, default: 0},
+    level: {type: Number, default: 1},
 
     following: {type: Array, default: []},
     followers: {type: Array, default: []},
