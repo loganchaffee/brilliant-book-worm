@@ -1,18 +1,47 @@
 import mongoose from "mongoose"
 
 const userSchema = mongoose.Schema({
-    name: {type: String, required: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    profileImage: {type: String, default: ''},
-
-    wordsPerMinute: {type: Number, default: 0}, 
-    dateOfLastReading: {type: String, default: ''},
-    points: {type: Number, default: 0},
-    level: {type: Number, default: 1},
-
-    following: {type: Array, default: []},
-    followers: {type: Array, default: []},
+    name: { 
+        type: String, 
+        required: true
+    },
+    email: {
+        type: String, 
+        required: true
+    },
+    password: {
+        type: String, 
+        required: true
+    },
+    profileImage: {
+        type: String, 
+        default: ''
+    },
+    wordsPerMinute: {
+        type: Number, 
+        default: 0
+    }, 
+    dateOfLastReading: {
+        type: Date, 
+    },
+    points: {
+        type: Number, 
+        default: 0
+    },
+    level: {
+        type: Number, 
+        default: 1
+    },
+    following: {
+        type: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }], 
+        default: []
+    },
+    followers: {
+        type: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }], 
+        default: []
+    },
+}, {
+    timestamps: true
 })
 
 const User = mongoose.model('User', userSchema)

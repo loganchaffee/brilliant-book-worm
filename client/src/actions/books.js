@@ -13,10 +13,11 @@ export const getBooks = () => async (dispatch) => {
 
 export const createBook = (newBook) => async (dispatch) => {
     try {
+        // Create Book
         const response = await api.createBook(newBook)
-        const data = response.data
-
-        dispatch({type: 'CREATE', payload: data})
+        const book = response.data
+        // Put book data in store
+        dispatch({type: 'CREATE', payload: book})
     } catch (error) {
         console.log(error);
     }

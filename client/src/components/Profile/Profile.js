@@ -31,28 +31,17 @@ const Profile = () => {
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
-    const [localUser, setLocalUser] = useState({
-        _id: '',
-        name:'' ,
-        email: '',
-        password: '',
-        wordsPerMinute: '',
-        profileImage: '',
-        following: [],
-        followers: [],
-        level: '',
-    })
 
     // Set Initial Data
     useEffect(() => {
         if (user) {
             setFormData({ ...formData, name: user.name, email: user.email })
-            setLocalUser(user)
+            // setLocalUser(user)
         }
         if (books) {
             const completedBooks = books.filter((book) => book.isCompleted)
             const reviewedBooks = books.filter((book) => book.review)
-            setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks})
+            setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks })
         }
     }, [user])
 
@@ -98,11 +87,11 @@ const Profile = () => {
             <Row>
                 <Col xs={12} className="profile-image-container">
                     <div className="profile-image-circle" onClick={handleProfileImageClick}>
-                        {localUser.profileImage ? <img className='profile-image' src={localUser.profileImage} /> : localUser.name.split('')[0]}
+                        {user.profileImage ? <img className='profile-image' src={user.profileImage} /> : user.name.split('')[0]}
                     </div>
                     <div>
-                        <p className="profile-name">{localUser.name}</p>
-                        { <p className={`profile-level-${localUser.level}`}>Level {localUser.level}</p> }
+                        <p className="profile-name">{user.name}</p>
+                        { <p className={`profile-level-${user.level}`}>Level {user.level}</p> }
                     </div>
                 </Col>
             </Row>
@@ -139,7 +128,7 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={6}><p>Reading Speed</p></Col>
-                <Col xs={6}><p className="statistics__value">{localUser.wordsPerMinute} WPM</p></Col>
+                <Col xs={6}><p className="statistics__value">{user.wordsPerMinute} WPM</p></Col>
             </Row>
             <Row>
                 <Col xs={6}><p>Books Read</p></Col>
@@ -151,14 +140,14 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col xs={6}><p >Points</p></Col>
-                <Col xs={6}><p className="statistics__value">{localUser.points}</p></Col>
+                <Col xs={6}><p className="statistics__value">{user.points}</p></Col>
             </Row>
             <Row>
                 <Col xs={6}><p style={{cursor: 'pointer'}} onClick={() => setShowFollowing(!showFollowing)}>
                     Following
                     { showFollowing ? <FontAwesomeIcon className='following-followers-btn' icon={faMinus} /> : <FontAwesomeIcon className='following-followers-btn' icon={faPlus} /> }
                 </p></Col>
-                <Col xs={6}><p className="statistics__value">{localUser.following.length}</p></Col>
+                <Col xs={6}><p className="statistics__value">{user.following.length}</p></Col>
             </Row>
             {
                 showFollowing
@@ -167,9 +156,9 @@ const Profile = () => {
                     <Col xs={12}>
                         <Card className='following-followers'>
                             <Card.Body>
-                                { localUser.following.length <= 0 && <p>Not following anybody yet {':('}</p> }
+                                { user.following.length <= 0 && <p>Not following anybody yet {':('}</p> }
                                 { 
-                                    localUser.following.map((followee) => {
+                                    user.following.map((followee) => {
                                         return (
                                             <Row key={followee.id} onClick={() => handleClickUser(followee.id)}>
                                                 <Col>
@@ -189,7 +178,7 @@ const Profile = () => {
                     Followers
                     { showFollowers ? <FontAwesomeIcon className='following-followers-btn' icon={faMinus} /> : <FontAwesomeIcon className='following-followers-btn' icon={faPlus} /> }
                 </p></Col>
-                <Col xs={6}><p className="statistics__value">{localUser.followers.length}</p></Col>
+                <Col xs={6}><p className="statistics__value">{user.followers.length}</p></Col>
             </Row>
             {
                 showFollowers
@@ -198,9 +187,9 @@ const Profile = () => {
                     <Col xs={12}>
                         <Card className='following-followers'>
                             <Card.Body>
-                                { localUser.followers.length <= 0 && <p>No followers yet {':('}</p> }
+                                { user.followers.length <= 0 && <p>No followers yet {':('}</p> }
                                 { 
-                                    localUser.followers.map((follower) => {
+                                    user.followers.map((follower) => {
                                         return (
                                             <Row key={follower.id} onClick={() => handleClickUser(follower.id)}>
                                                 <Col>

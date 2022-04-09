@@ -32,16 +32,14 @@ export const signin = (formData, navigate, handleErrorInComponent) => async (dis
     }
 }
 
-export const getUserInfo = (navigate, setIsLoggedIn) => async (dispatch) => { 
+export const getUserInfo = (navigate, setIsLoading) => async (dispatch) => { 
     try {
         const res = await api.getUserInfo()
-
-        setIsLoggedIn(true)
-
         dispatch({ type: 'AUTH', payload: res.data.user })
+        setIsLoading(false)
     } catch (error) {
         console.log('get user info error: ', error);
-        navigate('/auth')
+        // navigate('/auth')
     }
 }
 
@@ -56,7 +54,7 @@ export const signout = () => async (dispatch) => {
 
 export const deleteUser = () => async (dispatch, navigate) => {
     try {
-        navigate('/auth')
+        // navigate('/auth')
         const deletedUser = await api.deleteUser()
         localStorage.clear()
         dispatch({ type: 'AUTH', payload: null })
@@ -78,8 +76,6 @@ export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate)
     try {
         const { data } = await api.updateUser(formData)
 
-        console.log(data.updatedUser);
-
         dispatch({ type: 'AUTH', payload: data.updatedUser })
         if (setErrorMessage) setErrorMessage('')
         if (navigate) navigate(whereToNavigate)
@@ -88,14 +84,19 @@ export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate)
     }
 }
 
-export const follow = (user, visitedUser) => {
-    api.follow({user, visitedUser})
+export const follow = (visitedUserId, visitedUserName) => {
+    api.follow({ _id: visitedUserId })
 
-    return { type: 'FOLLOW', payload: visitedUser }
+    const followee = {
+        _id: visitedUserId,
+        name: visitedUserName
+    }
+
+    return { type: 'FOLLOW', payload: followee }
 }
 
-export const unfollow = (user, visitedUser) => {
-    api.unfollow({user, visitedUser})
+export const unfollow = (visitedUserId, visitedUserName) => {
+    api.unfollow({ _id: visitedUserId })
 
-    return { type: 'UNFOLLOW', payload: visitedUser }
+    return { type: 'UNFOLLOW', payload: visitedUserId }
 }

@@ -1,5 +1,5 @@
 // Main dependecies
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -11,9 +11,10 @@ import Form from 'react-bootstrap/esm/Form'
 import Card from 'react-bootstrap/esm/Card'
 
 // Api / Actions
-import { fetchUsersNamesAndIds } from '../../api'
+import { fetchUsersNamesAndIds, fetchPosts } from '../../api'
 import { getCurrentVisitedUser } from '../../actions/currentVisitedUser'
 import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks'
+import { getPosts } from '../../actions/posts'
 
 // Styles
 import './Feed.css'
@@ -26,6 +27,11 @@ function Feed() {
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
     const [users, setUsers] = useState([])
+    const posts = useSelector((state) => state.posts)
+
+    useEffect(() => console.log(posts), [posts])
+
+    useEffect(() =>  dispatch(getPosts()), [])
 
     const handleSearch = async (e) => {
         setSearchText(e.target.value)
@@ -42,8 +48,8 @@ function Feed() {
     }
 
     const handleClickUser = (userId) => {
+        dispatch(getCurrentVisitedUser(userId))
         dispatch(fetchVisitedUserBooks(userId))
-        dispatch(getCurrentVisitedUser(userId, navigate))
     }
 
     return (
@@ -68,31 +74,25 @@ function Feed() {
                     {
                         users.length > 0 && searchText !== '' 
                         ? 
-                        (
-                            <Card className="search-results">
-                                <Card.Body>
-                                    { 
-                                        users.map((user, index) => {
-                                            return (
-                                                <div key={index + user.name} onClick={() => handleClickUser(user.id)}>
-                                                    <Link to="" >{user.name}</Link>
-                                                </div>
-                                            )
-                                        }) 
-                                    }
-                                </Card.Body>
-                            </Card>
-                        )
+                        <Card className="search-results">
+                            <Card.Body>
+                                { 
+                                    users.map((user, index) => {
+                                        return (
+                                            <div key={index + user.name} onClick={() => handleClickUser(user._id)}>
+                                                <Link to="/public-profile" >{user.name}</Link>
+                                            </div>
+                                        )
+                                    }) 
+                                }
+                            </Card.Body>
+                        </Card>
                         :
                         undefined
                     }
                 </Col>
             </Row>
-
-            <Post  />
-            <Post  />
-            <Post  />
-            <Post  />
+            { posts.map((post) => <Post key={post._id} post={post} />) }
         </Container>
     )
 }

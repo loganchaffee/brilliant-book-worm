@@ -34,3 +34,9 @@ export const getBookExcerpt = () => api.get('/reading-test')
 export const fetchUsersNamesAndIds = (query) => api.post('/all-users/fetch-users', query)
 export const fetchVisitedUser = (userId) => api.post('/all-users/fetch-visited-user', userId)
 export const fetchVisitedUserBooks = (userId) => api.post('/all-users/fetch-visited-user-books', userId)
+
+// Posts
+export const fetchPosts = () => api.get('/posts')
+export const createPost = (data) => api.post('/posts', data)
+export const likePost = (data) => api.post('/posts/like-post', data)
+export const dislikePost = (data) => api.post('/posts/dislike-post', data)

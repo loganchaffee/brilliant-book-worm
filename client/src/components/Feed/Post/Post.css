@@ -7,17 +7,45 @@
     margin-bottom: 10px;
 }
 
-.Post__first-row {
+.Post__user-details {
     display: flex;
     margin-bottom: 10px;
+    border-bottom: 1px solid var(--bs-gray-200);
 }
 
-.Post__first-row__right {
+.Post__user-cred {
     margin-left: 10px;
 }
 
-.Post__first-row__right p {
-    margin: 0;
+.Post__user-cred :first-child {
+    margin-bottom: 0;
+}
+
+.Post__time {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--bs-gray-500);
+}
+
+.Post__level-1,
+.Post__level-2,
+.Post__level-3,
+.Post__level-4 {
+    width: fit-content;
+    font-size: 12px;
+    background: var(--bs-yellow);;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 25px;
+}
+.Post__level-2 {
+    background: var(--bs-green);
+}
+.Post__level-3 {
+    background: var(--bs-purple);
+}
+.Post__level-4 {
+    background: black;
 }
 
 .Post__first-row__right :last-child {
@@ -40,13 +68,28 @@
     width: 100%;
 }
 
-
 .Post__header :last-child p {
     margin-bottom: 0;
     text-transform: capitalize;
 }
 
+.Post__action {
+    color: var(--bs-secondary);
+}
 
+.Post__book {
+    display: flex;
+}
+
+.Post__book :first-child {
+    margin-right: 10px;
+}
+
+.Post__book h4 {
+    font-weight: 400;
+    font-size: 20px;
+    /* font-family: var(--main-serif-font); */
+}
 
 .Post-footer {
     display: flex;
@@ -54,5 +97,11 @@
 }
 .Post-footer p {
     margin: 0 0 0 10px;
-    color: var(--secondary);
+    color: var(--bs-secondary);
 }
+
+.Post-footer > p > svg {
+    cursor: pointer;
+}
+
+.highlighted { color: var(--bs-primary);}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +21,7 @@ import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpe
 import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults';
 import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline';
 import PublicProfile from './components/Profile/PublicProfile/PublicProfile';
+import ViewPost from './components/Feed/ViewPost/ViewPost';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from './actions/auth';
@@ -32,56 +33,63 @@ const App = () => {
     
     // The user data is stored in the redux store, but the boolean of isLoggedIn is stored here
     // In the main app component so that we can conditionally render the authentication form or the home page.
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
 
     // Check for token in local storage and request user details
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!user) {
-            if (JSON.parse(localStorage.getItem('user'))) {
-                dispatch(getUserInfo(navigate, setIsLoggedIn))
+            if (localStorage.getItem('user')) {
+                dispatch(getUserInfo(navigate, setIsLoading))
             } else {
-                setIsLoggedIn(false)
-                navigate('/auth')
+                setIsLoading(false)
             }
         } else {
-            setIsLoggedIn(true)
+            setIsLoading(false)
         }
     }, [user])
+
     
-    return (
-        <div id='App'>
-            <Container className="main-container" xs={12}>
-                { isLoggedIn && <><TopNavbar /><div style={{height: '60px'}}/></>}
-
-                <Routes >
-                    {/* Authentication */}
-                    <Route path='/auth' element={<Auth />}/>
-                    <Route path='/profile' element={<Profile />}/>
-                    
-                    {/* Currently Reading */}
-                    <Route path='/' element={<CurrentlyReading />}/>
-                    <Route path='/add-book' element={<AddBookForm />}/>
-                    <Route path='/edit-book' element={<EditBookForm />}/>
-
-                    {/* Library */}
-                    <Route path='/library' exact element={<Library />}/>
-                    <Route path='/library-form' exact element={<LibraryForm />}/>
-
-                    {/* Challenge */}
-                    <Route path='/challenge' element={<Challenge />}/>
-                    <Route path='/reading-speed-test' element={<ReadingSpeedTest />}/>
-                    <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />}/>
-                    <Route path='/challenge/reading-deadline' element={<ReadingDeadline />}/>
-
-                    {/* News Feed */}
-                    <Route path='/feed' element={<Feed />} />
-                    <Route path='/feed/public-user' element={<PublicProfile />} />
-                </Routes>
-
-                { isLoggedIn && <><div style={{height: '100px'}}/><BottomNavbar /></> }
-            </Container>
-        </div>
-    );
+    if (isLoading) return null
+    if (user) {
+        return (
+            <div id='App'>
+                <Container className="main-container" xs={12}>
+                    <TopNavbar /><div style={{height: '60px'}}/>
+    
+                    <Routes >
+                        {/* Authentication */}
+                        <Route path='/profile' element={<Profile />}/>
+                        
+                        {/* Currently Reading */}
+                        <Route path='/' element={<CurrentlyReading />}/>
+                        <Route path='/add-book' element={<AddBookForm />}/>
+                        <Route path='/edit-book' element={<EditBookForm />}/>
+    
+                        {/* Library */}
+                        <Route path='/library' exact element={<Library />}/>
+                        <Route path='/library-form' exact element={<LibraryForm />}/>
+    
+                        {/* Challenge */}
+                        <Route path='/challenge' element={<Challenge />}/>
+                        <Route path='/reading-speed-test' element={<ReadingSpeedTest />}/>
+                        <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />}/>
+                        <Route path='/challenge/reading-deadline' element={<ReadingDeadline />}/>
+    
+                        {/* News Feed */}
+                        <Route path='/feed' element={<Feed />} />
+                        <Route path='/public-profile' element={<PublicProfile />} />
+                        <Route path='/view-post' element={<ViewPost />} />
+                    </Routes>
+    
+                    <div style={{height: '100px'}}/>
+                    <BottomNavbar />
+                </Container>
+            </div>
+        );
+    } else {
+        return <Auth />
+    }
+    
 };
 
 export default App;

@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // redux actions and api calls
 import { signout, deleteUser, updateUser, follow, unfollow } from '../../../actions/auth'
+import { resetVisitedUser } from '../../../actions/currentVisitedUser';
 import { fetchVisitedUserBooks } from '../../../actions/currentVisitedUserBooks';
 
 // Custom Components
@@ -31,34 +32,24 @@ import '../../Library/LibraryRow/LibraryRow.css'
 const PublicProfile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    
     const user = useSelector((state) => state.auth)
     const visitedUser = useSelector((state) => state.currentVisitedUser)
     const visitedUserBookData = useSelector((state) => state.currentVisitedUserBookData)
 
-    const [formattedName, setFormattedName] = useState('') // Capitalized Name
-
-    // Set Initial Data
     useEffect(() => {
-        setFormattedName(`
-            ${visitedUser.name.split(' ')[0].charAt(0).toUpperCase() + visitedUser.name.split(' ')[0].slice(1)}
-            ${visitedUser.name.split(' ')[1].charAt(0).toUpperCase() + visitedUser.name.split(' ')[1].slice(1)}
-        `)
-    }, [visitedUser])
+        return () => dispatch(resetVisitedUser())
+    }, [])
 
     const handleFollow = () => {
-        // We only need to send the names and id's to the server so lets trim the data
-        const trimmedUser = { name: user.name, id: user._id }
-        const trimmedVisitedUser = { name: visitedUser.name, id: visitedUser._id }
-        dispatch(follow(trimmedUser, trimmedVisitedUser))
+        dispatch(follow(visitedUser._id, visitedUser.name))
     }
 
     const handleUnfollow = () => {
-        const trimmedUser = { name: user.name, id: user._id }
-        const trimmedVisitedUser = { name: visitedUser.name, id: visitedUser._id }
-        dispatch(unfollow(trimmedUser, trimmedVisitedUser))
+        dispatch(unfollow(visitedUser._id, visitedUser.name))
     }
 
+    if (!visitedUser) return null
     return (
         <Container className="Profile">
             <ScrollToTopOnMount />
@@ -75,7 +66,7 @@ const PublicProfile = () => {
                         {visitedUser.profileImage ? <img className='profile-image' src={visitedUser.profileImage} /> : visitedUser.name.split('')[0]}
                     </div>
                     <div>
-                        <p className="profile-name">{formattedName}</p>
+                        <p className="profile-name">{visitedUser.name}</p>
                         { <p className={`profile-level-${visitedUser.level}`}>Level {visitedUser.level}</p> }
                     </div>
                     {
@@ -83,7 +74,7 @@ const PublicProfile = () => {
                         &&
                         <div style={{marginLeft: 'auto'}}>
                             { 
-                                user.following.findIndex((user) => user.id === visitedUser._id) === -1 
+                                user.following.findIndex((followee) => followee._id === visitedUser._id) === -1 
                                 ? 
                                 <Button variant='outline-primary' style={{borderRadius: '25px'}} onClick={handleFollow}><FontAwesomeIcon icon={faPlus} /> Follow</Button>
                                 :
@@ -123,7 +114,7 @@ const PublicProfile = () => {
                 &&
                 <>
                     <Row>
-                        <Col xs={12}><h3>{formattedName} is currently reading: </h3></Col>
+                        <Col xs={12}><h3>{visitedUser.name} is currently reading: </h3></Col>
                     </Row>
                     {
                         visitedUserBookData.currentlyReadingBooks.map((book, index) => <LibraryRow key={book._id + index} title={book.title}  author={book.author} /> )

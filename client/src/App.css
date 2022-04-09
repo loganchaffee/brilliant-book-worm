@@ -28,7 +28,8 @@ a,
 a p,
 a h1,
 a h2,
-a h3 {
+a h3,
+a div {
     color: var(--dark);
     text-decoration: none;
 }
@@ -42,7 +43,7 @@ button {
 }
 
 .main-form {
-    background: var(--bs-gray-100);
+    background: var(--bs-gray-200);
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;

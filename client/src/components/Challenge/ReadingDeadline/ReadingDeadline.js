@@ -32,16 +32,16 @@ const ReadingDeadline = () => {
     useEffect(() => {
         dispatch(getBooks())
     }, [])
-
+ 
     useEffect(() => {
         setSelectedBook(books.filter((book) => book._id === selectedBookId)[0])
     }, [selectedBookId])
 
 
     const handleSubmit = () => {
+
         if (selectedBookId && calendarValue) {
-            const deadline = (calendarValue.getMonth() + 1) + '/' +calendarValue.getDate()
-            console.log(deadline);
+            const deadline = calendarValue
             dispatch(updateBook(selectedBookId, { ...selectedBook, deadline: deadline }, setAlertMessage))
         }
     }
@@ -69,7 +69,7 @@ const ReadingDeadline = () => {
                                 <option value={null} />
                                 {
                                     books.map((book, index) => {
-                                        if (!book.isCompleted) {
+                                        if (!book.isCompleted && !book.deadline) {
                                             return <option key={index + book._id} value={book._id}>{book.title}</option>
                                         }
                                     })

@@ -36,24 +36,7 @@ function EditBookForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         // Did user read this update?
-        if (formData.currentPage > currentBook.currentPage) {
-            const yesterday = (new Date().getDate() - 1) + '/' + new Date().getMonth()
-            const today = new Date().getDate() + '/' + new Date().getMonth()
-
-            // Did user read yesterday?
-            if (user.dateOfLastReading === yesterday) {
-                // User read yesterday
-                dispatch(updateUser({ ...user, dateOfLastReading: today, points: user.points + 5 }))
-            } else if (user.dateOfLastReading !== yesterday && user.dateOfLastReading !== today) {
-                // User did not read yesterday or today
-                dispatch(updateUser({ ...user, dateOfLastReading: today, points: user.points + 1 }))
-            } else {
-                // User already read today
-                dispatch(updateUser({ ...user, dateOfLastReading: today, points: user.points }))
-            }
-        }
 
         dispatch(updateBook(currentBook._id, formData))
         navigate('/')
@@ -61,44 +44,17 @@ function EditBookForm() {
 
     const handleCompleteBook = (e) => {
         e.preventDefault()
+        // Check if deadline was met
+        const currentTime = new Date().getTime()
+        const deadlineTime = new Date(currentBook.deadline).getTime()
 
-        // Does the book have a deadline
-        if (currentBook.deadline) {
-            // Get today
-            const today = (new Date().getMonth() + 1) + '/' + (new Date().getDate())
-
-            // Get the month and dates strings seperate
-            const todaySplit = today.split('/')
-            const deadlineSplit = currentBook.deadline.split('/')
-
-            // convert month and dates strings to integers
-            const todayMonth =  parseInt(todaySplit[0], 10)
-            const deadlineMonth =  parseInt(deadlineSplit[0], 10)
-
-            const todayDate =  parseInt(todaySplit[1], 10)
-            const deadlineDate =  parseInt(deadlineSplit[1], 10)
-
-            // If today's month is earlier than the deadline's month
-            if (todayMonth < deadlineMonth) {
-                dispatch(updateBook(currentBook._id, { ...formData, isCompleted: true, currentPage: formData.numberOfPages }))
-                dispatch(updateUser({ ...user, points: user.points + 100 }))
-                navigate('/')
-                return
-            }
-            //  If today's month is equal to the deadline's month 
-            //  And today's date is equal to or less than the deadline's date
-            if (todayDate <= deadlineDate) {
-                dispatch(updateBook(currentBook._id, { ...formData, isCompleted: true, currentPage: formData.numberOfPages }))
-                dispatch(updateUser({ ...user, points: user.points + 100 }))
-                navigate('/')
-                return
-            }
-
-            
-        } 
+        if (currentTime < deadlineTime) {
+            dispatch(updateUser({ ...user, points: user.points + 100 }))
+        } else {
+            dispatch(updateUser({ ...user, points: user.points + 50 }))
+        }
 
         dispatch(updateBook(currentBook._id, { ...formData, isCompleted: true, currentPage: formData.numberOfPages }))
-        dispatch(updateUser({ ...user, points: user.points + 50 }))
         navigate('/')
     }
 
@@ -147,7 +103,11 @@ function EditBookForm() {
                         </Form.Group>
                         {currentBook.deadline && <Form.Group className="mb-3 num-of-pages-form-group">
                             <Form.Label className="short-form-label">Deadline:</Form.Label>
-                            <Form.Label className="short-form-label">{currentBook.deadline}</Form.Label>
+                            <Form.Label className="short-form-label">
+                                {new Date(currentBook.deadline).getDate()}/
+                                {new Date(currentBook.deadline).getMonth()}/
+                                {new Date(currentBook.deadline).getFullYear()}
+                            </Form.Label>
                         </Form.Group>}
                     </Form>
                 </Col>

@@ -1,23 +1,43 @@
 import mongoose from "mongoose"
 
 const bookSchema = mongoose.Schema({
-    title: String,
-    author: String,
-    numberOfPages: Number,
-    currentPage: Number,
-    publicationDate: String,
-    review: String,
-    numberOfStars: Number,
-    createdBy: String,
-    deadline: String,
+    title: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: String,
+        required: true
+    },
+    numberOfPages: {
+        type: Number,
+        required: true
+    },
+    currentPage: {
+        type: Number,
+        required: true
+    },
+    publicationDate: {
+        type: String,
+    },
+    review: {
+        type: String,
+    },
+    numberOfStars: {
+        type: Number,
+        default: 0
+    },
+    createdBy: { 
+        type: mongoose.SchemaTypes.ObjectId, 
+        ref: "User"
+    },
+    deadline: Date,
     isCompleted: {
         type: Boolean,
         default: false
-    },
-    createdAt: {
-        type: Date,
-        default: new Date()
     }
+}, {
+    timestamps: true
 })
 
 const Book = mongoose.model('Book', bookSchema)
