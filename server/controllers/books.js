@@ -57,13 +57,28 @@ export const updateBook = async (req, res) => {
 
         res.status(201).json(updatedBook)
 
+        // Create post when user finishes book
         if (updatedBook.isCompleted) {
             const matchingPosts = await Post.find({ book: id })
             if (matchingPosts.length < 2) {
                 const newPost = new Post({
                     createdBy: req.userId,
-                    book: newBook._id,
+                    book: book._id,
                     action: 'Just finished reading'
+                })
+                newPost.save()
+            }
+        }
+
+        // Create post when user writes review (only the first time)
+        if (updatedBook.review) {
+            const matchingPosts = await Post.find({ book: id })
+            if (matchingPosts.length < 3) {
+                console.log('Creating New Post');
+                const newPost = new Post({
+                    createdBy: req.userId,
+                    book: book._id,
+                    action: 'Just wrote a review for'
                 })
                 newPost.save()
             }
@@ -71,6 +86,7 @@ export const updateBook = async (req, res) => {
         
     } catch (error) {
         res.status(409).json(error)
+        console.log(error);
     }
 }
 
@@ -85,6 +101,8 @@ export const deleteBook = async (req, res) => {
         await Book.findByIdAndDelete(id) 
 
         res.json({ message: 'Book deleted successfully'})
+        
+        await Post.deleteMany({ book: id })
     } catch (error) {
         res.status(404).json(error)
     }

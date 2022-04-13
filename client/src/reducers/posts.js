@@ -42,6 +42,22 @@ export default (posts = [], action) => {
             updatedPosts[indexOfPost].dislikedBy.push(action.payload.userId)
 
             return updatedPosts
+        case 'CREATE_COMMENT':
+            updatedPosts = [...posts]
+            const indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload.postId)
+
+            let newComment = {
+                createdBy: {
+                    _id: action.payload.userData._id,
+                    name: action.payload.userData.name,
+                    level: action.payload.userData.level
+                },
+                text: action.payload.formData
+            }
+
+            updatedPosts[indexOfPostCommentedOn].comments.push(newComment)
+
+            return updatedPosts
         default:
             return posts;
     }

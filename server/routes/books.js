@@ -4,9 +4,9 @@ import { getBooks, createBook, updateBook, deleteBook } from '../controllers/boo
 
 const router = express.Router()
 
-router.get('/', getBooks)
-router.post('/', createBook)
-router.patch('/:id', updateBook)
-router.delete('/:id', deleteBook)
+router.get('/', auth, getBooks)
+router.post('/', auth, createBook)
+router.patch('/:id', auth, updateBook)
+router.delete('/:id', auth, deleteBook)
 
 export default router

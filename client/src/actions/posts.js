@@ -37,3 +37,13 @@ export const dislikePost = (postId, userId) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const createComment = (postId, formData, userData) => async (dispatch) => {
+    try {
+        const { data } = await api.createComment({ postId, formData })
+
+        dispatch({ type: 'CREATE_COMMENT', payload: { postId, formData, userData }})
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -21,16 +21,16 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors())
 
 app.use(express.static(path.resolve(__dirname, '../client/build')))
-app.use('/users', userRoutes)
 
-app.use(auth)
+app.use('/users', userRoutes)
 app.use('/books', bookRoutes)
 app.use('/reading-test', readingTestRoutes)
 app.use('/all-users', allUsersRoutes)
-app.use('/all-users', allUsersRoutes)
 app.use('/posts', postRoutes)
 
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/build', 'index.html')))
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000
 

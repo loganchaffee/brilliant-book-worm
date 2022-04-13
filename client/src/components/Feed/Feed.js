@@ -29,9 +29,9 @@ function Feed() {
     const [users, setUsers] = useState([])
     const posts = useSelector((state) => state.posts)
 
-    useEffect(() => console.log(posts), [posts])
-
     useEffect(() =>  dispatch(getPosts()), [])
+
+    // useEffect(() => console.log(posts), [posts])
 
     const handleSearch = async (e) => {
         setSearchText(e.target.value)

@@ -20,7 +20,10 @@ const postSchema = mongoose.Schema({
         default: []
     },
     comments: { 
-        type: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }], 
+        type: [{ 
+            createdBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+            text: { type: String }
+        }], 
         default: []
     },
     action: { type: String, required: true },

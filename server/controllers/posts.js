@@ -5,23 +5,13 @@ import Book from "../models/Book.js"
 import User from '../models/user.js'
 
 export const createPost = async (req, res) => {
-    try {
+    // try {
 
-        // const action = req.body.action
-        // const bookId = req.body.bookId
-        // const userId = req.userId
-
-        // const book = await Book.findById(bookId, { title: 1, author: 1, review: 1 })
-        // const createdBy = await User.findById(userId, { name: 1, level: 1, profileImage: 1 })
-
-        // const newPost = new Post({ createdBy, book, action })
-        // await newPost.save()
-
-        res.status(200)
-    } catch (error) {
-        console.log(error);
-        res.status(500)
-    }
+    //     res.status(200)
+    // } catch (error) {
+    //     console.log(error);
+    //     res.status(500)
+    // }
 }
 
 export const fetchPosts = async (req, res) => {
@@ -32,9 +22,12 @@ export const fetchPosts = async (req, res) => {
         const following = user.following
 
         const posts = await Post.find({ "createdBy" : { $in : following } })
+        .sort({ createdAt: -1 })
         .populate('createdBy', 'name level profileImage')
-        .populate('book', 'title author')
+        .populate('book', 'title author review')
         .populate('createdAt')
+        .populate('comments')
+        .populate('comments.createdBy', 'name level')
 
         res.status(200).json(posts)
     } catch (error) {
@@ -100,6 +93,21 @@ export const dislikePost = async (req, res) => {
 
         // If no existing post send 404
         return res.status(404).send('No post with that id')
+    } catch (error) {
+        res.status(500)
+        console.log(error);
+    }
+}
+
+export const createComment = async (req, res) => {
+    try {
+        const { postId, formData } = req.body
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).send('No post with that id')
+
+        const updatedPost = await Post.findByIdAndUpdate(postId, { $push: { comments: { createdBy: req.userId, text: formData } } }, { returnDocument: 'after' })
+
+        res.status(200).json(updatedPost)
     } catch (error) {
         res.status(500)
         console.log(error);

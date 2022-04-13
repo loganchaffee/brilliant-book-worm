@@ -53,3 +53,7 @@ button {
    color: var(--bs-secondary);
    font-weight: 500;
 }
+
+.isHidden {
+    display: none !important;
+}
