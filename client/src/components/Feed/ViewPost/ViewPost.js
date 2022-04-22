@@ -17,8 +17,7 @@ const ViewPost = () => {
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
 
-    useEffect(() => console.log('change'), [posts])
-
+    if (!user._id || !currentPost._id) return null
     return (
        <Container>
             <ScrollToTopOnMount />
@@ -44,7 +43,7 @@ const ViewPost = () => {
                     { 
                         currentPost 
                         && 
-                        currentPost.comments.map((comment) =>  <Comment key={'comment' + comment._id} comment={comment} /> )
+                        currentPost.comments.reverse().map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> )
                     }
                 </Col>
             </Row>

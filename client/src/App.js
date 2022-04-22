@@ -25,12 +25,16 @@ import ViewPost from './components/Feed/ViewPost/ViewPost';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from './actions/auth';
+import { getPosts } from './actions/posts';
 
 const App = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
-    
+    const posts = useSelector((state) => state.posts)
+
+    // useEffect(() => console.log(posts), [posts])
+
     // The user data is stored in the redux store, but the boolean of isLoggedIn is stored here
     // In the main app component so that we can conditionally render the authentication form or the home page.
     const [isLoading, setIsLoading] = useState(true)
@@ -47,6 +51,10 @@ const App = () => {
             setIsLoading(false)
         }
     }, [user])
+
+    useEffect(() => {
+        dispatch(getPosts(0))
+    }, [])
 
     
     if (isLoading) return null

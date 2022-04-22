@@ -1,11 +1,12 @@
 let updatedPosts
 let indexOfPost
 let indexOfLiker
+let indexOfPostCommentedOn
 
 export default (posts = [], action) => {
     switch (action.type) {
         case 'FETCH_ALL_POSTS':
-            return action.payload
+            return [...posts, ...action.payload]
         case 'LIKE_POST':
             updatedPosts = [...posts]
             indexOfPost = posts.findIndex((post) => post._id === action.payload.postId)
@@ -44,18 +45,19 @@ export default (posts = [], action) => {
             return updatedPosts
         case 'CREATE_COMMENT':
             updatedPosts = [...posts]
-            const indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload.postId)
+            indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload._id)
 
-            let newComment = {
-                createdBy: {
-                    _id: action.payload.userData._id,
-                    name: action.payload.userData.name,
-                    level: action.payload.userData.level
-                },
-                text: action.payload.formData
-            }
+            updatedPosts[indexOfPostCommentedOn].comments = action.payload.comments
 
-            updatedPosts[indexOfPostCommentedOn].comments.push(newComment)
+            return updatedPosts
+        case 'DELETE_COMMENT':
+            updatedPosts = [...posts]
+
+            indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload.postId)
+
+            const indexOfDeletedComment = updatedPosts[indexOfPostCommentedOn].comments.findIndex((comment) => comment._id === action.payload.commentId)
+
+            updatedPosts[indexOfPostCommentedOn].comments.splice(indexOfDeletedComment, 1)
 
             return updatedPosts
         default:

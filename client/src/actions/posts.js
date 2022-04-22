@@ -9,9 +9,10 @@ export const createPost = (postData) => async (dispatch) => {
     }
 }
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (postsLength) => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts()
+        const { data } = await api.fetchPosts({ postsLength })
+
         dispatch({ type: 'FETCH_ALL_POSTS', payload: data})
     } catch (error) {
         console.log(error);
@@ -42,7 +43,17 @@ export const createComment = (postId, formData, userData) => async (dispatch) =>
     try {
         const { data } = await api.createComment({ postId, formData })
 
-        dispatch({ type: 'CREATE_COMMENT', payload: { postId, formData, userData }})
+        dispatch({ type: 'CREATE_COMMENT', payload: data})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+    try {
+        const { data } = api.deleteComment({ postId, commentId })
+
+        dispatch({ type: 'DELETE_COMMENT', payload: { postId, commentId }})
     } catch (error) {
         console.log(error);
     }

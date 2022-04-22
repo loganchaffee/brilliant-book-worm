@@ -9,6 +9,22 @@
     border-bottom: 1px solid var(--bs-gray-300);
 }
 
+.comment__dots {
+    color: var(--bs-secondary);
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.comment__delete-btn {
+    padding: 2px 5px;
+}
+
+.Comment__user-cred > button {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
 .Comment__user-cred p {
    margin-bottom: 5px;
 }

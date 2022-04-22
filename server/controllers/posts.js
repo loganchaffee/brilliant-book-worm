@@ -4,7 +4,7 @@ import Post from "../models/post.js"
 import Book from "../models/Book.js"
 import User from '../models/user.js'
 
-export const createPost = async (req, res) => {
+export const createPost = async (req, res) => { 
     // try {
 
     //     res.status(200)
@@ -21,6 +21,17 @@ export const fetchPosts = async (req, res) => {
         const user = await User.findById(userId, { following: 1 })
         const following = user.following
 
+        const limit = 9
+        const startIndex = Number(req.body.postsLength)
+        const totalPosts = await Post.countDocuments({ "createdBy" : { $in : following } })
+
+        console.log(startIndex);
+
+        if (startIndex >= totalPosts) {
+            console.log('exiting');
+            return res.status(200).json([])
+        }
+
         const posts = await Post.find({ "createdBy" : { $in : following } })
         .sort({ createdAt: -1 })
         .populate('createdBy', 'name level profileImage')
@@ -28,6 +39,8 @@ export const fetchPosts = async (req, res) => {
         .populate('createdAt')
         .populate('comments')
         .populate('comments.createdBy', 'name level')
+        .limit(limit)
+        .skip(startIndex)
 
         res.status(200).json(posts)
     } catch (error) {
@@ -106,8 +119,25 @@ export const createComment = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).send('No post with that id')
 
         const updatedPost = await Post.findByIdAndUpdate(postId, { $push: { comments: { createdBy: req.userId, text: formData } } }, { returnDocument: 'after' })
+        .populate('comments')
+        .populate('comments.createdBy', 'name level')
 
         res.status(200).json(updatedPost)
+    } catch (error) {
+        res.status(500)
+        console.log(error);
+    }
+}
+
+export const deleteComment = async (req, res) => {
+    try {
+        const { postId, commentId } = req.body
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).send('No post with that id')
+
+        const updatedPost = await Post.findByIdAndUpdate(postId, { $pull: { comments: { _id: commentId, createdBy: req.userId } } }, { returnDocument: 'after' })
+        
+        res.status(200).json({ message: 'success' })
     } catch (error) {
         res.status(500)
         console.log(error);

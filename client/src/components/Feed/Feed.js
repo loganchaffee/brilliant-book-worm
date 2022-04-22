@@ -1,5 +1,5 @@
 // Main dependecies
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/esm/Row'
 import Form from 'react-bootstrap/esm/Form'
 import Card from 'react-bootstrap/esm/Card'
+import Button from 'react-bootstrap/esm/Button'
 
 // Api / Actions
 import { fetchUsersNamesAndIds, fetchPosts } from '../../api'
@@ -29,9 +30,24 @@ function Feed() {
     const [users, setUsers] = useState([])
     const posts = useSelector((state) => state.posts)
 
-    useEffect(() =>  dispatch(getPosts()), [])
+    // -----Get New Posts On Scroll
+    const isLoading = useRef(false)
+    useEffect(() => { isLoading.current = false }, [posts.length])
+    const [scrollTop, setScrollTop] = useState(false)
+    useEffect(() => {
+        const onScroll = (e) => {
+            setScrollTop(e.target.documentElement.scrollTop)
+            if ((window.innerHeight + e.target.documentElement.scrollTop) >= document.body.offsetHeight - 400) {
+                if (!isLoading.current) {
+                    dispatch(getPosts(posts.length))
+                    isLoading.current = true
+                }
+            }
+        };
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [scrollTop])
 
-    // useEffect(() => console.log(posts), [posts])
 
     const handleSearch = async (e) => {
         setSearchText(e.target.value)
@@ -93,6 +109,7 @@ function Feed() {
                 </Col>
             </Row>
             { posts.map((post) => <Post key={post._id} post={post} />) }
+            <Button onClick={() =>  dispatch(getPosts(posts.length))}>See More</Button>
         </Container>
     )
 }

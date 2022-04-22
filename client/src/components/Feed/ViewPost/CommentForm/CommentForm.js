@@ -17,7 +17,7 @@ const CommentForm = () => {
 
     const handleSubmit = () => {
         dispatch(createComment(postId, formData, user))
-        // setShowForm(false)
+        setFormData('')
     }
 
     return (
