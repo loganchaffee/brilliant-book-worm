@@ -20,15 +20,13 @@ export const fetchPosts = async (req, res) => {
 
         const user = await User.findById(userId, { following: 1 })
         const following = user.following
+        if (user.following.length <= 0) return res.status(200)
 
         const limit = 9
         const startIndex = Number(req.body.postsLength)
         const totalPosts = await Post.countDocuments({ "createdBy" : { $in : following } })
 
-        console.log(startIndex);
-
         if (startIndex >= totalPosts) {
-            console.log('exiting');
             return res.status(200).json([])
         }
 
@@ -52,28 +50,19 @@ export const fetchPosts = async (req, res) => {
 export const likePost = async (req, res) => {
     try {
         const { postId, userId } = req.body
-        // Check for existing post
+
         const existingPost = await Post.findById(postId)
 
-        if (existingPost) {
-            // Check if user has already liked this post
-            const indexOfLiker = existingPost.likedBy.findIndex((likerId) => likerId.toString() === userId)
+        const indexOfLiker = existingPost.likedBy.findIndex((likerId) => likerId.toString() === userId)
 
-            // If the user has already liked this post remove their _id from the likedBy array
-            if (indexOfLiker > -1) {
-                const likedBy = [...existingPost.likedBy]
-                likedBy.splice(indexOfLiker, 1)
-                const updatedPost = await Post.findByIdAndUpdate(postId, { likedBy: likedBy }, { returnDocument: 'after' })
-                return res.status(200).send({ updatedPost })
-            }
-
-            // If the user has not liked this post yet add their _id to the likedBy array
-            const updatedPost = await Post.findByIdAndUpdate(postId, { $push: { likedBy: userId } }, { returnDocument: 'after' })
-            return res.status(200).send({ updatedPost })
+        if (indexOfLiker <= -1) {
+            await Post.findByIdAndUpdate(postId, { $addToSet: { likedBy: userId } })
+            await Post.findByIdAndUpdate(postId, { $pull: { dislikedBy: userId } })
+        } else {
+            await Post.findByIdAndUpdate(postId, { $pull: { likedBy: userId } })
         }
-
-        // If no existing post send 404
-        return res.status(404).send('No post with that id')
+       
+        return res.status(200)
     } catch (error) {
         res.status(500)
         console.log(error);
@@ -83,29 +72,19 @@ export const likePost = async (req, res) => {
 export const dislikePost = async (req, res) => {
     try {
         const { postId, userId } = req.body
-        
-        // Check for existing post
+
         const existingPost = await Post.findById(postId)
 
-        if (existingPost) {
-            // Check if user has already liked this post
-            const indexOfLiker = existingPost.dislikedBy.findIndex((likerId) => likerId.toString() === userId)
+        const indexOfLiker = existingPost.dislikedBy.findIndex((likerId) => likerId.toString() === userId)
 
-            // If the user has already liked this post remove their _id from the dislikedBy array
-            if (indexOfLiker > -1) {
-                const dislikedBy = [...existingPost.dislikedBy]
-                dislikedBy.splice(indexOfLiker, 1)
-                const updatedPost = await Post.findByIdAndUpdate(postId, { dislikedBy: dislikedBy }, { returnDocument: 'after' })
-                return res.status(200).send({ updatedPost })
-            }
-
-            // If the user has not liked this post yet add their _id to the dislikedBy array
-            const updatedPost = await Post.findByIdAndUpdate(postId, { $push: { dislikedBy: userId } }, { returnDocument: 'after' })
-            return res.status(200).send({ updatedPost })
+        if (indexOfLiker <= -1) {
+            await Post.findByIdAndUpdate(postId, { $addToSet: { dislikedBy: userId } })
+            await Post.findByIdAndUpdate(postId, { $pull: { likedBy: userId } })
+        } else {
+            await Post.findByIdAndUpdate(postId, { $pull: { dislikedBy: userId } })
         }
-
-        // If no existing post send 404
-        return res.status(404).send('No post with that id')
+       
+        return res.status(200)
     } catch (error) {
         res.status(500)
         console.log(error);

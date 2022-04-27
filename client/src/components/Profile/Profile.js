@@ -1,15 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Alert from 'react-bootstrap/Alert'
-import Card from 'react-bootstrap/Card'
+import { Container, Row, Col, Button, Form, Alert, Card, Modal} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import 'cropperjs/dist/cropper.css';
+import Cropper from 'cropperjs';
 
 import { signout, deleteUser, updateUser, follow } from '../../actions/auth'
 import { getCurrentVisitedUser,  } from '../../actions/currentVisitedUser';
@@ -32,7 +29,46 @@ const Profile = () => {
     const [formData, setFormData] = useState({ name: '', email: ''})
     const [errorMessage, setErrorMessage] = useState('')
 
-    // Set Initial Data
+    const [showModal, setShowModal] = useState(false)
+    const [cropper, setCropper] = useState(null)
+    const [image, setImage] =  useState('')
+
+    // CropperJS Functions----------------------------------------------------------------------
+    const handleUpdateProfileImage = (e) => {
+        const reader = new FileReader()
+        reader.addEventListener('load', () =>  {
+            setImage(reader.result)
+            setShowModal(true)
+            document.getElementById('fileInput').value = null
+        })
+        reader.readAsDataURL(e.target.files[0])
+    }
+
+    const firstUpdate = useRef(true);
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        const modalImage = document.getElementById('modalImage')
+        const cropper = new Cropper(modalImage, {
+            aspectRatio: 16 / 16,
+        })
+        setCropper(cropper)
+    }, [showModal === true])
+
+    const handleCropAndUpdate = () => {
+        const croppedImageData = cropper.getCroppedCanvas().toDataURL('image/png')
+        dispatch(updateUser({ profileImage: croppedImageData }, setErrorMessage))
+        cropper.destroy()
+        setCropper(null)
+        setImage('')
+        setShowModal(false)
+    }
+
+
+    // Set Initial Data----------------------------------------------------------------------
     useEffect(() => {
         if (user) {
             setFormData({ ...formData, name: user.name, email: user.email })
@@ -49,13 +85,6 @@ const Profile = () => {
         document.getElementById('fileInput').click()
     }
 
-    const handleUpdateProfileImage = (e) => {
-        const reader = new FileReader()
-        reader.addEventListener('load', () =>  {
-            dispatch(updateUser({ profileImage: reader.result }, setErrorMessage))
-        })
-        reader.readAsDataURL(e.target.files[0])
-    }
 
     const handleUpdateUserCred = () => {
         // dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
@@ -74,7 +103,7 @@ const Profile = () => {
     // Visit another user's public profile page
     const handleClickUser = (userId) => {
         dispatch(fetchVisitedUserBooks(userId))
-        dispatch(getCurrentVisitedUser(userId, navigate))
+        dispatch(getCurrentVisitedUser(userId))
     }
         
     return (
@@ -160,9 +189,9 @@ const Profile = () => {
                                 { 
                                     user.following.map((followee) => {
                                         return (
-                                            <Row key={followee.id} onClick={() => handleClickUser(followee.id)}>
+                                            <Row key={followee._id} onClick={() => handleClickUser(followee._id)}>
                                                 <Col>
-                                                    <p className="following-followers__name">@{followee.name} <FontAwesomeIcon icon={faAngleRight} /></p>
+                                                    <Link to='/public-profile' className="following-followers__name">@{followee.name} <FontAwesomeIcon icon={faAngleRight} /></Link>
                                                 </Col>
                                             </Row>
                                         )
@@ -191,9 +220,9 @@ const Profile = () => {
                                 { 
                                     user.followers.map((follower) => {
                                         return (
-                                            <Row key={follower.id} onClick={() => handleClickUser(follower.id)}>
+                                            <Row key={follower._id} onClick={() => handleClickUser(follower._id)}>
                                                 <Col>
-                                                    <p className="following-followers__name">@{follower.name} <FontAwesomeIcon icon={faAngleRight} /></p>
+                                                    <Link to='public-profile' className="following-followers__name">@{follower.name} <FontAwesomeIcon icon={faAngleRight} /></Link>
                                                 </Col>
                                             </Row>
                                         )
@@ -207,6 +236,20 @@ const Profile = () => {
 
             {/* Invisible input clicked when profile image is clicked */}
             <Form.Control id="fileInput" style={{display: 'none'}} type="file" onChange={(e) => handleUpdateProfileImage(e)} />
+
+
+            <Modal centered show={showModal} onHide={() => setShowModal(false)} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Adjust Profile Image</Modal.Title>
+                </Modal.Header>
+                <div>
+                    <img id='modalImage' src={image} />
+                </div>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCropAndUpdate}>Save Changes</Button>
+                </Modal.Footer>
+            </Modal>
+
         </Container>
     )
 }

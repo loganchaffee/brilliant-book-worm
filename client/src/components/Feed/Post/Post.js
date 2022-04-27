@@ -77,14 +77,14 @@ const Post = ({ post }) => {
                     { 
                         post.action === 'Just wrote a review for' && window.location.pathname === '/feed'
                         ? 
-                        <Link to="/view-post" style={{ margin: '0 auto 0 0'}} onClick={() => handleSelectPost(post)}>
+                        <div to="/view-post" style={{ margin: '0 auto 0 0'}} onClick={() => handleSelectPost(post)}>
                             <p style={{ margin: '5px auto 0 0'}}>Read Review <I icon={faAngleRight} /></p>
-                        </Link>
+                        </div>
                         :
                         undefined
                     }
 
-                    <Link to="/view-post"><p>{post?.comments?.length} <I icon={faComment} onClick={() => handleSelectPost(post)} /></p></Link>
+                    <div to="/view-post"><p>{post?.comments?.length} <I icon={faComment} onClick={() => handleSelectPost(post)} /></p></div>
                     <p>
                         {post.dislikedBy.length}{' '}
                         <I 

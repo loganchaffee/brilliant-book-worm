@@ -83,3 +83,9 @@
 .following-followers div :last-child div p {
     margin-bottom: 0;
 }
+
+#modalImage {
+    margin: 20px;
+    max-height: 400px
+
+}

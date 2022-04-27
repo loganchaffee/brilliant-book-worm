@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Redirect, Navigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,12 +26,16 @@ import ViewPost from './components/Feed/ViewPost/ViewPost';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from './actions/auth';
 import { getPosts } from './actions/posts';
+import { getBooks } from './actions/books';
+import currentPost from './reducers/currentPost';
 
 const App = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
     const posts = useSelector((state) => state.posts)
+    const currentPost = useSelector((state) => state.currentPost)
+    const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
 
     // useEffect(() => console.log(posts), [posts])
 
@@ -56,7 +60,10 @@ const App = () => {
         dispatch(getPosts(0))
     }, [])
 
-    
+    useEffect(() => {
+        dispatch(getBooks())
+    }, [])
+
     if (isLoading) return null
     if (user) {
         return (
@@ -95,7 +102,7 @@ const App = () => {
             </div>
         );
     } else {
-        return <Auth />
+        return <div style={{ width: '600px', margin: '300px, auto'}}><Auth /></div>
     }
     
 };

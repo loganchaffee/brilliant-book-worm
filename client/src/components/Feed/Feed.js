@@ -24,13 +24,15 @@ import Post from './Post/Post'
 function Feed() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
+    const currentPost = useSelector((state) => state.currentPost)
 
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
     const [users, setUsers] = useState([])
     const posts = useSelector((state) => state.posts)
 
-    // -----Get New Posts On Scroll
+    // -----Get New Posts On Scroll-------------------------------------------------------------------------------------
     const isLoading = useRef(false)
     useEffect(() => { isLoading.current = false }, [posts.length])
     const [scrollTop, setScrollTop] = useState(false)
@@ -67,6 +69,7 @@ function Feed() {
         dispatch(getCurrentVisitedUser(userId))
         dispatch(fetchVisitedUserBooks(userId))
     }
+    
 
     return (
         <Container className="Feed">
@@ -95,9 +98,9 @@ function Feed() {
                                 { 
                                     users.map((user, index) => {
                                         return (
-                                            <div key={index + user.name} onClick={() => handleClickUser(user._id)}>
-                                                <Link to="/public-profile" >{user.name}</Link>
-                                            </div>
+                                            <Link to="/public-profile" key={index + user.name} onClick={() => handleClickUser(user._id)}>
+                                                <p>{user.name}</p>
+                                            </Link>
                                         )
                                     }) 
                                 }
@@ -109,7 +112,6 @@ function Feed() {
                 </Col>
             </Row>
             { posts.map((post) => <Post key={post._id} post={post} />) }
-            <Button onClick={() =>  dispatch(getPosts(posts.length))}>See More</Button>
         </Container>
     )
 }

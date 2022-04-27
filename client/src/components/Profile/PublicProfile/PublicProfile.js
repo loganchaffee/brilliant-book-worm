@@ -37,17 +37,25 @@ const PublicProfile = () => {
     const visitedUser = useSelector((state) => state.currentVisitedUser)
     const visitedUserBookData = useSelector((state) => state.currentVisitedUserBookData)
 
+    // Set current user to null on component unmount
+    // Redirect user to /feed if they refresh this page
     useEffect(() => {
-        return () => dispatch(resetVisitedUser())
+        if (localStorage.getItem('refreshedPublicProfile') === '1') {
+            localStorage.removeItem('refreshedPublicProfile')
+            return navigate('/feed')
+        }
+
+        localStorage.setItem('refreshedPublicProfile', 1)
+
+        return () => {
+            dispatch(resetVisitedUser())
+            localStorage.removeItem('refreshedPublicProfile')
+        }
     }, [])
 
-    const handleFollow = () => {
-        dispatch(follow(visitedUser._id, visitedUser.name))
-    }
+    const handleFollow = () => dispatch(follow(visitedUser._id, visitedUser.name))
 
-    const handleUnfollow = () => {
-        dispatch(unfollow(visitedUser._id, visitedUser.name))
-    }
+    const handleUnfollow = () =>  dispatch(unfollow(visitedUser._id, visitedUser.name))
 
     if (!visitedUser) return null
     return (

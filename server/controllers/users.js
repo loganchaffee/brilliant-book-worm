@@ -82,7 +82,7 @@ export const updateUser = async (req, res) => {
         }
        
         // Update user
-        const updatedUser = await User.findByIdAndUpdate(id, { ...body }, { returnDocument: 'after' })
+        const updatedUser = await User.findByIdAndUpdate( )
         if (!updatedUser) return res.status(404).send('User not found')
 
         res.status(200).json({ updatedUser })
@@ -106,27 +106,14 @@ export const deleteUser = async (req, res) => {
 export const follow = async (req, res) => {
     try {
         const visitedUserId = req.body._id
-        
+        const userId = req.userId
+
         // Add followee to main user
-        const userDoc = await User.findById(req.userId, { following: 1 })
-        const indexOfFollowee = userDoc.following.findIndex((followeeId) => {
-            return followeeId.toString() === visitedUserId
-        })
-        if (indexOfFollowee === -1) {
-            userDoc.following.push(visitedUserId)
-            await userDoc.save()
-        }
-
+        await User.findByIdAndUpdate(userId, { $addToSet: { following: visitedUserId } })
+        
         // Add follower to visited user
-        const visitedUserDoc = await User.findById(visitedUserId, { followers: 1 })
-        const indexOfFollower = visitedUserDoc.followers.findIndex((followerId) => {
-            return followerId.toString() === req.userId
-        })
-        if (indexOfFollower === -1) {
-            visitedUserDoc.followers.push(req.userId)
-            await visitedUserDoc.save()
-        }
-
+        await User.findByIdAndUpdate(visitedUserId , { $addToSet: { followers: userId } })
+       
         res.status(200)
     } catch (error) {
         console.log(error);
@@ -137,26 +124,13 @@ export const follow = async (req, res) => {
 export const unfollow = async (req, res) => {
     try {
         const visitedUserId = req.body._id
+        const userId = req.userId
 
         // Remove followee from main user
-        const userDoc = await User.findById(req.userId, { following: 1 })
-        const indexOfFollowee = userDoc.following.findIndex((followeeId) => {
-            return followeeId.toString() === visitedUserId
-        })
-        if (indexOfFollowee > -1) {
-            userDoc.following.splice(indexOfFollowee, 1)
-            userDoc.save()
-        }
+        await User.findByIdAndUpdate(userId, { $pull: { following: visitedUserId } })
 
         // Remove follower from visited user
-        const visitedUserDoc = await User.findById(visitedUserId, { followers: 1 })
-        const indexOfFollower = visitedUserDoc.followers.findIndex((followerId) => {
-            return followerId.toString() === req.userId
-        })
-        if (indexOfFollower > -1) {
-            visitedUserDoc.followers.splice(indexOfFollower, 1)
-            visitedUserDoc.save()
-        }
+        await User.findByIdAndUpdate(visitedUserId, { $pull: { followers: userId } })
 
         res.status(200)
     } catch (error) {

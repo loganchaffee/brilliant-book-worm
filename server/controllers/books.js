@@ -6,7 +6,6 @@ import Post from "../models/post.js"
 export const getBooks = async (req, res) => {
     try {
         const books = await Book.find({createdBy: req.userId})
-        
         res.status(200).json(books)
     } catch (error) {
         res.status(404).json(error)
@@ -17,9 +16,7 @@ export const getBooks = async (req, res) => {
 export const fetchVisitedUserBooks = async (req, res) => {
     try {
         const visitedUserId = req.body.visitedUserId
-
         const books = await Book.find({ createdBy: visitedUserId })
-
         res.status(200).json(books)
     } catch (error) {
         res.status(404).json(error)
@@ -74,7 +71,6 @@ export const updateBook = async (req, res) => {
         if (updatedBook.review) {
             const matchingPosts = await Post.find({ book: id })
             if (matchingPosts.length < 3) {
-                console.log('Creating New Post');
                 const newPost = new Post({
                     createdBy: req.userId,
                     book: book._id,
@@ -105,5 +101,6 @@ export const deleteBook = async (req, res) => {
         await Post.deleteMany({ book: id })
     } catch (error) {
         res.status(404).json(error)
+        console.log(error);
     }
 }

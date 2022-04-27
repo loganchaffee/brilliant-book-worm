@@ -21,16 +21,11 @@ import { updateUser } from '../../actions/auth';
 function CurrentlyReading() {
     const dispatch = useDispatch()
     const books = useSelector((state) => state.books)
-    const user = useSelector((state) => state.auth)
-
-    const [pagesPerMinute, setPagesPerMinute] = useState(0)
-
-    useEffect(() => dispatch(getBooks()), [])
-    useLayoutEffect(() => setPagesPerMinute(user.wordsPerMinute / 275), [])
-
-    // Temporary vars
-    console.log();
     
+    useEffect(() => {
+        dispatch(getBooks())
+    }, [])
+
     return (
         <Container className="CurrentlyReading">
             <Row>
@@ -48,21 +43,8 @@ function CurrentlyReading() {
                     {
                         books.map((book) => {
                             if (!book.isCompleted) {
-                                let num = Math.round((book.numberOfPages - book.currentPage) / pagesPerMinute, 10);
-                                let hours = (num / 60);
-                                let rhours = Math.floor(hours);
-                                let minutes = (hours - rhours) * 60;
-                                let rminutes = Math.round(minutes);
-
                                 return <Link to={`/edit-book?id=${book._id}`} key={book._id} onClick={() => dispatch(setCurrentBook(book))}>
-                                    <CurrentlyReadingCard
-                                        title={book.title}
-                                        author={book.author}
-                                        completionTime={`${rhours}h ${rminutes}m`}
-                                        currentPage={book.currentPage}
-                                        numberOfPages={book.numberOfPages}
-                                        progress={book.currentPage / book.numberOfPages * 100}
-                                    />
+                                    <CurrentlyReadingCard book={book} />
                                 </Link>
                             }
                         })

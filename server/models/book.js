@@ -5,6 +5,10 @@ const bookSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    subtitle: {
+        type: String,
+        required: false
+    },
     author: {
         type: String,
         required: true
@@ -26,6 +30,10 @@ const bookSchema = mongoose.Schema({
     numberOfStars: {
         type: Number,
         default: 0
+    },
+    thumbnail: {
+        type: String,
+        default: ''
     },
     createdBy: { 
         type: mongoose.SchemaTypes.ObjectId, 
