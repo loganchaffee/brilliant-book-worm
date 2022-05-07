@@ -1,9 +1,10 @@
 import express from 'express'
-import { createPost, fetchPosts, likePost, dislikePost, createComment, deleteComment } from '../controllers/posts.js'
+import { createPost, fetchPosts, likePost, dislikePost, createComment, deleteComment, fetchPost } from '../controllers/posts.js'
 import auth from '../middleware/auth.js'
 
 const router = express.Router()
 
+router.post('/single-post', auth, fetchPost)
 router.post('/', auth, fetchPosts)
 router.post('/', auth, createPost)
 router.post('/like-post', auth, likePost)

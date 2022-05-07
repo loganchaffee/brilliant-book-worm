@@ -6,22 +6,62 @@
     --body-font: 'Poppins', sans-serif;
     --main-serif-font: 'Lora', serif;
 
-    --primary: #007bff;
-    --primary-darkened: #0668d1;
-    --secondary: #6c757d;
-    --secondary-darkened: #3f4549;
-    --success: #28a745;
-    --success-darkened: #22913a;
-    --info: #17a2b8;
-    --info-darkened: #0e6f7e;
-    --warning: #ffc107;
-    --warning-darkened: #dba608;
-    --danger: #dc3545;
-    --danger-darkened: #b62c3a;
-    --light: #f8f9fa;
-    --light-darkened: #afb1b3;
-    --dark: #343a40;
-    --dark-darkened: #1e2225;
+    --primary: #8b17ff;
+    --primary-darkened: #8116ed;
+    --secondary: #B1A8B9;
+    --secondary-darkened: #6d6772;
+    --warning: #FFC33F;
+    --warning-darkened: #d3a134;
+    --danger: #E30000;
+    --light: #f0f0f0;
+    --light-darkened: #d9d9d9;
+    --dark: #3f3f3f;
+    --dark-darkened: #353535;
+
+    --black: #000;
+    --white: #fff;
+}
+
+/* -----Buttons----- */
+.btn,
+.btn:hover,
+.btn:active,
+.btn:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border: var(--primary);
+}
+.btn-primary:hover {
+    background: var(--primary-darkened);
+}
+
+/* -----Icons----- */
+
+.level-1-icon,
+.level-2-icon,
+.level-3-icon,
+.level-4-icon {
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 25px;
+    color: var(--white);
+}
+
+.level-1-icon {
+    background:#4FAF44;
+}
+.level-2-icon {
+    background:#FFC33F;
+}
+.level-3-icon {
+    background:#EF4423;
+}
+.level-4-icon {
+    background:#4371e6;
 }
 
 * {
@@ -37,3 +77,4 @@ body {
     margin: 0;
     font-size: 16px;
 }
+

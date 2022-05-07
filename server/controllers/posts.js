@@ -1,8 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Post from "../models/post.js"
-import Book from "../models/Book.js"
+import Book from "../models/book.js"
 import User from '../models/user.js'
+import Notification from '../models/notification.js';
 
 export const createPost = async (req, res) => { 
     // try {
@@ -12,6 +13,22 @@ export const createPost = async (req, res) => {
     //     console.log(error);
     //     res.status(500)
     // }
+}
+
+export const fetchPost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.body.id)
+        .populate('createdBy', 'name level profileImage')
+        .populate('book', 'title author review')
+        .populate('createdAt')
+        .populate('comments')
+        .populate('comments.createdBy', 'name level')
+
+        res.status(200).json(post)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error)
+    }
 }
 
 export const fetchPosts = async (req, res) => {
@@ -102,6 +119,15 @@ export const createComment = async (req, res) => {
         .populate('comments.createdBy', 'name level')
 
         res.status(200).json(updatedPost)
+
+        const newNotification = new Notification({ 
+            message: 'commented on your post',
+            link: `/view-post/${postId}`,
+            createdBy: req.userId, 
+            recipient: updatedPost.createdBy
+        })
+
+        await newNotification.save()
     } catch (error) {
         res.status(500)
         console.log(error);
@@ -114,7 +140,7 @@ export const deleteComment = async (req, res) => {
 
         if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).send('No post with that id')
 
-        const updatedPost = await Post.findByIdAndUpdate(postId, { $pull: { comments: { _id: commentId, createdBy: req.userId } } }, { returnDocument: 'after' })
+        await Post.findByIdAndUpdate(postId, { $pull: { comments: { _id: commentId, createdBy: req.userId } } })
         
         res.status(200).json({ message: 'success' })
     } catch (error) {

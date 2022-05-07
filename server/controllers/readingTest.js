@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import Book from "../models/Book.js"
+import Book from "../models/book.js"
 import bookExcerpts from '../utils/bookExcerpts.js'
 
 export const getBookExcerpt = async (req, res) => {

@@ -1,0 +1,57 @@
+.LastReadingWidget__chart {
+    display: flex;
+    height: calc(100% - 37px);
+}
+
+
+/* Calendar Section */
+
+.LastReadingWidget__chart__calendar {
+    background: white;
+    overflow: hidden;
+    width: 50%;
+    height: 100%;
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.LastReadingWidget__chart__calendar > :first-child {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    text-align: center;
+}
+
+.LastReadingWidget__chart__calendar > :first-child > p {
+    margin-bottom: 0;
+}
+
+.LastReadingWidget__chart__calendar > :last-child {
+    width: 100%;
+    height: calc(100% - 30px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LastReadingWidget__chart > :last-child > div > :last-child > p {
+    margin-bottom: 0;
+    font-size: 60px;
+}
+
+.LastReadingWidget__chart__days {
+    width: 50%;
+    height: 100%;
+}
+
+.LastReadingWidget__chart__days > p {
+    width: 80%;
+    margin: 0 auto 10px auto;
+    font-size: 14px;
+}

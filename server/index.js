@@ -15,6 +15,7 @@ import userRoutes from './routes/users.js'
 import readingTestRoutes from './routes/readingTest.js'
 import allUsersRoutes from './routes/all-users.js'
 import postRoutes from './routes/posts.js'
+import notificationRoutes from './routes/notifications.js'
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
@@ -27,6 +28,7 @@ app.use('/books', bookRoutes)
 app.use('/reading-test', readingTestRoutes)
 app.use('/all-users', allUsersRoutes)
 app.use('/posts', postRoutes)
+app.use('/notifications', notificationRoutes)
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

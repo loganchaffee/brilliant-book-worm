@@ -17,7 +17,7 @@ function CurrentlyReadingCard({book}) {
     const user = useSelector((state) => state.auth)
     const books = useSelector((state) => state.books)
 
-    const {title, subtitle, author, currentPage, numberOfPages, thumbnail,  } = book
+    const {title, subtitle, author, currentPage, numberOfPages, thumbnail } = book
 
     const [hours, setHours] = useState(0)
     const [minutes, setMinutes] = useState(0)

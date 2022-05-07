@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import Book from "../models/Book.js"
+import Book from "../models/book.js"
 import Post from "../models/post.js"
 
 export const getBooks = async (req, res) => {

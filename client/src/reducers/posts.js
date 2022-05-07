@@ -56,8 +56,7 @@ export default (posts = [], action) => {
             indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload.postId)
 
             const indexOfDeletedComment = updatedPosts[indexOfPostCommentedOn].comments.findIndex((comment) => comment._id === action.payload.commentId)
-
-            updatedPosts[indexOfPostCommentedOn].comments.splice(indexOfDeletedComment, 1)
+            if (indexOfDeletedComment > -1) updatedPosts[indexOfPostCommentedOn].comments.splice(indexOfDeletedComment, 1)
 
             return updatedPosts
         default:

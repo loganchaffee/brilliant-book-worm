@@ -1,0 +1,7 @@
+.Dashboard__level > div {
+    margin-bottom: 10px;
+}
+
+.Dashboard__level > div:last-child {
+    margin-bottom: 0;
+}

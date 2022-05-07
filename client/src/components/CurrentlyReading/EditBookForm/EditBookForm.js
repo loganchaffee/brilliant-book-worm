@@ -28,7 +28,12 @@ function EditBookForm() {
         publicationDate: '',
         numberOfPages: 0,
         currentPage: 60
-    });
+    })
+    const [previousCurrentPage, setPreviousCurrentPage] = useState(null)
+
+    useEffect(() => {
+        setPreviousCurrentPage(currentBook.currentPage)
+    }, [currentBook._id])
 
     useEffect(() => {
         setFormData({ ...currentBook })
@@ -37,6 +42,9 @@ function EditBookForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         // Did user read this update?
+        if (previousCurrentPage < formData.currentPage) {
+            dispatch(updateUser({ dateOfLastReading: new Date().toISOString() }))
+        }
 
         dispatch(updateBook(currentBook._id, formData))
         navigate('/')

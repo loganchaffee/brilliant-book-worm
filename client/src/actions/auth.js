@@ -12,7 +12,7 @@ export const signup = (formData, navigate, handleErrorInComponent) => async (dis
         dispatch({ type: 'AUTH', payload: data.user })
     } catch (error) {
         console.log(error);
-        handleErrorInComponent('A user with that name or email already exists')
+        handleErrorInComponent('A user with that email already exists')
     }
 }
  
@@ -54,7 +54,6 @@ export const signout = () => async (dispatch) => {
 
 export const deleteUser = () => async (dispatch, navigate) => {
     try {
-        // navigate('/auth')
         const deletedUser = await api.deleteUser()
         localStorage.clear()
         dispatch({ type: 'AUTH', payload: null })
@@ -75,6 +74,8 @@ export const deleteUser = () => async (dispatch, navigate) => {
 export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate) => async (dispatch) => {
     try {
         const { data } = await api.updateUser(formData)
+
+        if (data.accessToken) localStorage.setItem('user', JSON.stringify(data.accessToken))
 
         dispatch({ type: 'AUTH', payload: data.updatedUser })
         if (setErrorMessage) setErrorMessage('')

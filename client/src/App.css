@@ -1,10 +1,32 @@
 @import './index.css';
 
+#App {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1920px;
+    min-height: 100vh;
+    height: fit-content;
+    margin: 0 auto;
+    background: var(--light);
+}
+
 .flex {
     display: flex;
 }
 
-.main-container,
+.main-container {
+    margin: 0 auto;
+    width: calc(100% - 225px - 32px);
+    margin: 10px 0 0 calc(225px + 20px);
+}
+
+.main-content {
+    width: 100%;
+    max-width: 1600px;
+    height: calc(100vh - 20px);
+    margin: 0 auto;
+}
+
 .TopNavbar__content,
 .BottomNavBar__content {
     max-width: 600px;
@@ -24,13 +46,8 @@
     width: 100%;
 }
 
-a,
-a p,
-a h1,
-a h2,
-a h3,
-a div {
-    color: var(--dark);
+a {
+    color: var(--black);
     text-decoration: none;
 }
 
@@ -56,4 +73,22 @@ button {
 
 .isHidden {
     display: none !important;
+}
+
+.page-heading > p {
+    color: var(--secondary);
+}
+
+@media (max-width: 1000px) {
+    .main-container {
+        margin: 10px 0 0 calc(75px + 20px);
+        width: calc(100% - 75px - 32px);
+    }
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        width: 100%;
+        margin: 60px 10px 60px 10px;
+    }
 }

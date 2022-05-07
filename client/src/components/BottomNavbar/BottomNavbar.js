@@ -13,26 +13,20 @@ import './BottomNavbar.css'
 
 function BottomNavbar() {
     return (
-        <>
-            <Navbar fixed="bottom" bg="light" variant="light" className="BottomNavbar">
-                <Container className="BottomNavBar__content" fluid>
-                    <Nav style={{width: '100%'}} fill variant="tabs">
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/"><FontAwesomeIcon icon={faBookOpen} /></Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/library"><FontAwesomeIcon icon={faUniversity} /></Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/challenge"><FontAwesomeIcon icon={faDumbbell} /></Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                        <Nav.Link as={Link} to="/feed"><FontAwesomeIcon icon={faNewspaper} /></Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Container>
-            </Navbar>
-        </>
+        <div className='BottomNavbar'>
+            <Link to='/' className='BottomNavbar__link'>
+                <div><FontAwesomeIcon icon={faBookOpen} /></div>
+            </Link>
+            <Link to='/library' className='BottomNavbar__link'>
+                <div><FontAwesomeIcon icon={faUniversity} /></div>
+            </Link>
+            <Link to='/challenge' className='BottomNavbar__link'>
+                <div><FontAwesomeIcon icon={faDumbbell} /></div>
+            </Link>
+            <Link to='/feed' className='BottomNavbar__link'>
+                <div><FontAwesomeIcon icon={faNewspaper} /></div>
+            </Link>
+        </div>
     )
 }
 

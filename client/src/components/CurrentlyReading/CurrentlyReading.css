@@ -1,5 +1,10 @@
 /* Styles for both forms linked to from this page */
 
+.CurrentlyReading {
+
+}
+
+/* Forms (Move these into their components) */
 .short-form-label {
     width: 50%;
     margin: 0;
@@ -16,5 +21,46 @@
 }
 
 .add-new-book-btn {
+    background: var(--primary);
+    border: none;
     margin-bottom: 10px;
+    width: fit-content;
+}
+
+.Dashboard__stats-row > div {
+    margin-bottom: 10px;
+}
+
+.Dashboard__level,
+.Dashboard__card {
+    background: white;
+    height: 100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.Dashboard__level > p > span {
+    padding: 3px 10px;
+    margin-left: 10px;
+    border-radius: 25px;
+}
+
+.Dashboard__level__progress-bar {
+    width: 100%;
+    height: 10px;
+    background: var(--light);
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.Dashboard__level__progress-bar > div {
+    background: var(--warning);
+    height: 100%;
+}
+
+/* Stats */
+.Dashboard__stats-row {
+    margin-bottom: 20px;
 }

@@ -13,6 +13,7 @@ import './Post.css'
 
 const Post = ({ post }) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
 
     const [months, setMonths] = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
@@ -42,7 +43,9 @@ const Post = ({ post }) => {
     }
 
     const handleSelectPost = (post) => {
+        console.log('just set from feed');
         dispatch(setCurrentPost(post))
+        navigate(`/view-post/${post._id}`)
     }
 
     return (
@@ -77,14 +80,14 @@ const Post = ({ post }) => {
                     { 
                         post.action === 'Just wrote a review for' && window.location.pathname === '/feed'
                         ? 
-                        <div to="/view-post" style={{ margin: '0 auto 0 0'}} onClick={() => handleSelectPost(post)}>
+                        <div style={{ margin: '0 auto 0 0'}} onClick={() => handleSelectPost(post)}>
                             <p style={{ margin: '5px auto 0 0'}}>Read Review <I icon={faAngleRight} /></p>
                         </div>
                         :
                         undefined
                     }
 
-                    <div to="/view-post"><p>{post?.comments?.length} <I icon={faComment} onClick={() => handleSelectPost(post)} /></p></div>
+                    <div><p>{post?.comments?.length} <I icon={faComment} onClick={() => handleSelectPost(post)} /></p></div>
                     <p>
                         {post.dislikedBy.length}{' '}
                         <I 

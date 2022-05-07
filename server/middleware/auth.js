@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
         // Validate token
         if (token) {
             decodedData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-            
+
             // Add the decoded user data to the request object
             req.userId = decodedData?.id
         }

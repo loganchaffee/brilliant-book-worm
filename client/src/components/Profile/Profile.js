@@ -142,7 +142,7 @@ const Profile = () => {
                 <Col xs={12}>
                     <Button variant="outline-primary" className="full-width-btn" onClick={handleUpdateUserCred}>Update Account Details</Button>
                     <Button variant="outline-secondary" className="full-width-btn" onClick={handleSignout}>Sign Out</Button>
-                    <Button variant="outline-danger" className="full-width-btn" onClick={handleDeleteUser} disabled>Delete Account</Button>
+                    <Button variant="outline-danger" className="full-width-btn" onClick={handleDeleteUser}>Delete Account</Button>
                 </Col>
             </Row>
             <Row>

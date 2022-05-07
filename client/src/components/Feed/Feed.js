@@ -26,11 +26,11 @@ function Feed() {
     const navigate = useNavigate()
     const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
     const currentPost = useSelector((state) => state.currentPost)
+    const posts = useSelector((state) => state.posts)
 
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
     const [users, setUsers] = useState([])
-    const posts = useSelector((state) => state.posts)
 
     // -----Get New Posts On Scroll-------------------------------------------------------------------------------------
     const isLoading = useRef(false)

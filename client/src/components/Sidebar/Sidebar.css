@@ -1,0 +1,169 @@
+/* #EEEDFF */
+.Sidebar {
+    position: fixed;
+    left: 0;
+
+    background: var(--dark);
+    border-radius: 10px;
+    width: 225px;
+    height: calc(100vh - 20px) ;
+    padding: 10px;
+    margin: 10px 5px 10px 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+
+    transition: .1s;
+}
+
+/* -----Links----- */
+.Sidebar__links {
+    margin: 0 auto;
+}
+
+.Sidebar__link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 18px;
+    padding: 0px 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    transition: .1s ;
+}
+.Sidebar__link:hover {
+    background: var(--dark-darkened);
+}
+
+.Sidebar__link > div {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.Sidebar__link > div > svg {
+    color: var(--white);
+}
+
+.Sidebar__link > span {
+    color: var(--white);
+}
+
+.Sidebar__profile {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* -----Profile----- */
+.Sidebar__profile {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: flex-start
+}
+
+.Sidebar__profile__image {  
+    width: 75px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.Sidebar__profile__image > img {
+    width: 100%;
+}
+
+.Sidebar__profile__image > svg {
+    font-size: 18px;
+}
+
+.Sidebar__profile__name {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.Sidebar__profile__email {
+    color: var(--secondary);
+    font-size: 16px;
+}
+
+/* Bottom Links */
+.Sidebar__bottom-links {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.Sidebar__bottom-links button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Sidebar__bottom-link:first-of-type {
+    margin-right: 10px;
+}
+
+@media (max-width: 1000px) {
+    .Sidebar {
+        width: 75px;
+    }
+    .Sidebar__profile {
+        margin-bottom: 20px;
+    }
+    .Sidebar__profile__image {
+        width: 50px;
+    }
+    .Sidebar__profile__name,
+    .Sidebar__profile__email {
+        display: none;
+    }
+    .Sidebar__links {
+        margin: 0 auto;
+    }
+    .Sidebar__link {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .Sidebar__link > div {
+        margin-right: 0;
+    }
+    .Sidebar__link > div > svg {
+        font-size: 30px;
+    }
+    .Sidebar__link span {
+        display: none;
+    }
+    .Sidebar__bottom-links {
+        flex-direction: column;
+        align-content: flex-start;
+    }
+    .Sidebar__bottom-link {
+        margin: 0 auto !important;
+    }
+    .Sidebar__bottom-link button {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .Sidebar {
+        display: none;
+    }
+}

@@ -1,33 +1,35 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
-import { Routes, Route, useNavigate, Redirect, Navigate } from "react-router-dom";
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react'
+import { Routes, Route, useNavigate, Redirect, Navigate } from "react-router-dom"
 import Container from 'react-bootstrap/Container'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import './index.css'
 
-import TopNavbar from './components/TopNavbar/TopNavbar';
-import BottomNavbar from './components/BottomNavbar/BottomNavbar';
-import CurrentlyReading from './components/CurrentlyReading/CurrentlyReading';
+import TopNavbar from './components/TopNavbar/TopNavbar'
+import BottomNavbar from './components/BottomNavbar/BottomNavbar'
+import CurrentlyReading from './components/CurrentlyReading/CurrentlyReading'
 import Library from './components/Library/Library'
 import Challenge from './components/Challenge/Challenge'
 import Feed from './components/Feed/Feed'
-import AddBookForm from './components/CurrentlyReading/AddBookForm/AddBookForm';
-import EditBookForm from './components/CurrentlyReading/EditBookForm/EditBookForm';
-import LibraryForm from './components/Library/LibraryForm/LibraryForm';
-import Profile from './components/Profile/Profile';
-import Auth from './Auth/Auth';
-import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest';
-import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults';
-import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline';
-import PublicProfile from './components/Profile/PublicProfile/PublicProfile';
-import ViewPost from './components/Feed/ViewPost/ViewPost';
+import AddBookForm from './components/CurrentlyReading/AddBookForm/AddBookForm'
+import EditBookForm from './components/CurrentlyReading/EditBookForm/EditBookForm'
+import LibraryForm from './components/Library/LibraryForm/LibraryForm'
+import Profile from './components/Profile/Profile'
+import Auth from './Auth/Auth'
+import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest'
+import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults'
+import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline'
+import PublicProfile from './components/Profile/PublicProfile/PublicProfile'
+import ViewPost from './components/Feed/ViewPost/ViewPost'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo } from './actions/auth';
-import { getPosts } from './actions/posts';
-import { getBooks } from './actions/books';
-import currentPost from './reducers/currentPost';
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserInfo } from './actions/auth'
+import { getPosts } from './actions/posts'
+import { getBooks } from './actions/books'
+import { getNotifications } from './actions/notifications'
+import currentPost from './reducers/currentPost'
+import LargeTopNavbar from './components/LargeTopNavbar/LargeTopNavbar'
+import Sidebar from './components/Sidebar/Sidebar'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -58,53 +60,56 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getPosts(0))
+        dispatch(getBooks())
+        dispatch(getNotifications())
     }, [])
 
     useEffect(() => {
-        dispatch(getBooks())
     }, [])
 
     if (isLoading) return null
     if (user) {
         return (
             <div id='App'>
-                <Container className="main-container" xs={12}>
-                    <TopNavbar /><div style={{height: '60px'}}/>
-    
-                    <Routes >
-                        {/* Authentication */}
-                        <Route path='/profile' element={<Profile />}/>
-                        
-                        {/* Currently Reading */}
-                        <Route path='/' element={<CurrentlyReading />}/>
-                        <Route path='/add-book' element={<AddBookForm />}/>
-                        <Route path='/edit-book' element={<EditBookForm />}/>
-    
-                        {/* Library */}
-                        <Route path='/library' exact element={<Library />}/>
-                        <Route path='/library-form' exact element={<LibraryForm />}/>
-    
-                        {/* Challenge */}
-                        <Route path='/challenge' element={<Challenge />}/>
-                        <Route path='/reading-speed-test' element={<ReadingSpeedTest />}/>
-                        <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />}/>
-                        <Route path='/challenge/reading-deadline' element={<ReadingDeadline />}/>
-    
-                        {/* News Feed */}
-                        <Route path='/feed' element={<Feed />} />
-                        <Route path='/public-profile' element={<PublicProfile />} />
-                        <Route path='/view-post' element={<ViewPost />} />
-                    </Routes>
-    
-                    <div style={{height: '100px'}}/>
-                    <BottomNavbar />
-                </Container>
+                <Sidebar />
+                <TopNavbar />
+                <div className="main-container" xs={12}>
+                    <div className='main-content'>
+                        <Routes >
+                            {/* Authentication */}
+                            <Route path='/profile' element={<Profile />}/>
+                            
+                            {/* Currently Reading */}
+                            <Route path='/' element={<CurrentlyReading />}/>
+                            <Route path='/add-book' element={<AddBookForm />}/>
+                            <Route path='/edit-book' element={<EditBookForm />}/>
+        
+                            {/* Library */}
+                            <Route path='/library' exact element={<Library />}/>
+                            <Route path='/library-form' exact element={<LibraryForm />}/>
+        
+                            {/* Challenge */}
+                            <Route path='/challenge' element={<Challenge />}/>
+                            <Route path='/reading-speed-test' element={<ReadingSpeedTest />}/>
+                            <Route path='/reading-speed-test/results' element={<ReadingSpeedTestCompletion />}/>
+                            <Route path='/challenge/reading-deadline' element={<ReadingDeadline />}/>
+        
+                            {/* News Feed */}
+                            <Route path='/feed' element={<Feed />} />
+                            <Route path='/public-profile' element={<PublicProfile />} />
+                            <Route path='/view-post' element={<ViewPost />} />
+                            <Route path='/view-post/:id' element={<ViewPost />} />
+
+                        </Routes>
+                    </div>
+                </div>
+                <BottomNavbar />
             </div>
-        );
+        )
     } else {
         return <div style={{ width: '600px', margin: '300px, auto'}}><Auth /></div>
     }
     
-};
+}
 
-export default App;
+export default App
