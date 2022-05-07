@@ -31,6 +31,10 @@ export const fetchPost = async (req, res) => {
     }
 }
 
+export const fetchUsersPost = async (req, res) => {
+
+}
+
 export const fetchPosts = async (req, res) => {
     try {
         const userId = req.userId

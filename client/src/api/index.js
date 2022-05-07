@@ -38,7 +38,7 @@ export const fetchVisitedUserBooks = (userId) => api.post('/all-users/fetch-visi
 // Posts
 export const fetchPost = (data) => api.post('/posts/single-post', data)
 export const fetchPosts = (data) => api.post('/posts', data)
-export const createPost = (data) => api.post('/posts', data)
+export const fetchUsersPosts = () => api.get('/posts/users-posts')
 export const likePost = (data) => api.post('/posts/like-post', data)
 export const dislikePost = (data) => api.post('/posts/dislike-post', data)
 export const createComment = (data) => api.post('/posts/create-comment', data)

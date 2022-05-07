@@ -53,28 +53,26 @@ function CurrentlyReading() {
 
 
             <Row>
-                <Col lg={6} >
-                    <Row>
-                        <Col xs={12} className='d-flex justify-content-between'>
-                            <h4>Currently Reading</h4>
-                            <Link to="/add-book">
-                                <Button className='add-new-book-btn full-width-btn'><Icon icon={faPlus} /> Add New Book</Button>
-                            </Link>
-                        </Col>
-                        <Col xs={12}>
-                            {
-                                books.map((book) => {
-                                    if (!book.isCompleted) {
-                                        return <Link to={`/edit-book?id=${book._id}`} key={book._id} onClick={() => dispatch(setCurrentBook(book))}>
-                                            <CurrentlyReadingCard book={book} />
-                                        </Link>
-                                    }
-                                })
-                            }
-                        </Col>
-                    </Row>
+                <Col xs={12} className='d-flex '>
+                    <h4>Currently Reading</h4>
+                    <Link to="/add-book" style={{marginLeft: '10px'}}>
+                        <Button className='add-new-book-btn full-width-btn'><Icon icon={faPlus} /> Add New Book</Button>
+                    </Link>
                 </Col>
-                <Col lg={6} >
+                {
+                    books.map((book) => {
+                        if (!book.isCompleted) {
+                            return (
+                                <Col sm={12} lg={6} className='mb-3'>
+                                    <Link to={`/edit-book?id=${book._id}`} key={book._id} onClick={() => dispatch(setCurrentBook(book))}>
+                                        <CurrentlyReadingCard book={book} />
+                                    </Link>
+                                </Col>
+                            )
+                        }
+                    })
+                }
+                {/* <Col lg={6} >
                     <Row>
                         <Col xs={12} className='d-flex justify-content-between'>
                             <h4>Most Recent Post</h4>
@@ -83,7 +81,7 @@ function CurrentlyReading() {
                             Users Newest Post Here
                         </Col>
                     </Row>
-                </Col>
+                </Col> */}
             </Row>
 
             

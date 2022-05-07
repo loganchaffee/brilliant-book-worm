@@ -1,10 +1,11 @@
 .CurrentlyReadingCard {
-    margin-bottom: 10px;
+    height: 100%;
     transition: ease-in-out .1s;
 }
 .CurrentlyReadingCard:hover {
     transform: scale(1.01);
     z-index: 1;
+    box-shadow: 0px 0px 20px 0px rgba(128, 128, 128, 0.143);
 }
 
 .CurrentlyReadingCard__body {

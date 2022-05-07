@@ -1,14 +1,5 @@
 import * as api from '../api'
 
-export const createPost = (postData) => async (dispatch) => {
-    try {
-        const { data } = api.createPost(postData)
-        console.log(data);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export const getPosts = (postsLength) => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts({ postsLength })

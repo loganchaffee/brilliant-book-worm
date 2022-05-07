@@ -12,7 +12,6 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import './AddBookForm.css'
 import { createBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
-import { createPost } from '../../../actions/posts';
 import axios from 'axios';
 
 function AddBookForm() {
