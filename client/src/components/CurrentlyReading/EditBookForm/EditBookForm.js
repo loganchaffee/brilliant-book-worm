@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBook, deleteBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
-
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-import Form from 'react-bootstrap/esm/Form';
-import Button from 'react-bootstrap/esm/Button';
+import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-
+import { faAngleLeft, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment'
 import './EditBookForm.css'
 
 function EditBookForm() {
@@ -24,12 +18,14 @@ function EditBookForm() {
 
     const [formData, setFormData] = useState({
         title: '',
+        subtitle: '',
         author: '',
         publicationDate: '',
         numberOfPages: 0,
         currentPage: 60
     })
     const [previousCurrentPage, setPreviousCurrentPage] = useState(null)
+    const [showDeleteBtn, setShowDeleteBtn] = useState(false)
 
     useEffect(() => {
         setPreviousCurrentPage(currentBook.currentPage)
@@ -72,13 +68,19 @@ function EditBookForm() {
         navigate('/')
     }
 
+    const handleToggleDeleteBtn = () => setShowDeleteBtn(!showDeleteBtn)
+
     return (
         <Container className='EditBookForm'>
             <Row>
-                <Col xs={12}>
+                <Col xs={12} className='d-flex justify-content-between align-items-center EditBookForm__top-row'>
                     <Link to="/" className='back-arrow'>
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </Link>
+                    <div className='EditBookForm__top-row__right-side'>
+                        { showDeleteBtn && <Button variant='danger' className='EditBookForm__delete-book-btn' onClick={handleDelete}>Delete Book?</Button> }
+                        <FontAwesomeIcon className='more-btn' icon={faEllipsisH} onClick={handleToggleDeleteBtn} />
+                    </div>
                 </Col>
             </Row>
             <Row>
@@ -90,41 +92,33 @@ function EditBookForm() {
                 <Col xs={12}>
                     <Form className="main-form">
                         <Form.Group className="mb-3">
-                            <Form.Label>Title</Form.Label>
                             <Form.Control type="name" placeholder="Book Title" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Author</Form.Label>
+                            <Form.Control type="name" placeholder="Subtitle" value={formData.subtitle} onChange={(e) => setFormData({...formData, title: e.target.value})}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
                             <Form.Control type="name" placeholder="Author" value={formData.author} onChange={(e) => setFormData({...formData, author: e.target.value})}/>
                         </Form.Group>
-                        <Form.Group className="mb-3 date-of-publication-form-group">
-                            <Form.Label className="short-form-label">Date of Publication:</Form.Label>
-                            <Form.Control type="date" className="short-form-input" value={formData.publicationDate} onChange={(e) => setFormData({...formData, publicationDate: e.target.value})}/>
+                        <Form.Group className="mb-3 date-of-publication-form-group d-flex justify-content-between flex-wrap">
+                            <Form.Label style={{ width: 'calc(50% - 5px)'}} className="short-form-label">Publication Date:</Form.Label>
+                            <Form.Label style={{ width: 'calc(50% - 5px)'}} className="short-form-label">Number of Pages:</Form.Label>
+                            <Form.Control type="text" className="short-form-input" placeholder='Publication Date' value={formData.publicationDate} onChange={(e) => setFormData({...formData, publicationDate: e.target.value})}/>
+                            <Form.Control className="short-form-input" type="number" placeholder='Number of Page' value={formData.numberOfPages} onChange={(e) => setFormData({...formData, numberOfPages: e.target.value})}/>
                         </Form.Group>
-                        <Form.Group className="mb-3 num-of-pages-form-group">
-                            <Form.Label className="short-form-label">Number of Pages:</Form.Label>
-                            <Form.Control className="short-form-input" type="number" value={formData.numberOfPages} onChange={(e) => setFormData({...formData, numberOfPages: e.target.value})}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3 num-of-pages-form-group">
-                            <Form.Label className="short-form-label">Current Page:</Form.Label>
+                        <Form.Group className="mb-3 date-of-publication-form-group d-flex justify-content-between flex-wrap">
+                            <Form.Label style={{ width: 'calc(50% - 5px)'}} className="short-form-label">Current Page:</Form.Label>
+                            <Form.Label style={{ width: 'calc(50% - 5px)'}} className="short-form-label">Deadline:</Form.Label>
                             <Form.Control className="short-form-input" type="number" value={formData.currentPage} onChange={(e) => setFormData({...formData, currentPage: e.target.value})}/>
+                            <Form.Control disabled className="short-form-input" value={ currentBook.deadline ? moment(currentBook.deadline).format('MMM Do') : 'None' } />
                         </Form.Group>
-                        {currentBook.deadline && <Form.Group className="mb-3 num-of-pages-form-group">
-                            <Form.Label className="short-form-label">Deadline:</Form.Label>
-                            <Form.Label className="short-form-label">
-                                {new Date(currentBook.deadline).getDate()}/
-                                {new Date(currentBook.deadline).getMonth()}/
-                                {new Date(currentBook.deadline).getFullYear()}
-                            </Form.Label>
-                        </Form.Group>}
                     </Form>
                 </Col>
             </Row>
             <Row>
-                <Col xs={12}>
-                    <Button variant="outline-primary" className='full-width-btn' onClick={handleSubmit}>Update Book Details</Button>
-                    <Button variant="outline-success" className='full-width-btn' onClick={handleCompleteBook}>Complete Book</Button>
-                    <Button variant="outline-danger" className='full-width-btn delete-btn' onClick={handleDelete}>Delete Book</Button>
+                <Col xs={12} className='EditBookForm__bottom-row'>
+                    <Button variant="success" className='full-width-btn' onClick={handleCompleteBook}>Complete Book</Button>
+                    <Button variant="primary" className='full-width-btn' onClick={handleSubmit}>Update Book Details</Button>
                 </Col>
             </Row>
         </Container>

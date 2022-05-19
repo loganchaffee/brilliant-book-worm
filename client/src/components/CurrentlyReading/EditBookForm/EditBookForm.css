@@ -1,0 +1,28 @@
+.EditBookForm {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.EditBookForm__top-row__right-side {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.EditBookForm__delete-book-btn {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0 10px 0 0;
+}
+
+.EditBookForm__bottom-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.EditBookForm__bottom-row > button {
+    width: fit-content;
+    margin-left: 10px;
+}

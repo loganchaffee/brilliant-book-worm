@@ -3,13 +3,18 @@ import { useSelector } from 'react-redux';
 import { Card, ProgressBar}  from 'react-bootstrap'
 import { timeSince } from './utils';
 import './LastReadingWidget.css'
+import moment from 'moment'
 
 const LastReadingWidget = () => {
     const user = useSelector((state) => state.auth)
 
     const [lastReading, setLastReading] = useState(0)
 
-    useEffect(() => setLastReading(timeSince(new Date(user.dateOfLastReading).getTime())), [user.dateOfLastReading])
+    useEffect(() => {
+        let a = moment()
+        let b = moment(user.dateOfLastReading)
+        setLastReading(a.diff(b, 'days'))
+    }, [user.dateOfLastReading])
 
     return (
         <div className='Dashboard__card LastReadingWidget'>
@@ -18,8 +23,8 @@ const LastReadingWidget = () => {
             </div>
 
             <div className='d-flex justify-content-between'>
-                <span>{lastReading} Ago</span>
-                <span>{new Date(user.dateOfLastReading).toDateString()}</span>
+                <span>{lastReading} {lastReading > 1 ? 'days': 'day'} Ago</span>
+                <span>{moment(user.dateOfLastReading).format('MMM Do')}</span>
             </div>
         </div>
     )

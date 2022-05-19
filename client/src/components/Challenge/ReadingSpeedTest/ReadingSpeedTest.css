@@ -1,0 +1,40 @@
+.ReadingSpeedTest {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ReadingSpeedTest__paper {
+    font-size: 14px;
+    height: auto;
+    padding: 20px;
+    background: var(--white);  
+    box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.ReadingSpeedTest__paper::before, 
+.ReadingSpeedTest__paper::after {
+    content: "";
+    height: 2px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-clip-path: polygon(
+        0% 0%, 5%  100%, 10% 0%, 15%  100%, 
+        20% 0%, 25% 100%, 30% 0%, 35%  100%,
+        40% 0%, 45%  100%, 50% 0%, 55%  100%, 
+        60% 0%, 65%  100%, 70% 0%, 75%  100%, 
+        80% 0%, 85%  100%, 90% 0%, 95%  100%, 
+        100% 0%
+    );
+}
+
+.ReadingSpeedTest__paper::before {
+    background-color: var(--light);
+    top: 0;
+}
+.ReadingSpeedTest__paper::after {
+    background-color: var(--white);
+    bottom: -2px;
+}

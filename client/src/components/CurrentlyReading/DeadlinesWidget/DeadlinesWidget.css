@@ -1,0 +1,3 @@
+.DeadlinesWidget > div:last-child > div {
+    margin-bottom: 10px;
+}

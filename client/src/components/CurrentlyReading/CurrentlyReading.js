@@ -35,7 +35,7 @@ function CurrentlyReading() {
         <div className='CurrentlyReading'>
             <Row>
                 <Col xs={12} className='page-heading'>
-                    <h3>Dashboard</h3>
+                    <h1>Dashboard</h1>
                     <p>Welcome, {user.name}</p>
                 </Col>
             </Row>
@@ -51,9 +51,8 @@ function CurrentlyReading() {
                 </Col>
             </Row>
 
-
             <Row>
-                <Col xs={12} className='d-flex '>
+                <Col xs={12} className='d-flex justify-content-between'>
                     <h4>Currently Reading</h4>
                     <Link to="/add-book" style={{marginLeft: '10px'}}>
                         <Button className='add-new-book-btn full-width-btn'><Icon icon={faPlus} /> Add New Book</Button>
@@ -83,9 +82,6 @@ function CurrentlyReading() {
                     </Row>
                 </Col> */}
             </Row>
-
-            
-            
         </div>
     );
 }

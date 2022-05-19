@@ -11,7 +11,7 @@
 }
 
 .short-form-input {
-    width: 50%;
+    width: calc(50% - 5px);
 }
 
 .date-of-publication-form-group,

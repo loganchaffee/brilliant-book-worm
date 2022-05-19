@@ -75,7 +75,7 @@ const App = () => {
                 <TopNavbar />
                 <div className="main-container" xs={12}>
                     <div className='main-content'>
-                        <Routes >
+                        <Routes>
                             {/* Authentication */}
                             <Route path='/profile' element={<Profile />}/>
                             

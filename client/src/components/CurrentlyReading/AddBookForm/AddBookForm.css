@@ -1,0 +1,70 @@
+.AddBookForm {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.AddBookForm input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid var(--bs-gray-300);
+}
+
+.AddBookForm__thumbnail-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.AddBookForm__thumbnail {
+    display: flex;
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    margin-top: 10px;
+    border: 1px solid var(--light-darkened);
+    border-radius: 5px;
+}
+
+.AddBookForm__thumbnail-icon {
+    margin-top: 10px;
+    font-size: 50px;
+    color: var(--secondary);
+}
+
+.AddBookForm__results {
+    position: absolute;
+    width: 100%;
+    background: var(--white);
+    color: var(--dark);
+    padding: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transform: translateY(-0px);
+}
+
+.AddBookForm__result {
+    cursor: pointer;
+}
+
+.AddBookForm__result:hover {
+    background: var(--light);
+}
+
+.AddBookForm__result > img {
+    border: 1px solid var(--bs-gray-300);
+    border-radius: 5px;
+}
+
+.AddBookForm__result > div > p:first-child {
+    color: var(--dark);
+}
+
+.AddBookForm__result > div > p:last-child {
+    color: var(--secondary-darkened);
+}
+
+.no-bottom-border-radius {
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}

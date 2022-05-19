@@ -7,11 +7,6 @@
     min-height: 100vh;
     height: fit-content;
     margin: 0 auto;
-    background: var(--light);
-}
-
-.flex {
-    display: flex;
 }
 
 .main-container {
@@ -23,8 +18,10 @@
 .main-content {
     width: 100%;
     max-width: 1600px;
-    height: calc(100vh - 20px);
+    /* height: calc(100vh - 20px); */
     margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .TopNavbar__content,
@@ -32,14 +29,11 @@
     max-width: 600px;
 }
 
-.back-arrow {
-    font-size: 30px;
-    color: var(--bs-primary);
-}
+
 
 .ellipsis-btn {
     font-size: 30px;
-    color: var(--bs-secondary);
+    color: var(--secondary);
 }
 
 .full-width-btn {
@@ -60,15 +54,10 @@ button {
 }
 
 .main-form {
-    background: var(--bs-gray-200);
-    padding: 10px;
+    color: var(--secondary-darkened);
+    font-weight: 500;
     border-radius: 5px;
     margin-bottom: 10px;
-}
-
-.main-form {
-   color: var(--bs-secondary);
-   font-weight: 500;
 }
 
 .isHidden {
@@ -78,6 +67,7 @@ button {
 .page-heading > p {
     color: var(--secondary);
 }
+
 
 @media (max-width: 1000px) {
     .main-container {

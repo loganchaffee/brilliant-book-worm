@@ -7,9 +7,11 @@
     --main-serif-font: 'Lora', serif;
 
     --primary: #8b17ff;
-    --primary-darkened: #8116ed;
+    --primary-darkened: #6e11cb;
     --secondary: #B1A8B9;
     --secondary-darkened: #6d6772;
+    --success: #4FAF44;
+    --success-darkened: #419238;
     --warning: #FFC33F;
     --warning-darkened: #d3a134;
     --info: #00a2ff;
@@ -23,6 +25,10 @@
     --white: #fff;
 }
 
+body {
+    background: var(--light);
+}
+
 .bg-primary {
     background-color: var(--primary) !important;
 }
@@ -34,6 +40,7 @@
 .btn:focus {
     box-shadow: none !important;
     outline: none !important;
+    border-radius: 10px;
 }
 
 .btn-primary {
@@ -42,6 +49,39 @@
 }
 .btn-primary:hover {
     background: var(--primary-darkened);
+}
+.btn-primary:active {
+    background: var(--primary) !important;
+    border: var(--primary);
+}
+
+.btn-warning {
+    background: var(--warning);
+    border: var(--warning);
+    color: white;
+}
+.btn-warning:hover {
+    background: var(--warning-darkened);
+}
+
+.btn-success {
+    background: var(--success);
+    border: var(--success);
+}
+.btn-success:hover {
+    background: var(--success-darkened);
+}
+
+.back-arrow {
+    color: var(--primary);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.more-btn {
+    color: var(--secondary-darkened);
+    font-size: 30px;
+    cursor: pointer;
 }
 
 /* -----Icons----- */
@@ -85,5 +125,26 @@ body {
 
 a,
 a:hover {
+    color: var(--dark);
+}
+
+.border-bottom-white {
+    border-bottom: 1px solid white;
+}
+
+.form-control,
+.form-control:active,
+.form-control:focus {
+    background: var(--white) !important;
+    border: none !important;
+    border-radius: 10px;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.form-control::placeholder {
+    color: var(--secondary);
+}
+.form-control:focus[type=text] {
     color: var(--dark);
 }

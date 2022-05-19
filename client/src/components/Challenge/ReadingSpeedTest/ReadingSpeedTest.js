@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Modal from 'react-bootstrap/esm/Modal';
 import Alert from 'react-bootstrap/esm/Alert';
 import Button from 'react-bootstrap/esm/Button';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faLeaf } from '@fortawesome/free-solid-svg-icons'
-
 import './ReadingSpeedTest.css'
 import { getBookExcerpt } from '../../../api/index'
 import { updateWpm } from '../../../actions/wpm'
+import './ReadingSpeedTest.css'
 
 function ReadingSpeedTest() {
     const dispatch = useDispatch()
@@ -64,7 +62,7 @@ function ReadingSpeedTest() {
     return (
         <Container className='ReadingSpeedTest'>
             <Row>
-                <Col xs={12}>
+                <Col xs={12} md={12}>
                     <Link to="/challenge" className='back-arrow' onClick={() => clearInterval(timerDetails.id)}>
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </Link>
@@ -73,42 +71,27 @@ function ReadingSpeedTest() {
             <Row>
                 <Col xs={12}>
                     <h3>Reading Speed Test</h3>
+                    <h5>Instructions:</h5>
+                    <p>Press start to reveal the book excerpt and start the timer. Read the text at your fastest speed while still comprehending.</p>
+                    {
+                        !timerDetails.hasStarted 
+                        &&
+                        <Button variant='primary' onClick={handleStart}>Start</Button>
+                    }
+                    {
+                        timerDetails.hasStarted 
+                        &&
+                        <div className='ReadingSpeedTest__paper'>
+                            { timerDetails.hasStarted && <p>{text}</p> }
+                        </div>
+                    }
+                    {
+                        timerDetails.hasStarted 
+                        &&
+                        <Button variant='success' onClick={handleFinish}>Finish</Button>
+                    }
                 </Col>
             </Row>
-            <Row>
-                <Col xs={12}>
-                   <p><strong>Instructions:</strong></p>
-                   <p>Press start to reveal the book excerpt and start the timer. Read the text at your fastest speed while still comprehending.</p>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12}>
-                    <Button variant='primary' className='full-width-btn' onClick={handleStart}>Start</Button>
-                </Col>
-            </Row>
-            {
-                timerDetails.hasStarted && <>
-                    <Row>
-                        <Col xs={12}>
-                            <p>{text}</p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={12}>
-                            <Button variant='success' className='full-width-btn' onClick={handleFinish}>Finish</Button>
-                        </Col>
-                    </Row>
-                </>
-            }
-            {
-                timerDetails.hasEnded && <Row>
-                    <Col xs={12}>
-                        <Alert variant="success">Total Time: {Math.round(timerDetails.totalTime / 60)}:{timerDetails.totalTime % 60 < 10 && 0}{timerDetails.totalTime % 60}. {wpm} words per minute. {'\n'} Saved to your profile.</Alert>
-                    </Col>
-                </Row>
-            }
-           
-
         </Container>
     );
 }
