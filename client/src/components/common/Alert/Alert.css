@@ -1,0 +1,47 @@
+/* -----Default----- */
+.alert {
+    background: var(--white);
+    color: var(--primary-darkened);
+    padding: 10px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+    border: none;
+}
+
+.alert .line {
+    background: var(--primary);
+    width: 5px;
+    height: 100%;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.alert svg:first-of-type {
+    font-size: 20px;
+    color: var(--primary);
+    margin-right: 10px;
+}
+
+.alert svg:last-of-type {
+    font-size: 20px;
+    color: var(--secondary);
+    margin-right: 10px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+
+/* -----Variants----- */
+.alert-success {  color: var(--success-darkened) }
+.alert-success .line { background: var(--success) }
+.alert-success svg:first-of-type { color: var(--success) }
+
+.alert-warning {  color: var(--warning-darkened) }
+.alert-warning .line { background: var(--warning) }
+.alert-warning svg:first-of-type { color: var(--warning) }
+
+.alert-danger {  color: var(--danger) }
+.alert-danger .line { background: var(--danger) }
+.alert-danger svg:first-of-type { color: var(--danger) }

@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-import Alert from 'react-bootstrap/esm/Alert';
-import Button from 'react-bootstrap/esm/Button';
-import Form from 'react-bootstrap/esm/Form';
-
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import Alert from '../../common/Alert/Alert';
 import Calendar from 'react-calendar';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faLeaf } from '@fortawesome/free-solid-svg-icons'
-
+import { faAngleLeft, faCheckCircle, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import { getBooks, updateBook } from '../../../actions/books'
 import { setCurrentBook } from '../../../actions/currentBook';
-
 import 'react-calendar/dist/Calendar.css';
 import './ReadingDeadline.css';
 
@@ -39,7 +30,6 @@ const ReadingDeadline = () => {
 
 
     const handleSubmit = () => {
-
         if (selectedBookId && calendarValue) {
             const deadline = calendarValue
             dispatch(updateBook(selectedBookId, { ...selectedBook, deadline: deadline }, setAlertMessage))
@@ -47,7 +37,7 @@ const ReadingDeadline = () => {
     }
 
     return (
-        <Container>
+        <div className='ReadingDeadline'>
             <Row>
                 <Col xs={12}>
                     <Link to="/challenge" className='back-arrow'>
@@ -65,7 +55,7 @@ const ReadingDeadline = () => {
                     <Form className="mb-3 main-form">
                         <Form.Group className="mb-3">
                             <Form.Label>Select Book</Form.Label>
-                            <Form.Select aria-label="Default select example" value={selectedBookId} onChange={(e) => setSelectedBookId(e.target.value)}>
+                            <Form.Select className='ReadingDeadline__select' aria-label="Default select example" value={selectedBookId} onChange={(e) => setSelectedBookId(e.target.value)}>
                                 <option value={null} />
                                 {
                                     books.map((book, index) => {
@@ -79,14 +69,30 @@ const ReadingDeadline = () => {
                        
                         <Form.Group>
                             <Form.Label>Select Deadline</Form.Label>
-                            <Calendar className='ReadingDeadline__calendar' calendarType="US" minDate={new Date()} onChange={setCalendarValue} value={calendarValue} />
+                            <Calendar
+                                className='ReadingDeadline__calendar' 
+                                calendarType="US" 
+                                minDate={new Date()} 
+                                onChange={setCalendarValue}
+                                value={calendarValue}
+                            />
                         </Form.Group>
                     </Form>
-                    <Button className="full-width-btn" onClick={handleSubmit}>Set Deadline</Button>
-                    { alertMessage && <Alert variant='success'>{alertMessage}</Alert> }
+                    { 
+                        selectedBookId && calendarValue
+                        ?
+                        <div className='d-flex justify-content-end'><Button className='ReadingDeadline__submit' onClick={handleSubmit}>Set Deadline</Button></div>
+                        :
+                        undefined
+                    }
+                    { 
+                        alertMessage 
+                        &&
+                        <Alert variant='success' content={alertMessage} onClose={() => setAlertMessage('')} />
+                    }
                 </Col>
             </Row>
-        </Container>
+        </div>
     )
 }
 

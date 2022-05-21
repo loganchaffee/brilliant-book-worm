@@ -11,11 +11,13 @@
     --secondary: #B1A8B9;
     --secondary-darkened: #6d6772;
     --success: #4FAF44;
-    --success-darkened: #419238;
+    --success-darkened: #3e8a35;
+    --success-lightened: #a8ff9e;
     --warning: #FFC33F;
     --warning-darkened: #d3a134;
     --info: #00a2ff;
     --danger: #E30000;
+    --dange-darkened: #bd0000;
     --light: #f0f0f0;
     --light-darkened: #d9d9d9;
     --dark: #3f3f3f;
@@ -50,9 +52,10 @@ body {
 .btn-primary:hover {
     background: var(--primary-darkened);
 }
-.btn-primary:active {
-    background: var(--primary) !important;
-    border: var(--primary);
+.btn-primary:active,
+.btn-primary:focus {
+    background: var(--primary-darkened) !important;
+    border: var(--primary-darkened);
 }
 
 .btn-warning {
@@ -142,9 +145,25 @@ a:hover {
     outline: none !important;
 }
 
+select {
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+select:active,
+select:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .form-control::placeholder {
     color: var(--secondary);
 }
 .form-control:focus[type=text] {
     color: var(--dark);
 }
+
+.box-shadow {
+    box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+}
+

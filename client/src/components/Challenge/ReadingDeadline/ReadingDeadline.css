@@ -1,23 +1,71 @@
+.ReadingDeadline {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ReadingDeadline__select {
+    cursor: pointer;
+}
+
 .ReadingDeadline__calendar {
     width: 100%;
-    /* max-width: 450px; */
     padding: 20px;
     margin: 0 auto;
-    border: 1px solid var(--bs-gray-300);
+    border: none;
+    border-radius: 10px;
+}
+.react-calendar__month-view__days {
     border-radius: 5px;
+    overflow: hidden;
 }
 .ReadingDeadline__calendar button {
     border-radius: 5px;
+    cursor: pointer;
 }
 .react-calendar__tile--now {
-    background: var(--bs-gray-300);
+    background: var(--secondary);
+    color: var(--white);
 }
 .react-calendar__tile--now {
-    background: var(--bs-gray-300);
+    background: var(--secondary);
 }
 .react-calendar__tile:hover {
-    background: var(--bs-gray-300) !important;
+    background: var(--primary-darkened) !important;
+    color: var(--white) !important;
 }
 .react-calendar__tile--active {
     background: var(--primary) !important;
+    color: var(--white) !important;
 }
+.ReadingDeadline__calendar button:disabled {
+    border-radius: 0;
+    background: var(--light);
+    color: var(--light-darkened);
+    cursor: default;
+}
+
+.ReadingDeadline__calendar button:disabled:hover {
+    background: var(--light) !important;
+    color: var(--light-darkened) !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: var(--primary);
+}
+
+.react-calendar__navigation__arrow {
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--warning);
+    border-radius: 5px;
+}
+
+.react-calendar__navigation__arrow:disabled {
+    background: var(--white) !important;
+}
+
+.ReadingDeadline__submit {
+    display: inline;
+    margin-left: auto;
+}
+

@@ -7,20 +7,22 @@ const LevelUp = () => {
     const user = useSelector((state) => state.auth)
 
     const [nextLevelPoints, setNextLevelPoints] = useState('')
+    const [previousLevelPoints, setPreviousLevelPoints] = useState('')
 
     useEffect(() => {
         if (user.points < 1000) {
             setNextLevelPoints(1000)
-        } else if (user.points >= 2500) {
+            setPreviousLevelPoints(0)
+        } else if (user.points <= 2500) {
             setNextLevelPoints(2500)
-        } else if (user.points >= 5000) {
+            setPreviousLevelPoints(1000)
+        } else if (user.points < 5000) {
             setNextLevelPoints(5000)
+            setPreviousLevelPoints(2500)
         }
     }, [user.points])
 
-
-    console.log(user.points / nextLevelPoints);
-    
+    console.log();
 
     return (
         <div className='Dashboard__level Dashboard__card'>
@@ -37,9 +39,9 @@ const LevelUp = () => {
             </div>
             <div className='d-flex justify-content-between'>
                 <span>Next Level At:</span>
-                <span>{nextLevelPoints} points</span>
+                <span>{nextLevelPoints} Points</span>
             </div>
-            <ProgressBar variant='warning' now={(user.points / nextLevelPoints) * 100} />
+            <ProgressBar variant='warning' now={((user.points - previousLevelPoints) / (nextLevelPoints - previousLevelPoints)) * 100} />
         </div>
     )
 }
