@@ -20,7 +20,6 @@ const Post = ({ post }) => {
     const [days, setDays] = useState([])
     const [postDate, setPostDate] = useState('')
 
-
     useEffect(() => {
         setPostDate(`${months[new Date(post.createdAt).getMonth()]} ${new Date(post.createdAt).getDate()}`)
     }, [])
@@ -51,7 +50,6 @@ const Post = ({ post }) => {
     return (
         <Card className="Post">
             <Card.Body>
-                {/* User Details */}
                 <div className='Post__user-details'>
                     <div className='Post__profile-image-container'>
                         <img src={post?.createdBy?.profileImage} />
@@ -64,15 +62,24 @@ const Post = ({ post }) => {
                         <p>{postDate}</p>
                     </div>
                 </div>
-                {/* Action */}
-                <div className='Post__action'>
-                    <p>{post?.action}</p>
+
+                <div className='d-flex mb-10'>
+                    <div className='Post__book'>
+                        {
+                            post.book.thumbnail
+                            ?
+                            <img src={post.book?.thumbnail} className='Post__book__thumbnail'/>
+                            :
+                            <I icon={faBook} className='Post__book__thumbnail'/>
+                        }
+                    </div>
+                    <div className='Post__content'>
+                        <p className='Post__content__action'>{post?.action}</p>
+                        <p className='CurrentlyReadingCard__title'>{post.book?.title}</p>
+                        { post.book.subtitle && <p className='CurrentlyReadingCard__subtitle'>{post.book?.subtitle}</p> }
+                    </div>
                 </div>
-                {/* Book */}
-                <div className='Post__book'>
-                    <I icon={faBook} style={{color: 'var(--bs-gray-500)', fontSize: "40px"}}/>
-                    <h4>{post.book?.title}</h4>
-                </div>
+                
                 {/* Review */}
                 {window.location.pathname === '/view-post' && <div><p className='mt-2'>{post?.book?.review}</p></div>}
                 {/* Footer */}
@@ -80,9 +87,7 @@ const Post = ({ post }) => {
                     { 
                         post.action === 'Just wrote a review for' && window.location.pathname === '/feed'
                         ? 
-                        <div style={{ margin: '0 auto 0 0'}} onClick={() => handleSelectPost(post)}>
-                            <p style={{ margin: '5px auto 0 0'}}>Read Review <I icon={faAngleRight} /></p>
-                        </div>
+                        <div className='read-review-btn'><span onClick={() => handleSelectPost(post)}>Read Review <I icon={faAngleRight}/></span></div>
                         :
                         undefined
                     }

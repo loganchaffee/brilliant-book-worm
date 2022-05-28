@@ -38,25 +38,27 @@ function CurrentlyReadingCard({book}) {
     }, [books])
     
     return (
-        <Card className='CurrentlyReadingCard'>
+        <Card className='CurrentlyReadingCard box-shadow'>
 
             <Card.Body className="CurrentlyReadingCard__body">
                 <Col xs={2} className='CurrentlyReadingCard__book-icon-container'>
                     <img src={thumbnail} style={{width: '100%', height: 'fit-content', borderRadius: '5px'}}/>
                 </Col>
                 <Col xs={10}>
-                    <div style={{marginLeft: '10px'}}>
+                    <div className='CurrentlyReadingCard__body-right' >
                         <p className='CurrentlyReadingCard__title'>{title}</p>
-                        <p className='CurrentlyReadingCard__title'>{subtitle}</p>
-                        <p className='CurrentlyReadingCard__subtitle'>By {author}</p>
-                        { isFinite(hours) || isFinite(minutes) ? <p className='CurrentlyReadingCard__time'>Completion Time: {`${hours}h ${minutes}m`}</p> : undefined }
-                        <div className='CurrentlyReadingCard__pages-container'>
-                            <div className="CurrentlyReadingCard__pages-col">
-                                <p className='CurrentlyReadingCard__pages'>Page: {`${currentPage} / ${numberOfPages}`}</p>
+                        <p className='CurrentlyReadingCard__subtitle'>{subtitle}</p>
+                        <p className='CurrentlyReadingCard__author'>By {author}</p>
+                        <div className='CurrentlyReadingCard__bottom-section'>
+                            { isFinite(hours) || isFinite(minutes) ? <p className='CurrentlyReadingCard__time'>Completion Time: {`${hours}h ${minutes}m`}</p> : undefined }
+                            <div className='CurrentlyReadingCard__pages-container'>
+                                <div className="CurrentlyReadingCard__pages-col">
+                                    <p className='CurrentlyReadingCard__pages'>Page: {`${currentPage} / ${numberOfPages}`}</p>
+                                </div>
+                                <Col>
+                                    <ProgressBar variant='warning' now={book.currentPage / book.numberOfPages * 100} className='CurrentlyReadingCard__ProgressBar'/>
+                                </Col>
                             </div>
-                            <Col>
-                                <ProgressBar variant='warning' now={book.currentPage / book.numberOfPages * 100} className='CurrentlyReadingCard__ProgressBar'/>
-                            </Col>
                         </div>
                     </div>
                 </Col>

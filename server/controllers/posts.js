@@ -19,7 +19,7 @@ export const fetchPost = async (req, res) => {
     try {
         const post = await Post.findById(req.body.id)
         .populate('createdBy', 'name level profileImage')
-        .populate('book', 'title author review')
+        .populate('book', 'title author review thumbnail')
         .populate('createdAt')
         .populate('comments')
         .populate('comments.createdBy', 'name level')
@@ -43,7 +43,7 @@ export const fetchPosts = async (req, res) => {
         const following = user.following
         if (user.following.length <= 0) return res.status(200)
 
-        const limit = 9
+        const limit = 5
         const startIndex = Number(req.body.postsLength)
         const totalPosts = await Post.countDocuments({ "createdBy" : { $in : following } })
 
@@ -54,7 +54,7 @@ export const fetchPosts = async (req, res) => {
         const posts = await Post.find({ "createdBy" : { $in : following } })
         .sort({ createdAt: -1 })
         .populate('createdBy', 'name level profileImage')
-        .populate('book', 'title author review')
+        .populate('book', 'title subtitle author review thumbnail')
         .populate('createdAt')
         .populate('comments')
         .populate('comments.createdBy', 'name level')

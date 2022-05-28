@@ -1,0 +1,95 @@
+.UserDetails {
+    margin-bottom: 25px;
+}
+
+.UserDetails__credentials {
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.profile-image-container {
+    width: 65px;
+    height: 65px;
+    font-size: 45px;
+    color: var(--dark);
+    
+    border: 1px solid var(--secondary);
+    border-radius: 50%;
+    margin-right: 10px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.profile-image-container:hover {
+    transform: scale(1.1);
+}
+
+.profile-name-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-name {
+    color: var(--secondary-darkened);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;    
+}
+
+.profile-level-1,
+.profile-level-2,
+.profile-level-3,
+.profile-level-4 {
+    width: fit-content;
+    font-size: 14px;
+    background: var(--success);;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 25px;
+}
+.profile-level-2 {
+    background: var(--warning);
+}
+.profile-level-3 {
+    background: var(--danger);
+}
+.profile-level-4 {
+    background: var(--black);
+}
+
+.profile-more-btn {
+    font-size: 25px;
+    color: var(--secondary-darkened);
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    position: absolute;
+    background: var(--white);
+    width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+    right: 35px;
+}
+
+.profile-dropdown button:last-of-type {
+    margin-bottom: 0;
+}
+
+.UserDetails__form label {
+    width: 120px;
+    margin: 0 5px 0 0;
+}
+
+.UserDetails__form input {
+    flex: 1;
+}

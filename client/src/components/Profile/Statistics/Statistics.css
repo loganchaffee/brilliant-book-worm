@@ -1,0 +1,26 @@
+.Statistics {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.Statistics > div > div > p {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 50px;
+}  
+
+.Statistics > div > div:nth-child(even) > p {
+    justify-content: flex-end;
+}  
+
+.Statistics > div > div > p > svg {
+    font-size: 25px;
+    margin-right: 10px;
+}  
+
+.Statistics > :nth-child(even) {
+    background: var(--light);
+}

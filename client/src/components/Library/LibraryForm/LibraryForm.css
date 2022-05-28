@@ -1,20 +1,28 @@
 .LibraryForm__star {
-    font-size: 30px;
+    font-size: 20px;
+    transition: .1s ease-in-out;
 }
+
 .LibraryForm__star:hover {
-    font-size: 30px;
+    margin-top: -5px;
+    font-size: 25px;
     color: var(--bs-warning) !important;
     cursor: pointer;
 }
 
 .LibraryForm__textarea {
-    min-height: 100px !important;
+    min-height: 300px !important;
+    padding: 10px;
+}
+
+.LibraryForm__title {
+    margin-bottom: 0;
 }
 
 .LibraryForm__subtitle {
     font-size: 16px;
     color: var(--bs-secondary);
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .LibraryForm__section-title {
@@ -26,4 +34,8 @@
 .LibraryForm__ellipsis-btn-container {
     display: flex;
     justify-content: flex-end;
+}
+
+.ellipsis-btn {
+    color: var(--secondary-darkened);
 }

@@ -21,7 +21,6 @@
     /* height: calc(100vh - 20px); */
     margin: 0 auto;
     border-radius: 10px;
-    overflow: hidden;
 }
 
 .TopNavbar__content,

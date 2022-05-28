@@ -1,17 +1,22 @@
 .CurrentlyReadingCard {
     height: 100%;
     transition: ease-in-out .1s;
+    border: none;
+    display: flex;
+    flex-direction: column;
 }
 .CurrentlyReadingCard:hover {
     transform: scale(1.01);
     z-index: 1;
-    box-shadow: 0px 0px 20px 0px rgba(128, 128, 128, 0.143);
+    box-shadow: 0 5px 7px rgba(0,0,0,0.05);
+
 }
 
 .CurrentlyReadingCard__body {
     display: flex;
 }
 
+/* Body left */
 .CurrentlyReadingCard__book-icon-container {
     display: flex;
 }
@@ -19,7 +24,16 @@
 .CurrentlyReadingCard__book-icon {
     font-size: 40px;
     margin-top: 3px;
-    color: var(--bs-info);
+    color: var(--secondary-darkened);
+}
+
+/* Body Right */
+.CurrentlyReadingCard__body-right {
+    height: 100%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .CurrentlyReadingCard__title {
@@ -29,9 +43,22 @@
 }
 
 .CurrentlyReadingCard__subtitle {
-    font-size: 12px;
-    color: var(--bs-secondary);
+    font-size: 14px;
+    margin: 0;
 }
+
+.CurrentlyReadingCard__author {
+    font-size: 12px;
+    color: var(--secondary-darkened);
+    margin: 0;
+}
+
+/* Body Right Bottom */
+
+.CurrentlyReadingCard__bottom-section {
+    margin-top: auto;
+}
+
 
 .CurrentlyReadingCard__time {
     font-size: 12px;
@@ -50,7 +77,7 @@
 .CurrentlyReadingCard__pages {
     font-size: 10px;
     margin: 0;
-    color: var(--bs-secondary);
+    color: var(--secondary-darkened);
 }
 
 .CurrentlyReadingCard__ProgressBar {

@@ -1,0 +1,31 @@
+.FollowersSection {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.FollowersSection__subtitle {
+    font-weight: 500;
+    color: var(--secondary-darkened);
+}
+
+.FollowersSection__user {
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+}
+
+.FollowersSection__user > svg {
+    font-size: 16px;
+}
+
+.FollowersSection__user:hover {
+    color: var(--primary-darkened);
+}
+
+.FollowersSection-show-more-btn {
+    color: var(--secondary);
+    text-decoration: underline;
+    cursor: pointer;
+}

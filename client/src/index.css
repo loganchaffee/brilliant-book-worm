@@ -25,6 +25,11 @@
 
     --black: #000;
     --white: #fff;
+
+    --level-1: #4FAF44;
+    --level-2: #FFC33F;
+    --level-3: #E30000;
+    --level-4: #8b17ff;
 }
 
 body {
@@ -143,6 +148,7 @@ a:hover {
     border-radius: 10px;
     box-shadow: none !important;
     outline: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
 
 select {
@@ -167,3 +173,12 @@ select:focus {
     box-shadow: 0 3px 5px rgba(0,0,0,0.05);
 }
 
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+    border-radius: 10px;
+}

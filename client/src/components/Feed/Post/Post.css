@@ -2,7 +2,8 @@
     margin-bottom: 10px;
 }
 
-/* Header */
+/* --------------------Header-------------------- */
+
 .Post__header {
     margin-bottom: 10px;
 }
@@ -10,7 +11,7 @@
 .Post__user-details {
     display: flex;
     margin-bottom: 10px;
-    border-bottom: 1px solid var(--bs-gray-200);
+    border-bottom: 1px solid var(--light);
 }
 
 .Post__user-cred {
@@ -24,7 +25,7 @@
 .Post__time {
     margin-left: auto;
     font-size: 12px;
-    color: var(--bs-gray-500);
+    color: var(--secondary);
 }
 
 .Post__level-1,
@@ -33,19 +34,19 @@
 .Post__level-4 {
     width: fit-content;
     font-size: 12px;
-    background: var(--bs-yellow);;
+    background: var(--level-1);;
     color: white;
     padding: 2px 10px;
     border-radius: 25px;
 }
 .Post__level-2 {
-    background: var(--bs-green);
+    background: var(--level-2);
 }
 .Post__level-3 {
-    background: var(--bs-purple);
+    background: var(--level-3);
 }
 .Post__level-4 {
-    background: black;
+    background: var(--level-4);
 }
 
 .Post__first-row__right :last-child {
@@ -73,35 +74,71 @@
     text-transform: capitalize;
 }
 
+
+/* --------------------Center-------------------- */
+
 .Post__action {
-    color: var(--bs-secondary);
+    color: var(--secondary-darkened);
 }
 
 .Post__book {
-    display: flex;
-}
-
-.Post__book :first-child {
+    width: 15% !important;
     margin-right: 10px;
 }
 
-.Post__book h4 {
-    font-weight: 400;
-    font-size: 20px;
-    /* font-family: var(--main-serif-font); */
+.Post__book__thumbnail {
+    width: 100%;
+    border-radius: 5px;
 }
+
+.Post__content {
+    width: 85% !important;
+}
+
+.Post__content__action {
+    color: var(--secondary-darkened);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.Post__content__title {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+
+/* --------------------Footer-------------------- */
 
 .Post-footer {
     display: flex;
     justify-content: flex-end;
-}
-.Post-footer p {
-    margin: 0 0 0 10px;
-    color: var(--bs-secondary);
+    font-size: 14px;
 }
 
-.Post-footer > p > svg {
+.read-review-btn {
+    font-size: 14px;
+    margin-right: auto;
+    flex: 1;
+    margin-left: 0 !important;
+}
+
+.read-review-btn span {
+    cursor: pointer;
+    color: var(--secondary-darkened);
+}
+
+.read-review-btn span:hover {
+    cursor: pointer;
+    color: var(--dark);
+}
+
+.Post-footer p {
+    margin: 0 0 0 10px;
+    color: var(--secondary-darkened);
+}
+
+.Post-footer svg {
     cursor: pointer;
 }
 
-.highlighted { color: var(--bs-primary);}
+.highlighted { color: var(--primary);}

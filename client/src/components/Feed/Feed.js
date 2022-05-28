@@ -2,24 +2,18 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
 // Bootstrap
-import Col from 'react-bootstrap/esm/Col'
-import Container from 'react-bootstrap/esm/Container'
-import Row from 'react-bootstrap/esm/Row'
-import Form from 'react-bootstrap/esm/Form'
-import Card from 'react-bootstrap/esm/Card'
-import Button from 'react-bootstrap/esm/Button'
-
+import { Col, Container, Row, Form, Card, Button } from 'react-bootstrap'
 // Api / Actions
 import { fetchUsersNamesAndIds, fetchPosts } from '../../api'
 import { getCurrentVisitedUser } from '../../actions/currentVisitedUser'
 import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks'
 import { getPosts } from '../../actions/posts'
-
 // Styles
 import './Feed.css'
 import Post from './Post/Post'
+import FollowersSection from '../Profile/FollowersSection/FollowersSection'
+import UsersSearch from './UsersSearch/UsersSearch'
 
 function Feed() {
     const dispatch = useDispatch()
@@ -50,69 +44,22 @@ function Feed() {
         return () => window.removeEventListener("scroll", onScroll);
     }, [scrollTop])
 
-
-    const handleSearch = async (e) => {
-        setSearchText(e.target.value)
-        if (e.target.value === '') return setUsers([])
-
-        clearTimeout(currentTimeoutId)
-        if (e.target.value !== '') {
-            const timeoutId = setTimeout(async () => {
-                const res = await fetchUsersNamesAndIds({ query: e.target.value })
-                setUsers(res.data)
-            }, 100);
-            setCurrentTimeoutId(timeoutId)
-        }
-    }
-
-    const handleClickUser = (userId) => {
-        dispatch(getCurrentVisitedUser(userId))
-        dispatch(fetchVisitedUserBooks(userId))
-    }
-    
-
     return (
-        <Container className="Feed">
-            <Row>
-                <Col xs={12}>
-                    <h4 style={{ paddingLeft: '0' }}>Feed</h4>
+        <div className="Feed">
+            <Row className='Feed__row'>
+                <Col xs={12} sm={7}>
+                    <h1 className='title-1'>News Feed</h1>
+                    { posts.map((post) => <Post key={post._id} post={post} />) }
+                </Col>
+                <Col xs={12} sm={5}>
+                    <h1 className='title-2'>News Feed</h1>
+                    <div className='Feed__sidebar'>
+                        <UsersSearch />
+                        <FollowersSection />
+                    </div>
                 </Col>
             </Row>
-            <Row>
-                <Col xs={12}>
-                    <Form className="main-form">
-                        <Form.Group>
-                            <Form.Label>See what other people are reading</Form.Label>
-                            <Form.Control type="name" placeholder="Search for people to follow" value={searchText} onChange={(e) => handleSearch(e)} />
-                        </Form.Group>
-                    </Form>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12}>
-                    {
-                        users.length > 0 && searchText !== '' 
-                        ? 
-                        <Card className="search-results">
-                            <Card.Body>
-                                { 
-                                    users.map((user, index) => {
-                                        return (
-                                            <Link to="/public-profile" key={index + user.name} onClick={() => handleClickUser(user._id)}>
-                                                <p>{user.name}</p>
-                                            </Link>
-                                        )
-                                    }) 
-                                }
-                            </Card.Body>
-                        </Card>
-                        :
-                        undefined
-                    }
-                </Col>
-            </Row>
-            { posts.map((post) => <Post key={post._id} post={post} />) }
-        </Container>
+        </div>
     )
 }
 

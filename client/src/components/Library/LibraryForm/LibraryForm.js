@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBook, deleteBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
-
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-import Form from 'react-bootstrap/esm/Form';
-import Button from 'react-bootstrap/esm/Button';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faEllipsisH, faStar } from '@fortawesome/free-solid-svg-icons'
-
 import './LibraryForm.css'
 
 const LibraryBookForm = () => {
@@ -64,14 +57,14 @@ const LibraryBookForm = () => {
             </Row>
             <Row>
                 <Col xs={12}>
-                    <h3>{currentBook.title}</h3>
+                    <h3 className='LibraryForm__title'>{currentBook.title}</h3>
                     <p className="LibraryForm__subtitle">By {currentBook.author}</p>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <Form>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-10">
                             <p className="LibraryForm__section-title">Your Rating</p>
                             {
                                 starArray.map((star, index) => {
@@ -87,12 +80,17 @@ const LibraryBookForm = () => {
                                 })
                             }
                         </Form.Group>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-10">
                             <p className="LibraryForm__section-title">Your Review</p>
-                            <Form.Control as="textarea" placeholder="Type your review here. What did you think?" className="LibraryForm__textarea" value={formData.review} onChange={(e) => setFormData({...formData, review: e.target.value})}/>
+                            <Form.Control 
+                                as="textarea" 
+                                placeholder="Type your review here. What did you think?" 
+                                className="LibraryForm__textarea" value={formData.review} 
+                                onChange={(e) => setFormData({...formData, review: e.target.value})}
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Button variant="outline-primary" className="full-width-btn" onClick={handleSubmit}>Submit</Button>
+                        <Form.Group className="mb-10 d-flex justify-content-end">
+                            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                         </Form.Group>
                     </Form>
                 </Col>

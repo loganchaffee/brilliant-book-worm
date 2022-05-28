@@ -1,4 +1,28 @@
-.search-results {
-    width: 100%;
-    margin-bottom: 10px;
+.Feed {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.Feed__row {
+    flex-wrap: wrap-reverse;
+}
+
+.Feed__sidebar {
+    position: sticky;
+    top: 10px;
+}
+
+.title-2 { 
+    display: none;
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .Feed__sidebar {
+        position: relative;
+    }
+
+    .title-1 { display: none }
+    .title-2 { display: block }
 }

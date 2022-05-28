@@ -80,6 +80,7 @@ function AddBookForm() {
             thumbnail: book?.imageLinks.thumbnail
         })
         setPickedBook(true)
+        document.getElementById('submit-btn').focus()
     }
 
     return (
@@ -165,7 +166,7 @@ function AddBookForm() {
             </Row>
             <Row>
                 <Col xs={12}>
-                    <Button className='full-width-btn' onClick={handleSubmit}>Submit</Button>
+                    <Button id='submit-btn' className='full-width-btn' onClick={handleSubmit}>Submit</Button>
                 </Col>
             </Row>
         </div>
