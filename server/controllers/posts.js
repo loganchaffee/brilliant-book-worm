@@ -43,7 +43,7 @@ export const fetchPosts = async (req, res) => {
         const following = user.following
         if (user.following.length <= 0) return res.status(200)
 
-        const limit = 5
+        const limit = 20
         const startIndex = Number(req.body.postsLength)
         const totalPosts = await Post.countDocuments({ "createdBy" : { $in : following } })
 

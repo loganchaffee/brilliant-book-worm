@@ -25,31 +25,64 @@ function Feed() {
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
     const [users, setUsers] = useState([])
+    const [lastPost, setLastPost] = useState(null)
+    const [observer, setObserver] = useState(null)
 
-    // -----Get New Posts On Scroll-------------------------------------------------------------------------------------
-    const isLoading = useRef(false)
-    useEffect(() => { isLoading.current = false }, [posts.length])
-    const [scrollTop, setScrollTop] = useState(false)
+    
+
+    // -----Get New Posts On Scroll---------------------------------------------------
+    // Intersection observer options
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: .01
+    }
+
+    // Give the observer a target every time the last post changes
     useEffect(() => {
-        const onScroll = (e) => {
-            setScrollTop(e.target.documentElement.scrollTop)
-            if ((window.innerHeight + e.target.documentElement.scrollTop) >= document.body.offsetHeight - 400) {
-                if (!isLoading.current) {
-                    dispatch(getPosts(posts.length))
-                    isLoading.current = true
-                }
+        if (lastPost) observer.observe(lastPost)
+
+        return () => {
+            if (lastPost) observer.unobserve(lastPost)
+        }
+    }, [lastPost])
+
+    // Set lastPost to the last post
+    useEffect(() => {
+        const postsContainer = document.getElementById('postsContainer')
+        const target = postsContainer.lastChild
+        // If there are only a few posts
+        if (posts.length >= 20) {
+            setLastPost(postsContainer.children[postsContainer.children.length - 10])
+        } else if (posts.length >= 10) {
+            setLastPost(postsContainer.children[postsContainer.children.length - 10])
+        } else {
+            setLastPost(target)
+        }
+        
+        // Redefine callback function every time the post length changes.
+        // The request this function makes needs access to the posts length as the length updates.
+        // That is why it must be redefined.
+        const callback = (entries) => {
+            const [entry] = entries
+            if (entry.isIntersecting) {
+                setLastPost(null)
+                dispatch(getPosts(posts.length)) // Fetch more posts (needs the current length of posts)
             }
-        };
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, [scrollTop])
+        }
+
+        // Creat new intersection observer every time the posts length changes
+        setObserver(new IntersectionObserver(callback, options))
+    }, [posts.length])
 
     return (
         <div className="Feed">
             <Row className='Feed__row'>
                 <Col xs={12} sm={7}>
                     <h1 className='title-1'>News Feed</h1>
-                    { posts.map((post) => <Post key={post._id} post={post} />) }
+                    <div id='postsContainer'>
+                        { posts.map((post) => <Post key={post._id} post={post} />) }
+                    </div>
                 </Col>
                 <Col xs={12} sm={5}>
                     <h1 className='title-2'>News Feed</h1>
