@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBook, deleteBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
 import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import { setCurrentBook } from '../../../actions/currentBook';
 import moment from 'moment'
 import './EditBookForm.css'
 
 function EditBookForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const params = useParams()
     const currentBook = useSelector((state) => state.currentBook)
     const books = useSelector((state) => state.books)
     const user = useSelector((state) => state.auth)
 
-    const [formData, setFormData] = useState({
-        title: '',
-        subtitle: '',
-        author: '',
-        publicationDate: '',
-        numberOfPages: 0,
-        currentPage: 60
-    })
+    const [formData, setFormData] = useState({ title: '', subtitle: '', author: '', publicationDate: '', numberOfPages: 0, currentPage: 60 })
     const [previousCurrentPage, setPreviousCurrentPage] = useState(null)
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
 
+    // Reset the current book on page reload
     useEffect(() => {
-        setPreviousCurrentPage(currentBook.currentPage)
+        if (!currentBook._id) {
+            const index = books.findIndex((book) => book._id === params.id)
+            dispatch(setCurrentBook(books[index]))
+        }
     }, [currentBook._id])
 
+    // Set form data and old current page
     useEffect(() => {
+        setPreviousCurrentPage(currentBook.currentPage)
         setFormData({ ...currentBook })
-    }, []);
+    }, [currentBook._id])
 
+    // Submit
     const handleSubmit = (e) => {
         e.preventDefault()
         // Did user read this update?
@@ -46,6 +48,7 @@ function EditBookForm() {
         navigate('/')
     }
 
+    // Sets page count to 
     const handleCompleteBook = (e) => {
         e.preventDefault()
         // Check if deadline was met
@@ -95,7 +98,7 @@ function EditBookForm() {
                             <Form.Control type="name" placeholder="Book Title" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Control type="name" placeholder="Subtitle" value={formData.subtitle} onChange={(e) => setFormData({...formData, title: e.target.value})}/>
+                            <Form.Control type="name" placeholder="Subtitle" value={formData.subtitle} onChange={(e) => setFormData({...formData, subtitle: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Control type="name" placeholder="Author" value={formData.author} onChange={(e) => setFormData({...formData, author: e.target.value})}/>

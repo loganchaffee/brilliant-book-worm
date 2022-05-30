@@ -63,7 +63,7 @@ function CurrentlyReading() {
                         if (!book.isCompleted) {
                             return (
                                 <Col sm={12} lg={6} className='mb-3' key={book._id}>
-                                    <Link to={`/edit-book?id=${book._id}`} onClick={() => dispatch(setCurrentBook(book))}>
+                                    <Link to={`/edit-book/${book._id}`} onClick={() => dispatch(setCurrentBook(book))}>
                                         <CurrentlyReadingCard book={book} />
                                     </Link>
                                 </Col>

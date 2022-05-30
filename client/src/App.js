@@ -83,7 +83,7 @@ const App = () => {
                             {/* Currently Reading */}
                             <Route path='/' element={<CurrentlyReading />}/>
                             <Route path='/add-book' element={<AddBookForm />}/>
-                            <Route path='/edit-book' element={<EditBookForm />}/>
+                            <Route path='/edit-book/:id' element={<EditBookForm />}/>
         
                             {/* Library */}
                             <Route path='/library' exact element={<Library />}/>
