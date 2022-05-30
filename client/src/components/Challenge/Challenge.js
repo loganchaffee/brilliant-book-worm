@@ -15,10 +15,9 @@ function Challenge() {
                     <h1>Challenges</h1>
                 </Col>
             </Row>
-
-            <Row style={{marginTop: '50px'}}>
-                <Col xs={12} md={6}  style={{marginBottom: '10px'}}>
-                    <div className='Challenge__card'>
+            <Row>
+                <Col xs={12} md={6}  className='mb-10'>
+                    <div className='Challenge__card box-shadow'>
                         <div>
                             <h2>Reading Speed Test</h2>
                             <p>Test your reading speed with a timed reading of a random excerpt. Find out your words per minute and Level up as you get faster!</p>
@@ -28,8 +27,8 @@ function Challenge() {
                         </Link>
                     </div>
                 </Col>
-                <Col xs={12} md={6}  style={{marginBottom: '10px'}}>
-                    <div className='Challenge__card'>
+                <Col xs={12} md={6}  className='mb-10'>
+                    <div className='Challenge__card box-shadow'>
                         <div>
                             <h2>Set a Reading Deadline</h2>
                             <p>Hold yourself to a deadline to finish the books your reading and reach your reading goals</p>
@@ -39,10 +38,6 @@ function Challenge() {
                         </Link>
                     </div>
                 </Col>
-            </Row>
-            <Row style={{marginTop: '50px'}}>
-                <Col></Col>
-                
             </Row>
         </div>
     )

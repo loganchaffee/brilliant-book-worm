@@ -62,8 +62,8 @@ function CurrentlyReading() {
                     books.map((book) => {
                         if (!book.isCompleted) {
                             return (
-                                <Col sm={12} lg={6} className='mb-3'>
-                                    <Link to={`/edit-book?id=${book._id}`} key={book._id} onClick={() => dispatch(setCurrentBook(book))}>
+                                <Col sm={12} lg={6} className='mb-3' key={book._id}>
+                                    <Link to={`/edit-book?id=${book._id}`} onClick={() => dispatch(setCurrentBook(book))}>
                                         <CurrentlyReadingCard book={book} />
                                     </Link>
                                 </Col>
@@ -71,16 +71,6 @@ function CurrentlyReading() {
                         }
                     })
                 }
-                {/* <Col lg={6} >
-                    <Row>
-                        <Col xs={12} className='d-flex justify-content-between'>
-                            <h4>Most Recent Post</h4>
-                        </Col>
-                        <Col xs={12}>
-                            Users Newest Post Here
-                        </Col>
-                    </Row>
-                </Col> */}
             </Row>
         </div>
     );

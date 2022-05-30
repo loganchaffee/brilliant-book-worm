@@ -12,11 +12,12 @@
     padding: 20px;
     border-radius: 10px;
     height: 100%;
-    margin: 0 10px;
+    margin: 0 auto 10px auto;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     justify-content: space-between;
+    max-width: 700px;
 }
 
 .Challenge__card > a {

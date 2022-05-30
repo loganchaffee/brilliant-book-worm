@@ -28,9 +28,8 @@ function Feed() {
     const [lastPost, setLastPost] = useState(null)
     const [observer, setObserver] = useState(null)
 
-    
 
-    // -----Get New Posts On Scroll---------------------------------------------------
+    // Get New Posts On Scroll---------------------------------------------------
     // Intersection observer options
     const options = {
         root: null,
@@ -84,11 +83,13 @@ function Feed() {
                         { posts.map((post) => <Post key={post._id} post={post} />) }
                     </div>
                 </Col>
-                <Col xs={12} sm={5}>
+                <Col xs={12} sm={5} className='mb-10'>
                     <h1 className='title-2'>News Feed</h1>
                     <div className='Feed__sidebar'>
-                        <UsersSearch />
-                        <FollowersSection />
+                            <UsersSearch />
+                        <div className='d-none d-sm-block'>
+                            <FollowersSection />
+                        </div>
                     </div>
                 </Col>
             </Row>

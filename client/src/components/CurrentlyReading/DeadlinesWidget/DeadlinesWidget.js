@@ -17,7 +17,7 @@ const DeadlinesWidget = () => {
                     books.map((book) => {
                         if(book.isCompleted === false && book.deadline !== undefined)
                         return (
-                            <div className='d-flex justify-content-between'>
+                            <div className='d-flex justify-content-between' key={'deadline-' + book._id}>
                                 <span style={{width: '50%'}}>{book.title}</span>
                                 <span>{moment(book.deadline).format('MMM Do')}</span>
                             </div>
