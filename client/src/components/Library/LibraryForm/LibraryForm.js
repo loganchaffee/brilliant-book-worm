@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBook, deleteBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faEllipsisH, faStar } from '@fortawesome/free-solid-svg-icons'
+import { setCurrentBook } from '../../../actions/currentBook';
 import './LibraryForm.css'
 
 const LibraryBookForm = () => {
+    const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const currentBook = useSelector((state) => state.currentBook)
+    const books = useSelector((state) => state.books)
     const user = useSelector((state) => state.auth)
     const starArray = new Array(5).fill('')
 
@@ -22,11 +25,18 @@ const LibraryBookForm = () => {
     })
 
     useEffect(() => {
+        if (!currentBook._id) {
+            const index = books.findIndex((book) => book._id === params.id)
+            dispatch(setCurrentBook(books[index]))
+        }
+
         setFormData({...currentBook})
         if (currentBook.review) {
             setReviewWasEmpty(false)
         }
     }, [])
+
+    useEffect(() => setFormData({...currentBook}), [currentBook._id])
 
     const handleStarClick = (index) => {
         setFormData({...formData, numberOfStars: index + 1})

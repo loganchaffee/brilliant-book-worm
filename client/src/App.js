@@ -87,7 +87,7 @@ const App = () => {
         
                             {/* Library */}
                             <Route path='/library' exact element={<Library />}/>
-                            <Route path='/library-form' exact element={<LibraryForm />}/>
+                            <Route path='/library-form/:id' exact element={<LibraryForm />}/>
         
                             {/* Challenge */}
                             <Route path='/challenge' element={<Challenge />}/>

@@ -11,7 +11,6 @@ import { setCurrentBook } from '../../actions/currentBook';
 function Library() {
     const dispatch = useDispatch()
     const books = useSelector((state) => state.books)
-    const [viewAsRow, setViewAsRow] = useState(false);
 
     useEffect(() => {
         dispatch(getBooks())
@@ -37,7 +36,7 @@ function Library() {
                             return ( 
                                 <Col key={book._id + 'library'} className='Library__book-container' xs={4} sm={4} md={3} lg={2}>
                                     <Link 
-                                        to={`/library-form?id=${book._id}`} 
+                                        to={`/library-form/${book._id}`} 
                                         onClick={() => dispatch(setCurrentBook(book))} 
                                         className='Library__book-link' 
                                     >
