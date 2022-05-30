@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
 }
 
 .BottomNavbar__link > div {
@@ -21,6 +22,11 @@
 }
 .BottomNavbar__link > div:hover {
     background: var(--dark-darkened);
+}
+
+.BottomNavbar__link-current {
+    background: var(--dark-darkened);
+    border-radius: 10px;
 }
 
 .BottomNavbar__link > div > svg {

@@ -182,3 +182,7 @@ select:focus {
     box-shadow: 0 3px 5px rgba(0,0,0,0.05);
     border-radius: 10px;
 }
+
+.modal-content {
+    border: none !important;
+}

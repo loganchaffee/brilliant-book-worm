@@ -42,7 +42,7 @@ function CurrentlyReadingCard({book}) {
 
             <Card.Body className="CurrentlyReadingCard__body">
                 <Col xs={2} className='CurrentlyReadingCard__book-icon-container'>
-                    <img src={thumbnail} style={{width: '100%', height: 'fit-content', borderRadius: '5px'}}/>
+                    <img src={thumbnail}/>
                 </Col>
                 <Col xs={10}>
                     <div className='CurrentlyReadingCard__body-right' >

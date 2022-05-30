@@ -19,6 +19,13 @@
 /* Body left */
 .CurrentlyReadingCard__book-icon-container {
     display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.CurrentlyReadingCard__book-icon-container img {
+    width: 100%;
+    border-radius: 5px;
 }
 
 .CurrentlyReadingCard__book-icon {

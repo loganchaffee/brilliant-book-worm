@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import Col from 'react-bootstrap/esm/Col';
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Button from 'react-bootstrap/esm/Button';
-import LibraryBook from './LibraryBook/LibraryBook';
-import LibraryRow from './LibraryRow/LibraryRow';
+import { Col, Container, Row, Button, LibraryBook, LibraryRow } from 'react-bootstrap';
 import './Library.css'
 import _ from 'lodash'
 import { resizeLastBook } from './utils';
@@ -25,9 +20,7 @@ function Library() {
 
         window.addEventListener('resize', _.throttle(resizeLastBook), 200)
 
-        return () => {
-            window.removeEventListener('resize')
-        }
+        return () => window.removeEventListener('resize', _.throttle)
     }, [])
 
     return (

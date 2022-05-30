@@ -21,6 +21,7 @@ function Feed() {
     const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
     const currentPost = useSelector((state) => state.currentPost)
     const posts = useSelector((state) => state.posts)
+    const user = useSelector((state) => state.auth)
 
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
@@ -88,7 +89,7 @@ function Feed() {
                     <div className='Feed__sidebar'>
                             <UsersSearch />
                         <div className='d-none d-sm-block'>
-                            <FollowersSection />
+                            <FollowersSection user={user} />
                         </div>
                     </div>
                 </Col>

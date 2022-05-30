@@ -1,0 +1,73 @@
+.overide-zoom:hover {
+    transform: scale(1);
+    cursor: default;
+}
+
+.follow-btn,
+.unfollow-btn {
+    font-size: 14px;
+}
+
+.unfollow-btn {
+    background:var(--secondary);
+    color: var(--white);
+    border: none;
+}
+
+.unfollow-btn:hover,
+.unfollow-btn:focus,
+.unfollow-btn:active {
+    background: var(--secondary-darkened);
+    color: var(--white);
+}
+
+.PublicProfile__section-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.PublicProfile__books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.PublicProfile__book {
+    width: 15%;
+    max-width: 100px;
+    min-width: 75px;
+    margin: 0 5px 10px 5px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.PublicProfile__book:hover {
+    transform: scale(1.05);
+}
+
+.PublicProfile__book img {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.PublicProfile__book p {
+    font-size: 14px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.PublicProfile__book p:first-of-type {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.PublicProfile__book p:last-of-type {
+    color: var(--secondary-darkened);
+    font-size: 12px;
+}
+
+

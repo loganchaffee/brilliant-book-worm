@@ -52,10 +52,14 @@ const Post = ({ post }) => {
             <Card.Body>
                 <div className='Post__user-details'>
                     <div className='Post__profile-image-container'>
-                        <img src={post?.createdBy?.profileImage} />
+                        <Link to={`/public-profile/${post?.createdBy._id}`} >
+                            <img src={post?.createdBy?.profileImage} />
+                        </Link>
                     </div>
                     <div className='Post__user-cred'>
-                        <p>{post?.createdBy?.name}</p>
+                        <Link to={`/public-profile/${post?.createdBy._id}`}>
+                            <p>{post?.createdBy?.name}</p>
+                        </Link>
                         <p className={`Post__level-${post.createdBy?.level}`}>Level {post.createdBy?.level}</p>
                     </div>
                     <div className='Post__time'>

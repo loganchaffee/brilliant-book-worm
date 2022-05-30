@@ -19,6 +19,9 @@ export const fetchVisitedUser = async (req, res) => {
         const visitedUserId = req.body._id
 
         const visitedUser = await User.findOne({ _id: visitedUserId }, { password: 0, email: 0 })
+        .populate('following', 'name')
+        .populate('followers', 'name')
+
         if (!visitedUser) return res.status(404).json({ message: 'This user does not exist.' })
 
         res.status(200).json({visitedUser: visitedUser})

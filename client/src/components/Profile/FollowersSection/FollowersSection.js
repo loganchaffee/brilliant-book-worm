@@ -9,30 +9,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faMinus, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import './FollowersSection.css'
 
-const FollowersSection = ({ title }) => {
+const FollowersSection = ({ title, user }) => {
     const dispatch = useDispatch()
-    const user = useSelector((state) => state.auth)
-    const navigate = useNavigate()
 
     const [showFollowers, setShowFollowers] = useState(false)
     const [showFollowing, setShowFollowing] = useState(false)
 
-    // Visit another user's public profile page
-    const handleClickUser = (userId) => {
-        dispatch(fetchVisitedUserBooks(userId))
-        dispatch(getCurrentVisitedUser(userId))
-    }
-
     return <div className='FollowersSection box-shadow'>
-    {    
-        title
-        &&
-        <Row>
-            <Col xs={12}>
-                <h3>{title}</h3>
-            </Col>
-        </Row>
-    }
+        {    
+            title
+            &&
+            <Row>
+                <Col xs={12}>
+                    <h3>{title}</h3>
+                </Col>
+            </Row>
+        }
 
         <div className='mb-3'>
             <div className='d-flex justify-content-between align-items-center'>
@@ -57,11 +49,11 @@ const FollowersSection = ({ title }) => {
             {
                 user.following.map((followee, i) => {
                     if (!showFollowing && i > 4) return
+                    if (followee === undefined) return
 
                     return <Link
-                        key={followee._id}
-                        onClick={() => handleClickUser(followee._id)}
-                        to='/public-profile'
+                        key={'followee-' + followee._id}
+                        to={`/public-profile/${followee._id}`}
                         className="FollowersSection__user"
                     >
                         <FontAwesomeIcon icon={faUser} /> {followee.name}
@@ -96,9 +88,8 @@ const FollowersSection = ({ title }) => {
                     if (!showFollowers && i > 4) return
 
                     return <Link
-                        key={follower._id}
-                        onClick={() => handleClickUser(follower._id)}
-                        to='/public-profile'
+                        key={'follower-' + follower._id}
+                        to={`/public-profile/${follower._id}`}
                         className="FollowersSection__user"
                     >
                         <FontAwesomeIcon icon={faUser} /> {follower.name}

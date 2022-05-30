@@ -1,0 +1,51 @@
+/* ----------Modal---------- */
+.PublicProfile__modal__book {
+    max-width: 100px;
+    min-width: 75px;
+    border-radius: 5px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.PublicProfile__modal__book img {
+    width: 100%;
+}
+
+.PublicProfile__modal__title-container p {
+    margin-bottom: 0;
+    color: var(--secondary-darkened);
+}
+
+.PublicProfile__modal__details {
+    flex: 1;
+}
+
+.PublicProfile__modal__review {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.PublicProfile__modal__review > p {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.PublicProfile__modal__review > p > svg {
+    transform: translateY(.5px);
+}
+
+.PublicProfile__modal__review > p:hover {
+    color: var(--primary-darkened);
+}
+
+.PublicProfile__modal__review > div {
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+
+.PublicProfile__modal__review > div > p {
+    font-weight: 500;
+    font-size: 16px;
+}

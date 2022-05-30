@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faClock, faPenAlt, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import './Statistics.css'
 
-const Statistics = () => {
+const Statistics = ({ user, books }) => {
     const dispatch = useDispatch()
-    const user = useSelector((state) => state.auth)
-    const books = useSelector((state) => state.books)
+    // const user = useSelector((state) => state.auth)
+    // const books = useSelector((state) => state.books)
     const navigate = useNavigate()  
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
 

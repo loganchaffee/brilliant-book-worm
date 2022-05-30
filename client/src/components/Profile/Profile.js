@@ -81,8 +81,8 @@ const Profile = () => {
                     <UserDetails />
                 </Col>
                 <Col xs={12} md={4}>
-                    <FollowersSection title='Social' />
-                    <Statistics />
+                    <FollowersSection title='Social' user={user} />
+                    <Statistics user={user} books={books} />
                 </Col>
             </Row>
         </div>

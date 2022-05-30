@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react'
-import { Routes, Route, useNavigate, Redirect, Navigate } from "react-router-dom"
+import { Routes, Route, useNavigate, Redirect, Navigate, useParams } from "react-router-dom"
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -19,7 +19,7 @@ import Auth from './Auth/Auth'
 import ReadingSpeedTest from './components/Challenge/ReadingSpeedTest/ReadingSpeedTest'
 import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/ReadingSpeedTestResults/ReadingSpeedTestResults'
 import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline'
-import PublicProfile from './components/Profile/PublicProfile/PublicProfile'
+import PublicProfile from './components/Profile/PublicProfile'
 import ViewPost from './components/Feed/ViewPost/ViewPost'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,6 +34,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 const App = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const params = useParams()
     const user = useSelector((state) => state.auth)
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
@@ -96,10 +97,9 @@ const App = () => {
         
                             {/* News Feed */}
                             <Route path='/feed' element={<Feed />} />
-                            <Route path='/public-profile' element={<PublicProfile />} />
+                            <Route path='/public-profile/:id' element={<PublicProfile />} />
                             <Route path='/view-post' element={<ViewPost />} />
                             <Route path='/view-post/:id' element={<ViewPost />} />
-
                         </Routes>
                     </div>
                 </div>
