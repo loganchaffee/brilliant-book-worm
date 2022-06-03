@@ -12,6 +12,7 @@ import CommentForm from './CommentForm/CommentForm'
 import Post from '../Post/Post'
 import Comment from './Comment/Comment'
 import { fetchCurrentPost, setCurrentPost } from '../../../actions/currentPost'
+import './ViewPost.css'
 
 const ViewPost = () => {
     const dispatch = useDispatch()
@@ -19,6 +20,8 @@ const ViewPost = () => {
     const user = useSelector((state) => state.auth)
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
+
+    useEffect(() => console.log(currentPost), [currentPost])
 
     useEffect(() => {
         setTimeout(() => {
@@ -33,7 +36,7 @@ const ViewPost = () => {
 
     if (!currentPost?._id || !user?._id) return null
     return (
-       <Container>
+       <div className='ViewPost'>
             <ScrollToTopOnMount />
             <Row>
                 <Col xs={12}>
@@ -41,23 +44,15 @@ const ViewPost = () => {
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </Link>
                 </Col>
-            </Row>
-            <Row>
-                <Col>
+                <Col xs={12}>
                     <Post post={currentPost} />
                 </Col>
-            </Row>
-            <Row>
-                <Col>
+                <Col xs={12}>
+                    { currentPost.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
                     <CommentForm /> 
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    { currentPost.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
-                </Col>
-            </Row>
-       </Container>
+       </div>
     )
 }
 

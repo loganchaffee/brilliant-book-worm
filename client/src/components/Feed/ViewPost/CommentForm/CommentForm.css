@@ -1,3 +1,15 @@
+.CommentForm {
+    margin-left: 20px;
+    margin-bottom: 50px;
+}
+
 .submit-comment-btn {
     font-size: 12px;
+}
+
+.CommentForm__input,
+.CommentForm__input:focus {
+    height: 10px;
+    white-space: pre-wrap;
+    margin-bottom: 10px;
 }

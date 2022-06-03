@@ -95,8 +95,9 @@ const LibraryBookForm = () => {
                             <Form.Control 
                                 as="textarea" 
                                 placeholder="Type your review here. What did you think?" 
-                                className="LibraryForm__textarea" value={formData.review} 
-                                onChange={(e) => setFormData({...formData, review: e.target.value})}
+                                className="LibraryForm__textarea"
+                                value={formData.review} 
+                                onChange={(e) => setFormData({ ...formData, review: e.target.value })}
                             />
                         </Form.Group>
                         <Form.Group className="mb-10 d-flex justify-content-end">

@@ -30,6 +30,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .PublicProfile__book {

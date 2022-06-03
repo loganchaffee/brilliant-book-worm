@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/esm/Card'
 import { FontAwesomeIcon as I } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown, faComment, faBook, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { dislikePost, likePost } from '../../../actions/posts'
-import { setCurrentPost } from '../../../actions/currentPost'
+import { setCurrentPost, likeCurrentPost, dislikeCurrentPost  } from '../../../actions/currentPost'
 
 import './Post.css'
 
@@ -15,6 +15,7 @@ const Post = ({ post }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
+    const currentPost = useSelector((state) => state.currentPost)
 
     const [months, setMonths] = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
     const [days, setDays] = useState([])
@@ -25,20 +26,13 @@ const Post = ({ post }) => {
     }, [])
 
     const handleLikePost = () => {
-        // If the post is disliked, "un-dislike" it
-        if (post.dislikedBy.findIndex((likerId) => likerId === user._id) > -1) {
-            dispatch(dislikePost(post._id, user._id))
-        }
-
         dispatch(likePost(post._id, user._id))
+        if (currentPost._id) dispatch(likeCurrentPost)
     }
 
     const handleDislikePost = () => {
-        // If the post is liked, "un-like" it
-        if (post.likedBy.findIndex((likerId) => likerId === user._id) > -1) {
-            dispatch(likePost(post._id, user._id))
-        }
         dispatch(dislikePost(post._id, user._id))
+        if (currentPost._id) dispatch(dislikeCurrentPost)
     }
 
     const handleSelectPost = (post) => {

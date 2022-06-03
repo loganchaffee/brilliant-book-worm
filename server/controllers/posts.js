@@ -83,10 +83,10 @@ export const likePost = async (req, res) => {
             await Post.findByIdAndUpdate(postId, { $pull: { likedBy: userId } })
         }
        
-        return res.status(200)
+        return res.status(200).json({message: 'success'})
     } catch (error) {
-        res.status(500)
         console.log(error);
+        res.status(500)
     }
 }
 
@@ -107,8 +107,8 @@ export const dislikePost = async (req, res) => {
        
         return res.status(200)
     } catch (error) {
-        res.status(500)
         console.log(error);
+        res.status(500)
     }
 }
 

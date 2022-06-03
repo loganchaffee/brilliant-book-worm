@@ -12,7 +12,7 @@ export const getPosts = (postsLength) => async (dispatch) => {
 
 export const likePost = (postId, userId) => async (dispatch) => {
     try {
-        const { data } = api.likePost({ postId, userId })
+        api.likePost({ postId, userId })
 
         dispatch({ type: 'LIKE_POST', payload: { postId, userId }})
     } catch (error) {
@@ -22,19 +22,9 @@ export const likePost = (postId, userId) => async (dispatch) => {
 
 export const dislikePost = (postId, userId) => async (dispatch) => {
     try {
-        const { data } = api.dislikePost({ postId, userId })
+        api.dislikePost({ postId, userId })
 
         dispatch({ type: 'DISLIKE_POST', payload: { postId, userId }})
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export const createComment = (postId, formData, userData) => async (dispatch) => {
-    try {
-        const { data } = await api.createComment({ postId, formData })
-
-        dispatch({ type: 'CREATE_COMMENT', payload: data})
     } catch (error) {
         console.log(error);
     }
