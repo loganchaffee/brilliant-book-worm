@@ -10,6 +10,7 @@ export default (posts = [], action) => {
         case 'LIKE_POST':
             updatedPosts = [...posts]
             indexOfPost = posts.findIndex((post) => post._id === action.payload.postId)
+            if (indexOfPost <= -1) return posts
 
             // Un-dislike if post is already disliked
             indexOfLiker = posts[indexOfPost].dislikedBy.findIndex((likerId) => likerId === action.payload.userId)
@@ -33,6 +34,7 @@ export default (posts = [], action) => {
         case 'DISLIKE_POST':
             updatedPosts = [...posts]
             indexOfPost = posts.findIndex((post) => post._id === action.payload.postId)
+            if (indexOfPost <= -1) return posts
 
             // Un-like if post is already disliked
             indexOfLiker = posts[indexOfPost].likedBy.findIndex((likerId) => likerId === action.payload.userId)
@@ -56,6 +58,7 @@ export default (posts = [], action) => {
         case 'CREATE_COMMENT':
             updatedPosts = [...posts]
             indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload._id)
+            if (indexOfPostCommentedOn <= -1) return posts
 
             updatedPosts[indexOfPostCommentedOn].comments = action.payload.comments
 
@@ -64,6 +67,7 @@ export default (posts = [], action) => {
             updatedPosts = [...posts]
 
             indexOfPostCommentedOn = posts.findIndex((post) => post._id === action.payload.postId)
+            if (indexOfPostCommentedOn <= -1) return posts
 
             const indexOfDeletedComment = updatedPosts[indexOfPostCommentedOn].comments.findIndex((comment) => comment._id === action.payload.commentId)
             if (indexOfDeletedComment > -1) updatedPosts[indexOfPostCommentedOn].comments.splice(indexOfDeletedComment, 1)

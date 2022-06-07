@@ -11,7 +11,7 @@ import { setCurrentPost, likeCurrentPost, dislikeCurrentPost  } from '../../../a
 
 import './Post.css'
 
-const Post = ({ post }) => {
+const CurrentPost = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
@@ -23,36 +23,45 @@ const Post = ({ post }) => {
     const [postDate, setPostDate] = useState('')
 
     useEffect(() => {
-        setPostDate(`${months[new Date(post.createdAt).getMonth()]} ${new Date(post.createdAt).getDate()}`)
+        setPostDate(`${months[new Date(currentPost.createdAt).getMonth()]} ${new Date(currentPost.createdAt).getDate()}`)
     }, [])
 
     const handleLikePost = () => {
-        dispatch(likePost(post._id, user._id))
+        dispatch(likeCurrentPost(currentPost._id, user._id))
+        setTimeout(() => {
+            dispatch(likePost(currentPost._id, user._id))
+        }, 1000)
     }
 
     const handleDislikePost = () => {
-        dispatch(dislikePost(post._id, user._id))
+        dispatch(dislikeCurrentPost(currentPost._id, user._id))
+        setTimeout(() => {
+            dispatch(dislikePost(currentPost._id, user._id))
+        }, 1000)
     }
 
-    const handleSelectPost = () => {
-        dispatch(setCurrentPost(post))
-        navigate(`/view-post/${post._id}`)
+    const handleComment = () => {
+      
+    }
+
+    const handleShowReview = () => {
+      
     }
 
     return (
-        <Card key={'post-' + post._id} className="Post">
+        <Card key={'currentPost-' + currentPost._id} className="Post">
             <Card.Body>
                 <div className='Post__user-details'>
                     <div className='Post__profile-image-container'>
-                        <Link to={`/public-profile/${post?.createdBy._id}`} >
-                            <img src={post?.createdBy?.profileImage} />
+                        <Link to={`/public-profile/${currentPost?.createdBy._id}`} >
+                            <img src={currentPost?.createdBy?.profileImage} />
                         </Link>
                     </div>
                     <div className='Post__user-cred'>
-                        <Link to={`/public-profile/${post?.createdBy._id}`}>
-                            <p>{post?.createdBy?.name}</p>
+                        <Link to={`/public-profile/${currentPost?.createdBy._id}`}>
+                            <p>{currentPost?.createdBy?.name}</p>
                         </Link>
-                        <p className={`Post__level-${post.createdBy?.level}`}>Level {post.createdBy?.level}</p>
+                        <p className={`Post__level-${currentPost.createdBy?.level}`}>Level {currentPost.createdBy?.level}</p>
                     </div>
                     <div className='Post__time'>
                         <p>{postDate}</p>
@@ -62,45 +71,45 @@ const Post = ({ post }) => {
                 <div className='d-flex mb-10'>
                     <div className='Post__book'>
                         {
-                            post.book.thumbnail
+                            currentPost.book.thumbnail
                             ?
-                            <img src={post.book?.thumbnail} className='Post__book__thumbnail'/>
+                            <img src={currentPost.book?.thumbnail} className='Post__book__thumbnail'/>
                             :
                             <I icon={faBook} className='Post__book__thumbnail'/>
                         }
                     </div>
                     <div className='Post__content'>
-                        <p className='Post__content__action'>{post?.action}</p>
-                        <p className='CurrentlyReadingCard__title'>{post.book?.title}</p>
-                        { post.book.subtitle && <p className='CurrentlyReadingCard__subtitle'>{post.book?.subtitle}</p> }
+                        <p className='Post__content__action'>{currentPost?.action}</p>
+                        <p className='CurrentlyReadingCard__title'>{currentPost.book?.title}</p>
+                        { currentPost.book.subtitle && <p className='CurrentlyReadingCard__subtitle'>{currentPost.book?.subtitle}</p> }
                     </div>
                 </div>
                 
                 {/* Review */}
-                {window.location.pathname === '/view-post' && <div><p className='mt-2'>{post?.book?.review}</p></div>}
+                {window.location.pathname === '/view-post' && <div><p className='mt-2'>{currentPost?.book?.review}</p></div>}
                 {/* Footer */}
                 <div className='Post-footer'>
                     { 
-                        post.action === 'Just wrote a review for' && window.location.pathname === '/feed'
+                        currentPost.action === 'Just wrote a review for' && window.location.pathname === '/feed'
                         ? 
-                        <div className='read-review-btn'><span onClick={() => handleSelectPost(post)}>Read Review <I icon={faAngleRight}/></span></div>
+                        <div className='read-review-btn'><span onClick={handleShowReview}>Read Review <I icon={faAngleRight}/></span></div>
                         :
                         undefined
                     }
 
-                    <div><p>{post?.comments?.length} <I icon={faComment} onClick={() => handleSelectPost(post)} /></p></div>
+                    <div><p>{currentPost?.comments?.length} <I icon={faComment} onClick={handleComment} /></p></div>
                     <p>
-                        {post.dislikedBy.length}{' '}
+                        {currentPost.dislikedBy.length}{' '}
                         <I 
-                            className={post.dislikedBy.findIndex((likerId) => likerId === user._id) > -1 ? 'highlighted' : ''} 
+                            className={currentPost.dislikedBy.findIndex((likerId) => likerId === user._id) > -1 ? 'highlighted' : ''} 
                             icon={faThumbsDown}  
                             onClick={handleDislikePost}
                         />
                     </p>
                     <p>
-                        {post.likedBy.length}{' '}
+                        {currentPost.likedBy.length}{' '}
                         <I 
-                            className={post.likedBy.findIndex((likerId) => likerId === user._id) > -1 ? 'highlighted' : ''} 
+                            className={currentPost.likedBy.findIndex((likerId) => likerId === user._id) > -1 ? 'highlighted' : ''} 
                             icon={faThumbsUp}  
                             onClick={handleLikePost}
                         />
@@ -111,4 +120,4 @@ const Post = ({ post }) => {
     )
 }
 
-export default Post
+export default CurrentPost

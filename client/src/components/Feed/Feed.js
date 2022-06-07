@@ -81,7 +81,7 @@ function Feed() {
                 <Col xs={12} sm={7}>
                     <h1 className='title-1'>News Feed</h1>
                     <div id='postsContainer'>
-                        { posts.map((post) => <Post key={post._id} post={post} />) }
+                        { posts.map((post) => <Post key={'post-' + post._id} post={post} />) }
                     </div>
                 </Col>
                 <Col xs={12} sm={5} className='mb-10'>

@@ -10,6 +10,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import ScrollToTopOnMount from '../../ScrollToTopOnMount/ScrollToTopOnMount'
 import CommentForm from './CommentForm/CommentForm'
 import Post from '../Post/Post'
+import CurrentPost from '../Post/CurrentPost'
 import Comment from './Comment/Comment'
 import { fetchCurrentPost, setCurrentPost } from '../../../actions/currentPost'
 import './ViewPost.css'
@@ -21,7 +22,7 @@ const ViewPost = () => {
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
 
-    useEffect(() => console.log(currentPost), [currentPost])
+    // useEffect(() => console.log(currentPost), [currentPost])
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,10 +46,10 @@ const ViewPost = () => {
                     </Link>
                 </Col>
                 <Col xs={12}>
-                    <Post post={currentPost} />
+                    <CurrentPost />
                 </Col>
                 <Col xs={12}>
-                    { currentPost.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
+                    { currentPost?.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
                     <CommentForm /> 
                 </Col>
             </Row>

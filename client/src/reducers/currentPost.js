@@ -1,12 +1,14 @@
 let updatedPost
 let indexOfLiker
+let arr
+let newDislikedBy
+let newLikedBy
 
 export default (currentPost = {}, action) => {
     switch (action.type) {
         case 'SET_CURRENT_POST':
             return action.payload
         case 'CREATE_COMMENT':
-            console.log(action.payload);
             return { ...currentPost, comments: action.payload.comments }
         case 'DELETE_COMMENT':
             updatedPost = { ...currentPost }
@@ -15,54 +17,43 @@ export default (currentPost = {}, action) => {
 
             return updatedPost
         case 'LIKE_CURRENT_POST':
-            updatedPost = { ...currentPost }
-            if (!updatedPost._id) return currentPost
-
-            // Un-dislike if post is already disliked
-            indexOfLiker = updatedPost.dislikedBy.findIndex((likerId) => likerId === action.payload.userId)
-            if (indexOfLiker > -1) {
-                console.log('removing dislike');
-                const dislikedBy = [...updatedPost.dislikedBy]
-                dislikedBy.splice(indexOfLiker, 1)
-                updatedPost.dislikedBy = dislikedBy
+            newDislikedBy = [...currentPost.dislikedBy]
+            newLikedBy = [...currentPost.likedBy]
+            // Remove dislike if necessary
+            if (currentPost.dislikedBy.indexOf(action.payload.userId) > -1) {
+                newDislikedBy = [...currentPost.dislikedBy]
+                newDislikedBy.splice(currentPost.dislikedBy.indexOf(action.payload.userId), 1)
             }
-
-            // Like if post is not yet liked
-            indexOfLiker = updatedPost.likedBy.findIndex((likerId) => likerId === action.payload.userId)
-            if (indexOfLiker > -1) {
-                console.log('already liked, removing like');
-                const likedBy = [...updatedPost.likedBy]
-                likedBy.splice(indexOfLiker, 1)
-                updatedPost.likedBy = likedBy
-                return updatedPost
+            // Remove like if necessary
+            if (currentPost.likedBy.indexOf(action.payload.userId) > -1) {
+                newLikedBy = [...currentPost.likedBy]
+                newLikedBy.splice(currentPost.likedBy.indexOf(action.payload.userId), 1)
             }
-            console.log('not yet liked, adding like');
-            updatedPost.likedBy.push(action.payload.userId)
-
-            return updatedPost
+            // Add like
+            if (currentPost.likedBy.indexOf(action.payload.userId) <= -1) {
+                newLikedBy = [...currentPost.likedBy, action.payload.userId]
+            }
+            // Update state
+            return { ...currentPost, dislikedBy: newDislikedBy, likedBy: newLikedBy }
         case 'DISLIKE_CURRENT_POST':
-            updatedPost = { ...currentPost }
-            if (!updatedPost._id) return currentPost
-
-            // Un-like if post is already liked
-            indexOfLiker = updatedPost.likedBy.findIndex((likerId) => likerId === action.payload.userId)
-            if (indexOfLiker > -1) {
-                const likedBy = [...updatedPost.likedBy]
-                likedBy.splice(indexOfLiker, 1)
-                updatedPost.likedBy = likedBy
+            newDislikedBy = [...currentPost.dislikedBy]
+            newLikedBy = [...currentPost.likedBy]
+            // Remove like if necessary
+            if (currentPost.likedBy.indexOf(action.payload.userId) > -1) {
+                newLikedBy = [...currentPost.likedBy]
+                newLikedBy.splice(currentPost.likedBy.indexOf(action.payload.userId), 1)
             }
-
-            // Dislike if post is not yet disliked
-            indexOfLiker = updatedPost.dislikedBy.findIndex((likerId) => likerId === action.payload.userId)
-            if (indexOfLiker > -1) {
-                const dislikedBy = [...updatedPost.dislikedBy]
-                dislikedBy.splice(indexOfLiker, 1)
-                updatedPost.dislikedBy = dislikedBy
-                return updatedPost
+            // Remove dislike if necessary
+            if (currentPost.dislikedBy.indexOf(action.payload.userId) > -1) {
+                newDislikedBy = [...currentPost.dislikedBy]
+                newDislikedBy.splice(currentPost.dislikedBy.indexOf(action.payload.userId), 1)
             }
-            updatedPost.dislikedBy.push(action.payload.userId)
-
-            return updatedPost
+            // Add like
+            if (currentPost.dislikedBy.indexOf(action.payload.userId) <= -1) {
+                newDislikedBy = [...currentPost.dislikedBy, action.payload.userId]
+            }
+            // Update state
+            return { ...currentPost, dislikedBy: newDislikedBy, likedBy: newLikedBy }
         default:
             return currentPost
     }
