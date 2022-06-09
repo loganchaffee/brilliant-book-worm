@@ -8,6 +8,7 @@ import currentVisitedUserBookData from './currentVisitedUserBookData'
 import posts from './posts'
 import currentPost from './currentPost'
 import notifications from './notifications'
+import notificationsModal from './notificationsModal'
 
 export default combineReducers({ 
     books, 
@@ -18,5 +19,6 @@ export default combineReducers({
     currentVisitedUserBookData,
     posts,
     currentPost,
-    notifications
+    notifications,
+    notificationsModal
 });

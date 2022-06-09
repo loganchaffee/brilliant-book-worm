@@ -30,6 +30,7 @@ import { getNotifications } from './actions/notifications'
 import currentPost from './reducers/currentPost'
 import LargeTopNavbar from './components/LargeTopNavbar/LargeTopNavbar'
 import Sidebar from './components/Sidebar/Sidebar'
+import NotificationsModal from './components/NotificationsModal/NotificationsModal'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -104,6 +105,7 @@ const App = () => {
                     </div>
                 </div>
                 <BottomNavbar />
+                <NotificationsModal />
             </div>
         )
     } else {

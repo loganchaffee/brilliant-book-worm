@@ -1,23 +1,39 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Nav, Container, Row, Dropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faSearch, faCog, faBell, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { markNotificationAsRead } from '../../actions/notifications'
+import { toggleNotificationsModal } from '../../actions/notificationsModal';
 import './TopNavbar.css'
 
 function TopNavbar() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const params = useParams()
     const user = useSelector((state) => state.auth)
     const notifications = useSelector((state) => state.notifications)
+
+    const [numOfNotifications, setNumOfNotifications] = useState(0)
 
     const selectNotification = (notification) => {
         navigate(notification.link)
         dispatch(markNotificationAsRead(notification._id))
     }
+
+    const toggleModal = () => dispatch(toggleNotificationsModal())
+
+    useEffect(() => {
+        const arr = [];
+        for (let i = 0; i < notifications.length; i++) {
+            const notification = notifications[i];
+            if (!notification.viewed) arr.push('')
+        }
+        setNumOfNotifications(arr.length)
+    }, [params])
+
 
     return (
         <div className="TopNavbar" >
@@ -28,29 +44,13 @@ function TopNavbar() {
             </Link>
 
             <div className='TopNavbar__links'>
-                <Dropdown>
-                    <Dropdown.Toggle id="dropdown-basic" className='TopNavbar__link'>
+                <a className='Sidebar__link' onClick={toggleModal}>
+                    <div style={{position: 'relative'}}>
                         <FontAwesomeIcon icon={faBell} />
-                        { notifications.length > 0 && <span> {notifications.length}</span> }
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu style={{transform: 'translateX(-85%)', width: '350px', padding: '10px'}}>
-                        {
-                            notifications.length > 0
-                            ?
-                            notifications.map((notification) => {
-                                return <div key={'notification' + notification._id} className='notifications-dropdown' onClick={() => selectNotification(notification)}>
-                                    <p>
-                                        { notification.createdBy.name } { notification.message } {' '}
-                                        { !notification.viewed && <FontAwesomeIcon color='var(--bs-primary)' icon={faCircle} /> }
-                                    </p>
-                                </div>
-                            })
-                            :
-                            <p>No New Notifications</p>
-                        }
-                    </Dropdown.Menu>
-                </Dropdown>
+                        {numOfNotifications > 0 && <div className='notification-number'>{numOfNotifications}</div>}
+                    </div>
+                    <span>Notifications</span>
+                </a>
                 <Link to='/' className='TopNavbar__link'>
                     <div><FontAwesomeIcon icon={faCog} /></div>
                 </Link>

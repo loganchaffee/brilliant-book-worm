@@ -3,16 +3,22 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faNewspaper, faDumbbell, faUniversity, faUser, faCog, faDoorOpen } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faNewspaper, faDumbbell, faUniversity, faUser, faCog, faDoorOpen, faBell } from '@fortawesome/free-solid-svg-icons'
 import './Sidebar.css'
+import { toggleNotificationsModal } from '../../actions/notificationsModal';
+import { fetchNotifications } from '../../api';
 
 const Sidebar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
     const user = useSelector((state) => state.auth)
+    const notifications = useSelector((state) => state.notifications)
 
     const [currentTab, setCurrentTab] = useState()
+    const [numOfNotifications, setNumOfNotifications] = useState(0)
+
+    const toggleModal = () => dispatch(toggleNotificationsModal())
 
     useEffect(() => {
         switch (window.location.pathname) {
@@ -33,11 +39,20 @@ const Sidebar = () => {
         }
     }, [params])
 
+    useEffect(() => {
+        const arr = [];
+        for (let i = 0; i < notifications.length; i++) {
+            const notification = notifications[i];
+            if (!notification.viewed) arr.push('')
+        }
+        setNumOfNotifications(arr.length)
+    }, [params])
+
     return (
         <div className='Sidebar'>
             <Link to="/profile" className='Sidebar__profile'>
                 <div className='Sidebar__profile__image'>
-                    {user.profileImage ? <img src={user.profileImage} /> : <FontAwesomeIcon icon={faUser} />}
+                    { user.profileImage ? <img src={user.profileImage} /> : <FontAwesomeIcon icon={faUser} /> }
                 </div>
                 <p className='Sidebar__profile__name'>{user.name}</p>
                 <p className='Sidebar__profile__email'>{user.email}</p>
@@ -71,6 +86,13 @@ const Sidebar = () => {
                     <div><FontAwesomeIcon icon={faNewspaper} /></div>
                     <span>News Feed</span>
                 </Link>
+                <a className='Sidebar__link' onClick={toggleModal}>
+                    <div style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faBell} />
+                        {numOfNotifications > 0 && <div className='notification-number'>{numOfNotifications}</div>}
+                    </div>
+                    <span>Notifications</span>
+                </a>
             </div>
             <div className='Sidebar__bottom-links'>
                 <Link to='/challenge' className='Sidebar__bottom-link'>

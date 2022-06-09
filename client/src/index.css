@@ -185,4 +185,17 @@ select:focus {
 
 .modal-content {
     border: none !important;
+    border-radius: 10px;
+}
+
+.nm {
+    margin: 0;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.ml-10 {
+    margin-left: 10px;
 }
