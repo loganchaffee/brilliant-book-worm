@@ -126,7 +126,7 @@ export const createComment = async (req, res) => {
 
         const newNotification = new Notification({ 
             message: 'commented on your post',
-            link: `/view-post/${postId}`,
+            post: updatedPost._id,
             createdBy: req.userId, 
             recipient: updatedPost.createdBy
         })

@@ -47,3 +47,4 @@ export const deleteComment = (data) => api.post('/posts/delete-comment', data)
 // Notifications
 export const fetchNotifications = () => api.get('/notifications')
 export const markNotificationAsRead = (data) => api.post('/notifications/mark-as-read', data)
+export const deleteNotification = (id) => api.post('/notifications/delete-notification', id)

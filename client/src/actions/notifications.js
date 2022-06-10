@@ -19,3 +19,12 @@ export const markNotificationAsRead = (id) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const deleteNotification = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.deleteNotification({ id })
+        dispatch({ type: 'DELETE_NOTIFICATION', payload: id})
+    } catch (error) {
+        console.log(error);
+    }
+}
