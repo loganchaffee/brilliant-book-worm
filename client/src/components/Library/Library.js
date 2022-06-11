@@ -16,11 +16,12 @@ function Library() {
         dispatch(getBooks())
 
         resizeLastBook()
-
         window.addEventListener('resize', _.throttle(resizeLastBook), 200)
 
         return () => window.removeEventListener('resize', _.throttle)
     }, [])
+
+    useEffect(() => resizeLastBook(), [books.length])
 
     return (
         <div className="Library">
@@ -29,25 +30,31 @@ function Library() {
                     <h1 >Library</h1>
                 </Col>
             </Row>
-            <Row className='Library__bookshelf'>
-                {
-                    books.map((book, i) => {
-                        if (book.isCompleted) {
-                            return ( 
-                                <Col key={book._id + 'library'} className='Library__book-container' xs={4} sm={4} md={3} lg={2}>
-                                    <Link 
-                                        to={`/library-form/${book._id}`} 
-                                        onClick={() => dispatch(setCurrentBook(book))} 
-                                        className='Library__book-link' 
-                                    >
-                                        <img src={book.thumbnail} className='Library__book-image' />
-                                    </Link>
-                                </Col>
-                            )
-                        }
-                    })
-                }
-            </Row>
+            {
+                books.length > 0
+                ?
+                <Row className='Library__bookshelf'>
+                    {
+                        books.map((book, i) => {
+                            if (book.isCompleted) {
+                                return ( 
+                                    <Col key={book._id + 'library'} className='Library__book-container' xs={4} sm={4} md={3} lg={2}>
+                                        <Link 
+                                            to={`/library-form/${book._id}`} 
+                                            onClick={() => dispatch(setCurrentBook(book))} 
+                                            className='Library__book-link' 
+                                        >
+                                            <img src={book.thumbnail} className='Library__book-image' />
+                                        </Link>
+                                    </Col>
+                                )
+                            }
+                        })
+                    }
+                </Row>
+                :
+                <h3 style={{color: 'var(--secondary)'}}>No completed books yet</h3>
+            }
         </div>
     )
 }

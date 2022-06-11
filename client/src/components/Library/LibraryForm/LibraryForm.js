@@ -62,7 +62,7 @@ const LibraryBookForm = () => {
                     </Link>
                 </Col>
                 <Col xs={6} className='LibraryForm__ellipsis-btn-container'>
-                    <Link to="/edit-book" className='ellipsis-btn'>
+                    <Link to={`/edit-book/${currentBook._id}`} className='ellipsis-btn'>
                         <FontAwesomeIcon icon={faEllipsisH} />
                     </Link>
                 </Col>

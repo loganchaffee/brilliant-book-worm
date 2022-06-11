@@ -59,7 +59,7 @@ const Sidebar = () => {
     return <>
         <div className='Sidebar'>
             <Link to="/profile" className='Sidebar__profile'>
-                <div className='Sidebar__profile__image'>
+                <div className='Sidebar__profile__image' style={user.profileImage ? {} : {height: '75px'}}>
                     { user.profileImage ? <img src={user.profileImage} /> : <FontAwesomeIcon icon={faUser} color='var(--white)' /> }
                 </div>
                 <p className='Sidebar__profile__name'>{user.name}</p>

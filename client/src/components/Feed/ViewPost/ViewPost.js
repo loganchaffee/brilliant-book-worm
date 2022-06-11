@@ -13,6 +13,7 @@ import Post from '../Post/Post'
 import CurrentPost from '../Post/CurrentPost'
 import Comment from './Comment/Comment'
 import { fetchCurrentPost, setCurrentPost } from '../../../actions/currentPost'
+import BackButton from '../../common/BackButton/BackButton'
 import './ViewPost.css'
 
 const ViewPost = () => {
@@ -41,9 +42,7 @@ const ViewPost = () => {
             <ScrollToTopOnMount />
             <Row>
                 <Col xs={12}>
-                    <Link to="/feed" className='back-arrow'>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                    </Link>
+                    <BackButton />
                 </Col>
                 <Col xs={12}>
                     <CurrentPost />

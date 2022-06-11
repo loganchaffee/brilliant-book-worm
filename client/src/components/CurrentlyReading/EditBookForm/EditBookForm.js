@@ -7,6 +7,7 @@ import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { setCurrentBook } from '../../../actions/currentBook';
+import BackButton from '../../common/BackButton/BackButton';
 import moment from 'moment'
 import './EditBookForm.css'
 import useAddPoints from '../../../hooks/use-add-points'
@@ -80,9 +81,7 @@ function EditBookForm() {
         <Container className='EditBookForm'>
             <Row>
                 <Col xs={12} className='d-flex justify-content-between align-items-center EditBookForm__top-row'>
-                    <Link to="/" className='back-arrow'>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                    </Link>
+                    <BackButton />
                     <div className='EditBookForm__top-row__right-side'>
                         { showDeleteBtn && <Button variant='danger' className='EditBookForm__delete-book-btn' onClick={handleDelete}>Delete Book?</Button> }
                         <FontAwesomeIcon className='more-btn' icon={faEllipsisH} onClick={handleToggleDeleteBtn} />
