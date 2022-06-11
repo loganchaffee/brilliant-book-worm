@@ -36,7 +36,6 @@ const Profile = () => {
     useEffect(() => {
         if (user) {
             setFormData({ ...formData, name: user.name, email: user.email })
-            // setLocalUser(user)
         }
         if (books) {
             const completedBooks = books.filter((book) => book.isCompleted)
@@ -44,20 +43,6 @@ const Profile = () => {
             setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks })
         }
     }, [user])
-
-    const handleProfileImageClick = () => {
-        document.getElementById('fileInput').click()
-    }
-
-    const handleUpdateUserCred = () => {
-        // dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
-        dispatch(updateUser({ ...formData }, setErrorMessage))
-    }
-
-    const handleSignout = () => {
-        dispatch(signout())
-        navigate('/')
-    }
 
     const handleDeleteUser = () => {
         dispatch(deleteUser(navigate))
