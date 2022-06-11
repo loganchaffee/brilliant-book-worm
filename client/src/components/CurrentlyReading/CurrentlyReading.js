@@ -20,12 +20,14 @@ import { updateUser } from '../../actions/auth';
 import LevelUp from './LevelUp/LevelUp';
 import LastReadingWidget from './LastReadingWidget/LastReadingWidget';
 import DeadlinesWidget from './DeadlinesWidget/DeadlinesWidget';
+import useAddPoints from '../../hooks/use-add-points';
 
 
 function CurrentlyReading() {
     const dispatch = useDispatch()
     const books = useSelector((state) => state.books)
     const user = useSelector((state) => state.auth)
+    const addPoints = useAddPoints()
     
     useEffect(() => {
         dispatch(getBooks())
@@ -49,6 +51,7 @@ function CurrentlyReading() {
                 <Col xs={12} md={6} lg={4}>
                     <DeadlinesWidget />
                 </Col>
+                <Button onClick={() => addPoints(50)}>test points</Button>
             </Row>
 
             <Row>

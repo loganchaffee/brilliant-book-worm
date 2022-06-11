@@ -75,7 +75,6 @@ export const getUserInfo = async (req, res) => {
 // Update User
 export const updateUser = async (req, res) => {
     try {
-
         const id = req.userId
         const body = req.body
 
@@ -83,13 +82,12 @@ export const updateUser = async (req, res) => {
         const userWithCredMatch = await User.findOne({ $or: [ { name: body.name }, { email: body.email } ] })
 
         if (userWithCredMatch) {
-            if (userWithCredMatch._id.toString() !== id ) return res.status(400).send('A user with that name already exists')
+            if (userWithCredMatch._id.toString() !== id ) return res.status(400).send('A user with that name or email already exists')
         }
        
         // Update user
         const updatedUser = await User.findByIdAndUpdate(id,  { ...body }, { returnDocument: 'after' })
         if (!updatedUser) return res.status(404).send('User not found')
-
 
         // Create new token if the email or name changed
         if (body.email) {

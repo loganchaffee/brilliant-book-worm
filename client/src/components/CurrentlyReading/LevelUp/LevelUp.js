@@ -24,26 +24,24 @@ const LevelUp = () => {
 
     console.log();
 
-    return (
-        <div className='Dashboard__level Dashboard__card'>
-            <div>
-                <h4 className='Dashboard__level__level'>Level Up</h4>
-            </div>
-            <div className='d-flex justify-content-between'>
-                <span className='Dashboard__level__level'>Current Level: </span>
-                <span className={`level-${user.level}-icon`}>LEVEL {user.level}</span>
-            </div>
-            <div className='d-flex justify-content-between'>
-                <span>Total Points:</span>
-                <span>{user.points}</span>
-            </div>
-            <div className='d-flex justify-content-between'>
-                <span>Next Level At:</span>
-                <span>{nextLevelPoints} Points</span>
-            </div>
-            <ProgressBar variant='warning' now={((user.points - previousLevelPoints) / (nextLevelPoints - previousLevelPoints)) * 100} />
+    return <div className='Dashboard__level Dashboard__card'>
+        <div>
+            <h4 className='Dashboard__level__level'>Level Up</h4>
         </div>
-    )
+        <div className='d-flex justify-content-between'>
+            <span className='Dashboard__level__level'>Current Level: </span>
+            <span className={`level-${user.level}-icon`}>LEVEL {user.level}</span>
+        </div>
+        <div className='d-flex justify-content-between'>
+            <span>Total Points:</span>
+            <span>{user.points}</span>
+        </div>
+        <div className='d-flex justify-content-between'>
+            <span>Next Level At:</span>
+            <span>{nextLevelPoints} Points</span>
+        </div>
+        <ProgressBar variant='warning' now={((user.points - previousLevelPoints) / (nextLevelPoints - previousLevelPoints)) * 100} />
+    </div>
 }
 
 export default LevelUp

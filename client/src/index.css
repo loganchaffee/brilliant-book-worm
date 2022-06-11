@@ -29,7 +29,7 @@
     --level-1: #4FAF44;
     --level-2: #FFC33F;
     --level-3: #E30000;
-    --level-4: #8b17ff;
+    --level-4: #000000;
 }
 
 body {
@@ -105,16 +105,16 @@ body {
 }
 
 .level-1-icon {
-    background:#4FAF44;
+    background: var(--level-1);
 }
 .level-2-icon {
-    background:#FFC33F;
+    background: var(--level-2);
 }
 .level-3-icon {
-    background:#EF4423;
+    background: var(--level-3);
 }
 .level-4-icon {
-    background:#4371e6;
+    background: var(--level-4);
 }
 
 * {

@@ -9,6 +9,7 @@ import posts from './posts'
 import currentPost from './currentPost'
 import notifications from './notifications'
 import notificationsModal from './notificationsModal'
+import pointsJustScored from './pointsJustScored'
 
 export default combineReducers({ 
     books, 
@@ -20,5 +21,6 @@ export default combineReducers({
     posts,
     currentPost,
     notifications,
-    notificationsModal
+    notificationsModal,
+    pointsJustScored
 });

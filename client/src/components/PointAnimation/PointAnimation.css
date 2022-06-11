@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.PointAnimation {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+}
+
+.PointAnimation__center {
+    border-radius: 10px;
+    color: var(--success);
+    margin: 0;
+    font-size: 60px;
+    font-family: 'VT323', monospace;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation-name: floatUp;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-duration: 3s;
+}
+
+.PointAnimation__center > svg {
+    font-size: 30px;
+    margin-right: 5px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0) ;
+        color: var(--success);
+    }
+    10% {
+        transform: translateY(-20%) ;
+    }
+    17% {
+        transform: translateY(-30%)  ;
+    }
+    50% {
+        transform: translateY(-100%) ;
+        color: var(--success);
+    }
+    100% {
+        transform: translateY(-200%) ;
+        color: #00000000;
+    }
+}

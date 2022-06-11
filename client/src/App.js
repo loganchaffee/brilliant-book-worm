@@ -21,6 +21,7 @@ import ReadingSpeedTestCompletion from './components/Challenge/ReadingSpeedTest/
 import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadline'
 import PublicProfile from './components/Profile/PublicProfile'
 import ViewPost from './components/Feed/ViewPost/ViewPost'
+import PointAnimation from './components/PointAnimation/PointAnimation'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from './actions/auth'
@@ -38,6 +39,7 @@ const App = () => {
     const params = useParams()
     const user = useSelector((state) => state.auth)
     const posts = useSelector((state) => state.posts)
+    const pointsJustScored = useSelector(state => state.pointsJustScored)
     const currentPost = useSelector((state) => state.currentPost)
     const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
 
@@ -106,6 +108,7 @@ const App = () => {
                 </div>
                 <BottomNavbar />
                 <NotificationsModal />
+                {pointsJustScored > 0 && <PointAnimation />}
             </div>
         )
     } else {

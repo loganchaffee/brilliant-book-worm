@@ -22,7 +22,6 @@ function AddBookForm() {
     const [pickedBook, setPickedBook] = useState(false)
     const [formData, setFormData] = useState(defaultFormDataState)
 
-
     // TODO update to use lodash
     const [timeoutId, setTimeoutId] = useState(0)
     useEffect(() => {
@@ -32,7 +31,6 @@ function AddBookForm() {
     }, [formData.title])
 
     useEffect(() => {
-
         document.addEventListener('click', (e) => {
             if (e.target.id != 'titleInput' || e.target.id != 'titleInput') {
                 setGoogleBooks([])
