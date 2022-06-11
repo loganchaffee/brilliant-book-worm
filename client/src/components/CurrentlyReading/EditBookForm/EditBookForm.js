@@ -9,6 +9,7 @@ import { faAngleLeft, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { setCurrentBook } from '../../../actions/currentBook';
 import moment from 'moment'
 import './EditBookForm.css'
+import useAddPoints from '../../../hooks/use-add-points'
 
 function EditBookForm() {
     const dispatch = useDispatch()
@@ -17,6 +18,7 @@ function EditBookForm() {
     const currentBook = useSelector((state) => state.currentBook)
     const books = useSelector((state) => state.books)
     const user = useSelector((state) => state.auth)
+    const addPoints = useAddPoints()
 
     const [formData, setFormData] = useState({ title: '', subtitle: '', author: '', publicationDate: '', numberOfPages: 0, currentPage: 60 })
     const [previousCurrentPage, setPreviousCurrentPage] = useState(null)
@@ -42,6 +44,7 @@ function EditBookForm() {
         // Did user read this update?
         if (previousCurrentPage < formData.currentPage) {
             dispatch(updateUser({ dateOfLastReading: new Date().toISOString() }))
+            addPoints(5)
         }
 
         dispatch(updateBook(currentBook._id, formData))
@@ -56,9 +59,9 @@ function EditBookForm() {
         const deadlineTime = new Date(currentBook.deadline).getTime()
 
         if (currentTime < deadlineTime) {
-            dispatch(updateUser({ ...user, points: user.points + 100 }))
+            addPoints(150)
         } else {
-            dispatch(updateUser({ ...user, points: user.points + 50 }))
+            addPoints(100)
         }
 
         dispatch(updateBook(currentBook._id, { ...formData, isCompleted: true, currentPage: formData.numberOfPages }))

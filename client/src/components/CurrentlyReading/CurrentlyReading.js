@@ -51,7 +51,6 @@ function CurrentlyReading() {
                 <Col xs={12} md={6} lg={4}>
                     <DeadlinesWidget />
                 </Col>
-                <Button onClick={() => addPoints(50)}>test points</Button>
             </Row>
 
             <Row>

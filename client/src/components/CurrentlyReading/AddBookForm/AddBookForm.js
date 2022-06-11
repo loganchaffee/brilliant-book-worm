@@ -10,6 +10,7 @@ import { createBook } from '../../../actions/books';
 import { updateUser } from '../../../actions/auth';
 import axios from 'axios';
 import { defaultFormDataState } from './default-form-data-state';
+import useAddPoints from '../../../hooks/use-add-points'
 
 import './AddBookForm.css'
 
@@ -17,6 +18,7 @@ function AddBookForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
+    const addPoints = useAddPoints()
 
     const [googleBooks, setGoogleBooks] = useState([])
     const [pickedBook, setPickedBook] = useState(false)
@@ -43,7 +45,7 @@ function AddBookForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createBook({ ...formData, createdBy: user._id})) // Create Book
-        dispatch(updateUser({ points: user.points + 5 })) // Update User points
+        addPoints(10)
         navigate('/')
     }
 

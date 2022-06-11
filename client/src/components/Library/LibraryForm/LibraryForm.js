@@ -7,6 +7,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faEllipsisH, faStar } from '@fortawesome/free-solid-svg-icons'
 import { setCurrentBook } from '../../../actions/currentBook';
+import useAddPoints from '../../../hooks/use-add-points';
 import './LibraryForm.css'
 
 const LibraryBookForm = () => {
@@ -17,6 +18,7 @@ const LibraryBookForm = () => {
     const books = useSelector((state) => state.books)
     const user = useSelector((state) => state.auth)
     const starArray = new Array(5).fill('')
+    const addPoints = useAddPoints()
 
     const [reviewWasEmpty, setReviewWasEmpty] = useState(true)
     const [formData, setFormData] = useState({
@@ -45,7 +47,7 @@ const LibraryBookForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (reviewWasEmpty) {
-            dispatch(updateUser({ ...user, points: user.points + 5 }))
+            addPoints(50)
         }
         dispatch(updateBook(currentBook._id, formData))
         navigate('/library')

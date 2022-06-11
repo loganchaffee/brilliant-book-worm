@@ -1,0 +1,8 @@
+Point system -----------------------------------------------------------------
+
+Add a book                          10 points
+Read part of a book                 5 points
+Finish a book                       100 points
+Finish a book before a deadline     150 points
+Write a review                      50 points
+Improve words per minute            50 points
