@@ -81,7 +81,15 @@ function Feed() {
                 <Col xs={12} sm={7}>
                     <h1 className='title-1'>News Feed</h1>
                     <div id='postsContainer'>
-                        { posts.map((post) => <Post key={'post-' + post._id} post={post} />) }
+                        {
+                            posts.length > 0
+                            ?
+                            posts.map((post) => <Post key={'post-' + post._id} post={post} />)
+                            :
+                            <div className='postsContainer__alternate-content'>
+                                <h3>No posts yet</h3>
+                            </div>
+                        }
                     </div>
                 </Col>
                 <Col xs={12} sm={5} className='mb-10'>

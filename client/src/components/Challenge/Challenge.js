@@ -5,11 +5,13 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Card from 'react-bootstrap/esm/Card';
 import Button from 'react-bootstrap/esm/Button';
+import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 import './Challenge.css'
 
 function Challenge() {
     return (
         <div className="Challenge">
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={12}>
                     <h1>Challenges</h1>

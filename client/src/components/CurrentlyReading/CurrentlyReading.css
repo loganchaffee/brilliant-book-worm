@@ -68,3 +68,11 @@
 .Dashboard__stats-row {
     margin-bottom: 50px;
 }
+
+.CurrentlyReading__alternate-content {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary);
+}

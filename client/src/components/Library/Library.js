@@ -7,6 +7,9 @@ import _ from 'lodash'
 import { resizeLastBook } from './utils';
 import { getBooks } from '../../actions/books';
 import { setCurrentBook } from '../../actions/currentBook';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount';
 
 function Library() {
     const dispatch = useDispatch()
@@ -25,6 +28,7 @@ function Library() {
 
     return (
         <div className="Library">
+            <ScrollToTopOnMount />
             <Row>
                 <Col style={{padding: '0px'}}>
                     <h1 >Library</h1>
@@ -44,7 +48,17 @@ function Library() {
                                             onClick={() => dispatch(setCurrentBook(book))} 
                                             className='Library__book-link' 
                                         >
-                                            <img src={book.thumbnail} className='Library__book-image' />
+                                            {
+                                                book.thumbnail
+                                                ?
+                                                <img src={book?.thumbnail} className='Library__book-image' />
+                                                :
+                                                <div className='Library__book-alternate'>
+                                                    <FontAwesomeIcon icon={faBook}/>
+                                                    <p>{book?.title}</p>
+                                                    <p>{book?.subtitle}</p>
+                                                </div>
+                                            }
                                         </Link>
                                     </Col>
                                 )
@@ -53,7 +67,9 @@ function Library() {
                     }
                 </Row>
                 :
-                <h3 style={{color: 'var(--secondary)'}}>No completed books yet</h3>
+                <div className='Library__alternate-content'>
+                    <h3 style={{color: 'var(--secondary)'}}>No completed books yet</h3>
+                </div>
             }
         </div>
     )

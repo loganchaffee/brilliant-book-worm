@@ -18,6 +18,14 @@
     margin-bottom: 0;
 }
 
+.postsContainer__alternate-content {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary);
+}
+
 @media (max-width: 600px) {
     .Feed__sidebar {
         position: relative;

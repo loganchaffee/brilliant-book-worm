@@ -51,7 +51,7 @@ export const fetchPosts = async (req, res) => {
             return res.status(200).json([])
         }
 
-        const posts = await Post.find({ "createdBy" : { $in : following } })
+        const posts = await Post.find({ $or: [{ "createdBy" : { $in : following } }, { createdBy : userId }] })
         .sort({ createdAt: -1 })
         .populate('createdBy', 'name level profileImage')
         .populate('book', 'title subtitle author review thumbnail')
@@ -124,14 +124,16 @@ export const createComment = async (req, res) => {
 
         res.status(200).json(updatedPost)
 
-        const newNotification = new Notification({ 
-            message: 'commented on your post',
-            post: updatedPost._id,
-            createdBy: req.userId, 
-            recipient: updatedPost.createdBy
-        })
+        if (updatedPost.createdBy.toString() !== req.userId) {
+            const newNotification = new Notification({ 
+                message: 'commented on your post',
+                post: updatedPost._id,
+                createdBy: req.userId, 
+                recipient: updatedPost.createdBy
+            })
 
-        await newNotification.save()
+            await newNotification.save()
+        }
     } catch (error) {
         res.status(500)
         console.log(error);

@@ -69,3 +69,16 @@
     margin-left: auto;
 }
 
+.ReadingDeadline__alternate-content {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ReadingDeadline__alternate-content h3 {
+    color: var(--secondary-darkened);
+    max-width: 300px;
+    text-align: center;
+}

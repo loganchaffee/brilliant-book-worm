@@ -14,6 +14,7 @@ import './Profile.css'
 import UserDetails from './UserDetails/UserDetails';
 import FollowersSection from './FollowersSection/FollowersSection';
 import Statistics from './Statistics/Statistics';
+import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -56,6 +57,7 @@ const Profile = () => {
         
     return (
         <div className="Profile">
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={12}>
                     <h4>Account Settings</h4>

@@ -89,6 +89,8 @@
 .Post__book__thumbnail {
     width: 100%;
     border-radius: 5px;
+    font-size: 60px;
+    color: var(--secondary-darkened);
 }
 
 .Post__content {

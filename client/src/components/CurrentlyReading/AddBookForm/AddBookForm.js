@@ -13,6 +13,7 @@ import { defaultFormDataState } from './default-form-data-state';
 import useAddPoints from '../../../hooks/use-add-points'
 
 import './AddBookForm.css'
+import BackButton from '../../common/BackButton/BackButton';
 
 function AddBookForm() {
     const dispatch = useDispatch()
@@ -32,6 +33,11 @@ function AddBookForm() {
         setTimeoutId(id)
     }, [formData.title])
 
+
+    const resetGoogleBooks = () => {
+      
+    }
+
     useEffect(() => {
         document.addEventListener('click', (e) => {
             if (e.target.id != 'titleInput' || e.target.id != 'titleInput') {
@@ -39,7 +45,7 @@ function AddBookForm() {
             }
         })
 
-        return () => document.removeEventListener('click')
+        return () => document.removeEventListener('click', () => {})
     }, [])
 
     const handleSubmit = (e) => {
@@ -63,6 +69,7 @@ function AddBookForm() {
                 const book = data.items[i];
                 books.push(book.volumeInfo)
             }
+            console.log(books);
             setGoogleBooks(books)
         } catch (error) {
             console.log(error);
@@ -70,14 +77,21 @@ function AddBookForm() {
     }
 
     const handleFillForm = (book) => {
+        console.log(book);
+
+        let authors = ''
+        let thumbnail = ''
+        if (book?.authors) authors = book.authors[0]
+        if (book?.imageLinks?.thumbnail) thumbnail = book?.imageLinks?.thumbnail
+
         setFormData({ 
             ...formData, 
             title: book?.title,
             subtitle: book?.subtitle,
-            author: book?.authors[0],
+            author: authors,
             publicationDate: book?.publishedDate,
             numberOfPages: book?.pageCount,
-            thumbnail: book?.imageLinks.thumbnail
+            thumbnail: thumbnail
         })
         setPickedBook(true)
         document.getElementById('submit-btn').focus()
@@ -87,9 +101,7 @@ function AddBookForm() {
         <div className='AddBookForm'>
             <Row>
                 <Col xs={6} className='d-flex align-items-between flex-column'>
-                    <Link to="/" className='back-arrow'>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                    </Link>
+                    <BackButton />
                     <h3 className='mb-0'>Add Book</h3>
                 </Col>
                 <Col className='AddBookForm__thumbnail-container'>
@@ -129,10 +141,17 @@ function AddBookForm() {
                                             if (i > 4) return
                                             return (
                                                 <div 
+                                                    key={book.title + 'result' + i}
                                                     className='d-flex justify-content-start align-items-start pb-1 AddBookForm__result' 
                                                     onClick={() => handleFillForm(book)}
                                                 >
-                                                    <img width='50' src={book?.imageLinks?.thumbnail} style={{marginRight: '10px'}}/>
+                                                    {
+                                                        book?.imageLinks?.thumbnail
+                                                        ?
+                                                        <img width='50' src={book?.imageLinks?.thumbnail} className='mr-10'/>
+                                                        :
+                                                        <FontAwesomeIcon icon={faBook} style={{fontSize: 55, color: 'var(--secondary-darkened)'}} className='mr-10'/>
+                                                    }
                                                     <div style={{width: '100%'}}>
                                                         <p className='mb-0'>{book.title}</p>
                                                         <p style={{fontSize: '12px'}}>{book.subtitle}</p>

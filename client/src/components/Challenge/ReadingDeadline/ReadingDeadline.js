@@ -19,10 +19,21 @@ const ReadingDeadline = () => {
     const [selectedBookId, setSelectedBookId] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
     const [alertMessage, setAlertMessage] = useState('');
+    const [hasCurrentBooks, setHasCurrentBooks] = useState(false)
 
     useEffect(() => {
         dispatch(getBooks())
     }, [])
+
+    useEffect(() => {
+        for (let i = 0; i < books.length; i++) {
+            const book = books[i];
+            if (!book.isCompleted) {
+                setHasCurrentBooks(true)
+                break
+            }
+        }
+    }, [books.length])
  
     useEffect(() => {
         setSelectedBook(books.filter((book) => book._id === selectedBookId)[0])
@@ -51,46 +62,57 @@ const ReadingDeadline = () => {
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <Form className="mb-3 main-form">
-                        <Form.Group className="mb-3">
-                            <Form.Label>Select Book</Form.Label>
-                            <Form.Select className='ReadingDeadline__select' aria-label="Default select example" value={selectedBookId} onChange={(e) => setSelectedBookId(e.target.value)}>
-                                <option value={null} />
-                                {
-                                    books.map((book, index) => {
-                                        if (!book.isCompleted && !book.deadline) {
-                                            return <option key={index + book._id} value={book._id}>{book.title}</option>
-                                        }
-                                    })
-                                }
-                            </Form.Select>
-                        </Form.Group>
-                       
-                        <Form.Group>
-                            <Form.Label>Select Deadline</Form.Label>
-                            <Calendar
-                                className='ReadingDeadline__calendar' 
-                                calendarType="US" 
-                                minDate={new Date()} 
-                                onChange={setCalendarValue}
-                                value={calendarValue}
-                            />
-                        </Form.Group>
-                    </Form>
-                    { 
-                        selectedBookId && calendarValue
-                        ?
-                        <div className='d-flex justify-content-end'><Button className='ReadingDeadline__submit' onClick={handleSubmit}>Set Deadline</Button></div>
-                        :
-                        undefined
-                    }
-                    { 
-                        alertMessage 
-                        &&
-                        <Alert variant='success' content={alertMessage} onClose={() => setAlertMessage('')} />
-                    }
-                </Col>
+                {
+                    hasCurrentBooks
+                    ?
+                    <Col>
+                        <Form className="mb-3 main-form">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Select Book</Form.Label>
+                                <Form.Select className='ReadingDeadline__select' aria-label="Default select example" value={selectedBookId} onChange={(e) => setSelectedBookId(e.target.value)}>
+                                    <option value={null} />
+                                    {
+                                        books.map((book, index) => {
+                                            if (!book.isCompleted && !book.deadline) {
+                                                return <option key={index + book._id} value={book._id}>{book.title}</option>
+                                            }
+                                        })
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                        
+                            <Form.Group>
+                                <Form.Label>Select Deadline</Form.Label>
+                                <Calendar
+                                    className='ReadingDeadline__calendar' 
+                                    calendarType="US" 
+                                    minDate={new Date()} 
+                                    onChange={setCalendarValue}
+                                    value={calendarValue}
+                                />
+                            </Form.Group>
+                        </Form>
+                        { 
+                            selectedBookId && calendarValue
+                            ?
+                            <div className='d-flex justify-content-end'><Button className='ReadingDeadline__submit' onClick={handleSubmit}>Set Deadline</Button></div>
+                            :
+                            undefined
+                        }
+                        { 
+                            alertMessage 
+                            &&
+                            <Alert variant='success' content={alertMessage} onClose={() => setAlertMessage('')} />
+                        }
+                    </Col>
+                    :
+                    <div className='ReadingDeadline__alternate-content'>
+                        <h3>You are not currently reading any books</h3>
+                        <Link to='/add-book'>
+                            <Button>Add a new book?</Button>
+                        </Link>
+                    </div>
+                }
             </Row>
         </div>
     )

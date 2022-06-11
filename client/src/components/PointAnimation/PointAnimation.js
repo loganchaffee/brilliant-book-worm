@@ -8,10 +8,8 @@ const PointAnimation = () => {
     const pointsJustScored = useSelector(state => state.pointsJustScored)
 
     return (
-        <div className='PointAnimation'>
-            <div className='PointAnimation__center'>
-                <FontAwesomeIcon icon={faPlus} /> {pointsJustScored} Points!
-            </div>
+        <div className='PointAnimation__center'>
+            <FontAwesomeIcon icon={faPlus} /> {pointsJustScored} Points!
         </div>
     )
 }

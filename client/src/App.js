@@ -74,7 +74,7 @@ const App = () => {
     if (isLoading) return null
     if (user) {
         return (
-            <div id='App'>
+            <div id='App' key={user._id + "App"}>
                 <Sidebar />
                 <TopNavbar />
                 <div className="main-container" xs={12}>

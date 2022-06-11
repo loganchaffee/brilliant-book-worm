@@ -64,3 +64,33 @@
     z-index: 1;
     box-shadow: 0px 0px 20px 0px rgba(128, 128, 128, 0.143);
 }
+
+.Library__book-alternate {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Library__book-alternate svg {
+    font-size: 100px;
+    color: var(--secondary-darkened);
+    margin-bottom: 10px;
+}
+
+.Library__book-alternate p {
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+}
+
+.Library__alternate-content {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary);
+}

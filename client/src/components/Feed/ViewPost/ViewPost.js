@@ -7,7 +7,7 @@ import { Col, Container, Row, Card, Form, Button} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 // Custom Components
-import ScrollToTopOnMount from '../../ScrollToTopOnMount/ScrollToTopOnMount'
+import ScrollToTopOnMount from '../../common/ScrollToTopOnMount/ScrollToTopOnMount'
 import CommentForm from './CommentForm/CommentForm'
 import Post from '../Post/Post'
 import CurrentPost from '../Post/CurrentPost'

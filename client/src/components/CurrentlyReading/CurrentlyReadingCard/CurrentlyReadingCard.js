@@ -39,10 +39,15 @@ function CurrentlyReadingCard({book}) {
     
     return (
         <Card className='CurrentlyReadingCard box-shadow'>
-
             <Card.Body className="CurrentlyReadingCard__body">
                 <Col xs={2} className='CurrentlyReadingCard__book-icon-container'>
-                    <img src={thumbnail}/>
+                    {
+                        thumbnail
+                        ?
+                        <img src={thumbnail}/>
+                        :
+                        <FontAwesomeIcon icon={faBook} />
+                    }
                 </Col>
                 <Col xs={10}>
                     <div className='CurrentlyReadingCard__body-right' >

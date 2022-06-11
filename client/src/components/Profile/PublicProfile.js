@@ -11,6 +11,7 @@ import Statistics from './Statistics/Statistics'
 import FollowersSection from './FollowersSection/FollowersSection'
 import PublicProfileModal from './PublicProfileModal/PublicProfileModal'
 import './PublicProfile.css'
+import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 
 const PublicProfile = () => {
     const params = useParams()
@@ -63,6 +64,7 @@ const PublicProfile = () => {
     } else {
         return (
             <div>
+                <ScrollToTopOnMount />
                 <Row>
                     <Col xs={12} md={8}>
                         <div className="UserDetails__credentials">

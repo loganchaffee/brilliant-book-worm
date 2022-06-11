@@ -28,6 +28,12 @@
     border-radius: 5px;
 }
 
+.CurrentlyReadingCard__book-icon-container svg {
+    font-size: 65px;
+    margin: 0 auto;
+    color: var(--secondary-darkened);
+}
+
 .CurrentlyReadingCard__book-icon {
     font-size: 40px;
     margin-top: 3px;

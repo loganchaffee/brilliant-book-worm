@@ -21,6 +21,7 @@ import LevelUp from './LevelUp/LevelUp';
 import LastReadingWidget from './LastReadingWidget/LastReadingWidget';
 import DeadlinesWidget from './DeadlinesWidget/DeadlinesWidget';
 import useAddPoints from '../../hooks/use-add-points';
+import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount';
 
 
 function CurrentlyReading() {
@@ -35,6 +36,7 @@ function CurrentlyReading() {
 
     return (
         <div className='CurrentlyReading'>
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={12} className='page-heading'>
                     <h1>Dashboard</h1>
@@ -55,16 +57,18 @@ function CurrentlyReading() {
 
             <Row>
                 <Col xs={12} className='d-flex justify-content-between'>
-                    <h4>Currently Reading</h4>
+                    <h4 style={{width: 'fit-content'}}>Currently Reading</h4>
                     <Link to="/add-book" style={{marginLeft: '10px'}}>
                         <Button className='add-new-book-btn full-width-btn'><Icon icon={faPlus} /> Add New Book</Button>
                     </Link>
                 </Col>
                 {
+                    books.length > 0
+                    ?
                     books.map((book) => {
                         if (!book.isCompleted) {
                             return (
-                                <Col sm={12} lg={6} className='mb-3' key={book._id}>
+                                <Col xs={12} md={6} lg={6} className='mb-3' key={book._id}>
                                     <Link to={`/edit-book/${book._id}`} onClick={() => dispatch(setCurrentBook(book))}>
                                         <CurrentlyReadingCard book={book} />
                                     </Link>
@@ -72,6 +76,10 @@ function CurrentlyReading() {
                             )
                         }
                     })
+                    :
+                    <div className='CurrentlyReading__alternate-content'>
+                        <h3>Add a book to track your reading</h3>
+                    </div>
                 }
             </Row>
         </div>
