@@ -58,7 +58,7 @@ const UsersSearch = () => {
                     <div className="search-results box-shadow">
                         { 
                             users.map((user, index) => <Link 
-                                to="/public-profile"
+                                to={`/public-profile/${user._id}`}
                                 className='search-result'
                                 key={index + user.name}
                                 onClick={() => handleClickUser(user._id)}

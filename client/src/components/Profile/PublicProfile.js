@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Col, Container, Row, Card, Form, Button, Spinner, Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPlus, faMinus, faStar, faAngleRight, faPastafarianism } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPlus, faMinus, faStar, faAngleRight, faPastafarianism, faBook } from '@fortawesome/free-solid-svg-icons'
 import { signout, deleteUser, updateUser, follow, unfollow } from '../../actions/auth'
 import { getCurrentVisitedUser, resetVisitedUser } from '../../actions/currentVisitedUser'
 import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks'
@@ -24,6 +24,7 @@ const PublicProfile = () => {
     const [selectedBook, setSelectedBook] = useState(null)
     const [showModalReview, setShowModalReview] = useState(false)
     const [hasCurrentlyReading, setHasCurrentlyReading] = useState(false)
+    const [hasFinishedBooks, setHasFinishedBooks] = useState(false)
     const [hasLibrary, setHasLibrary] = useState(false)
     const [path, setPath] = useState('')
 
@@ -35,6 +36,8 @@ const PublicProfile = () => {
     }, [params.id])
 
     useEffect(() => {
+        if (visitedUserBooks.length > 0) setHasFinishedBooks(true)
+
         for (let i = 0; i < visitedUserBooks.length; i++) {
             const book = visitedUserBooks[i];
             if (!book.isCompleted) {
@@ -92,13 +95,13 @@ const PublicProfile = () => {
                             </div>
                         </div>
                         <Row>
+                            <Col xs={12}>
+                                <p className='PublicProfile__section-title'>{visitedUser.name} Is Currently Reading</p>
+                            </Col>
                             {
                                 hasCurrentlyReading
-                                &&
+                                ?
                                 <div>
-                                    <Col xs={12}>
-                                        <p className='PublicProfile__section-title'>{visitedUser.name} Is Currently Reading</p>
-                                    </Col>
                                     <div className='PublicProfile__books'>
                                         {
                                             visitedUserBooks.map((book) => {
@@ -109,23 +112,42 @@ const PublicProfile = () => {
                                         }
                                     </div>
                                 </div>
+                                :
+                                <div className='mb-10'>
+                                    <p className='color-secondary mb-10'>{visitedUser.name} is not currently reading anything</p>
+                                </div>
                             }
+                            <Col xs={12}>
+                                <p className='PublicProfile__section-title'>{visitedUser.name}'s Library</p>
+                            </Col>
                             {
-                                hasCurrentlyReading
-                                &&
+                                hasFinishedBooks
+                                ?
                                 <div>
-                                    <Col xs={12}>
-                                        <p className='PublicProfile__section-title'>{visitedUser.name}'s Library</p>
-                                    </Col>
+                                    
                                     <div className='PublicProfile__books'>
                                         {
                                             visitedUserBooks.map((book) => {
                                                 if (book.isCompleted) return <div key={'library-' + book._id} className='PublicProfile__book' onClick={() => handleSelectBook(book)}>
-                                                    <img src={book.thumbnail} />
+                                                    {
+                                                        book.thumbnail
+                                                        ?
+                                                        <img src={book.thumbnail} />
+                                                        :
+                                                        <div className='PublicProfile__book-alternate'>
+                                                            <FontAwesomeIcon icon={faBook}/>
+                                                            <p>{book?.title}</p>
+                                                            <p>{book?.subtitle}</p>
+                                                        </div>
+                                                    }
                                                 </div>
                                             })
                                         }
                                     </div>
+                                </div>
+                                :
+                                <div className='mb-10'>
+                                    <p className='color-secondary'>{visitedUser.name} hasn't finished any books yet</p>
                                 </div>
                             }
                         </Row>

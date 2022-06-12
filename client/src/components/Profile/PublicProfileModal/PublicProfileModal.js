@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faAngleRight, faBook } from '@fortawesome/free-solid-svg-icons'
 import './PublicProfileModal.css'
 
 const PublicProfileModal = ({ selectedBook, handleCloseModal, visitedUser, showModalReview, setShowModalReview }) => {
@@ -14,7 +14,16 @@ const PublicProfileModal = ({ selectedBook, handleCloseModal, visitedUser, showM
         </Modal.Header>
         <Modal.Body className='d-flex flex-wrap'>
             <div className='PublicProfile__modal__book'>
-                <img src={selectedBook?.thumbnail} />
+                {
+                    selectedBook?.thumbnail
+                    ?
+                    <img src={selectedBook?.thumbnail} />
+                    :
+                    <div className='PublicProfile__book-alternate'>
+                        <FontAwesomeIcon icon={faBook}/>
+                    </div>
+                }
+                
             </div>
             <div className='PublicProfile__modal__details'>
                 <div className='d-flex justify-content-between'>
