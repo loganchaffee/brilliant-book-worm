@@ -5,3 +5,12 @@
 .Dashboard__level > div:last-child {
     margin-bottom: 0;
 }
+
+.level-4-badge {
+    background: linear-gradient(#ffdd93, #FFC33F);
+    width: fit-content;
+    padding: 3px 10px;
+    border: 2px solid var(--warning-darkened);
+    border-radius: 50px;
+    color: #735922;
+}
