@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-
 import Card from 'react-bootstrap/esm/Card'
-
 import { FontAwesomeIcon as I } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown, faComment, faBook, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { dislikePost, likePost } from '../../../actions/posts'
 import { setCurrentPost, likeCurrentPost, dislikeCurrentPost  } from '../../../actions/currentPost'
+import moment from 'moment';
 
 import './Post.css'
 
@@ -17,14 +16,6 @@ const Post = ({ post }) => {
     const user = useSelector((state) => state.auth)
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
-
-    const [months, setMonths] = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
-    const [days, setDays] = useState([])
-    const [postDate, setPostDate] = useState('')
-
-    useEffect(() => {
-        setPostDate(`${months[new Date(post.createdAt).getMonth()]} ${new Date(post.createdAt).getDate()}`)
-    }, [])
 
     const handleLikePost = () => {
         dispatch(likePost(post._id, user._id))
@@ -55,7 +46,7 @@ const Post = ({ post }) => {
                         <p className={`Post__level-${post.createdBy?.level}`}>Level {post.createdBy?.level}</p>
                     </div>
                     <div className='Post__time'>
-                        <p>{postDate}</p>
+                        <p>{moment(post.createdAt).format('MMM Do h:mm A')}</p>
                     </div>
                 </div>
 

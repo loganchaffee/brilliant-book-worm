@@ -2,7 +2,6 @@ import React, {useState, useEffect, useLayoutEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBooks } from '../../actions/books';
-
 import { Container, ProgressBar } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -11,10 +10,8 @@ import Card from 'react-bootstrap/Card'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
 import CurrentlyReadingCard from './CurrentlyReadingCard/CurrentlyReadingCard';
 import './CurrentlyReading.css'
-
 import { setCurrentBook } from '../../actions/currentBook';
 import { updateUser } from '../../actions/auth';
 import LevelUp from './LevelUp/LevelUp';
