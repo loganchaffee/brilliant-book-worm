@@ -2,3 +2,31 @@
     max-width: 400px;
     margin: 0 auto;
 }
+
+.ReadingSpeedTestResults__info p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.ReadingSpeedTestResults__info p:last-child {
+    margin-bottom: 20px;
+}
+
+.ReadingSpeedTestResults__info span {
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--secondary-darkened);
+}
+
+.ReadingSpeedTestResults__score {
+    font-size: 150px;
+    font-weight: 700;
+}
+
+.ReadingSpeedTestResults__buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+

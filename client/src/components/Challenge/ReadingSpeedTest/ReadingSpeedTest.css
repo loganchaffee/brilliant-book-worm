@@ -38,3 +38,7 @@
     background-color: var(--white);
     bottom: -2px;
 }
+
+.ReadingSpeedTest__content {
+    transform: translateY(-30px);
+}

@@ -47,9 +47,7 @@ const LevelUp = () => {
                 <ProgressBar variant='warning' now={((user.points - previousLevelPoints) / (nextLevelPoints - previousLevelPoints)) * 100} />
             </>
             :
-            <div className='level-4-badge'>
-                <FontAwesomeIcon icon={faCrown} /> Bibliophile
-            </div>
+            <div className='level-4-badge'><FontAwesomeIcon icon={faCrown} /> Bibliophile </div>
         }
     </div>
 }

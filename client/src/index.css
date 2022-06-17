@@ -17,7 +17,7 @@
     --warning-darkened: #d3a134;
     --info: #00a2ff;
     --danger: #E30000;
-    --dange-darkened: #bd0000;
+    --danger-darkened: #bd0000;
     --light: #f0f0f0;
     --light-darkened: #d9d9d9;
     --dark: #3f3f3f;
@@ -70,6 +70,24 @@ body {
 }
 .btn-warning:hover {
     background: var(--warning-darkened);
+}
+
+.btn-secondary {
+    background: var(--secondary-darkened);
+    border: var(--secondary-darkened);
+    color: white;
+}
+.btn-secondary:hover {
+    background: var(--dark);
+}
+
+.btn-danger {
+    background: var(--danger);
+    border: var(--danger);
+    color: white;
+}
+.btn-danger:hover {
+    background: var(--danger-darkened);
 }
 
 .btn-success {

@@ -13,4 +13,5 @@
     border: 2px solid var(--warning-darkened);
     border-radius: 50px;
     color: #735922;
+    font-size: 12px;
 }

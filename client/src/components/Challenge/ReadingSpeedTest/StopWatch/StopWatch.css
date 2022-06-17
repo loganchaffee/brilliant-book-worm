@@ -1,0 +1,191 @@
+.StopWatch-container {
+    margin: 50px 0 0 0;
+    width: 75px;
+    height: 75px;
+    position: relative;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.StopWatch {
+    width: 75px;
+    height: 75px;
+    background: var(--light-darkened);
+    border: 5px solid var(--dark);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.tick-container,
+.hand-container {
+    left: calc(50% - 1px);
+    position: absolute;
+    width: 2px;
+    height: 100%;
+}
+
+.tick {
+    width: 100%;
+    height: 6px;
+    background: var(--secondary-darkened);
+}
+
+.tick-container-1 {
+    transform: rotate(30deg);
+}
+.tick-container-2 {
+    transform: rotate(60deg);
+}
+.tick-container-3 {
+    transform: rotate(90deg);
+}
+.tick-container-4 {
+    transform: rotate(120deg);
+}
+.tick-container-5 {
+    transform: rotate(150deg);
+}
+.tick-container-6 {
+    transform: rotate(180deg);
+}
+.tick-container-7 {
+    transform: rotate(210deg);
+}
+.tick-container-8 {
+    transform: rotate(240deg);
+}
+.tick-container-9 {
+    transform: rotate(270deg);
+}
+.tick-container-10 {
+    transform: rotate(300deg);
+}
+.tick-container-11 {
+    transform: rotate(330deg);
+}
+.tick-container-12 {
+    transform: rotate(360deg);
+}
+
+.top-head {
+    width: 16px;
+    height: 10px;
+    background: var(--dark);
+    border-radius: 2px;
+    position: absolute;
+    top: -23px;
+    left: calc(50% - 8px);
+}
+
+.top-pin {
+    width: 10px;
+    height: 10px;
+    background: var(--secondary-darkened);
+    position: absolute;
+    top: -13px;
+    left: calc(50% - 5px);
+    z-index: -1;
+}
+
+.top-ring {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--secondary-darkened);
+    border-radius: 50%;
+    top: -39px;
+    left: calc(50% - 12px);
+    z-index: -1;
+}
+
+.side-button {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.side-head {
+    width: 14px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 1px;
+
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+
+.side-pin {
+    width: 9px;
+    height: 8px;
+    background: var(--secondary-darkened);
+}
+
+.hand-container {
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.hand {
+    width: 2px;
+    height: 65%;
+    background: var(--danger);
+}
+
+.center-knob {
+    position: absolute;
+    background: var(--light-darkened);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--dark);
+    top: calc(50% - 3px);
+    left: calc(50% - 3px);
+}
+
+@keyframes rotateHand {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+    0% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes rockStopWatch {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+
+@keyframes pushSideButton {
+    0% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(0, 3px);
+    }
+    100% {
+        transform: translate(0,0);
+    }
+}

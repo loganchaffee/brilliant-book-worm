@@ -13,6 +13,7 @@ import './ReadingSpeedTest.css'
 import { getBookExcerpt } from '../../../api/index'
 import { updateWpm } from '../../../actions/wpm'
 import './ReadingSpeedTest.css'
+import StopWatch from './StopWatch/StopWatch';
 
 function ReadingSpeedTest() {
     const dispatch = useDispatch()
@@ -47,6 +48,8 @@ function ReadingSpeedTest() {
             })
         }, 1000)
         setTimerDetails({ ...timerDetails, id: id, hasStarted: true})
+
+        fireAnimation()
     }
 
     const handleFinish = () => {
@@ -57,20 +60,35 @@ function ReadingSpeedTest() {
         const wordsPerMinute = Math.round( wordCount / minutes)
         dispatch(updateWpm(wordsPerMinute))
         navigate('/reading-speed-test/results')
+
+        endAnimation()
+    }
+
+    const fireAnimation = () => {
+        document.getElementsByClassName('StopWatch-container')[0].style.animationName = 'rockStopWatch'
+        document.getElementsByClassName('side-head')[0].style.animationName = 'pushSideButton'
+        document.getElementsByClassName('hand-container')[0].style.animationName = 'rotateHand'
+    }
+
+    const endAnimation = () => {
+        document.getElementsByClassName('StopWatch-container')[0].style.animationName = ''
+        document.getElementsByClassName('side-head')[0].style.animationName = ''
+        document.getElementsByClassName('hand-container')[0].style.animationName = ''
     }
 
     return (
         <Container className='ReadingSpeedTest'>
             <Row>
-                <Col xs={12} md={12}>
+                <Col xs={12} md={12} className='d-flex justify-content-between'>
                     <Link to="/challenge" className='back-arrow' onClick={() => clearInterval(timerDetails.id)}>
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </Link>
+                    <StopWatch />
                 </Col>
             </Row>
             <Row>
-                <Col xs={12}>
-                    <h3>Reading Speed Test</h3>
+                <Col xs={12} className='ReadingSpeedTest__content'>
+                    <h3>Reading Speed Test</h3> 
                     <h5>Instructions:</h5>
                     <p>Press start to reveal the book excerpt and start the timer. Read the text at your fastest speed while still comprehending.</p>
                     {
