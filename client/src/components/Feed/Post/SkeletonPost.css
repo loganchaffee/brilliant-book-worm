@@ -1,0 +1,85 @@
+.SkeletonPost__profile-image-container {
+    background: var(--light);
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--v);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.SkeletonPost__user-cred {
+    width: calc(100% - 60px);
+}
+
+.SkeletonPost__user-cred > div:first-child {
+    background: var(--light);
+    height: 20px;
+    width: 40%;
+    margin-left: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.SkeletonPost__user-cred > div:last-child {
+    background: var(--light);
+    height: 20px;
+    width: 60px;
+    margin-left: 10px;
+    border-radius: 25px;
+}
+
+.SkeletonPost__book {
+    background: var(--light);
+    height: 120px;
+    width: 90px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.SkeletonPost__content-container {
+    flex: 1;
+    margin-left: 10px;
+    height: fit-content;
+}
+
+.SkeletonPost__content {
+    background: var(--light);
+    height: 20px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-name: skeletonPostFlash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+.SkeletonPost__content,
+.SkeletonPost__book,
+.SkeletonPost__user-cred > div:first-child,
+.SkeletonPost__user-cred > div:last-child,
+.SkeletonPost__profile-image-container {
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-name: skeletonPostFlash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+@keyframes skeletonPostFlash {
+    0% {
+        background: var(--light);
+    }
+    50% {
+        background: var(--light-darkened);
+    }
+    100% {
+        background: var(--light);
+    }
+}

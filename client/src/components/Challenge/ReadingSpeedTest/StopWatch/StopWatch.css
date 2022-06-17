@@ -170,8 +170,14 @@
     25% {
         transform: rotate(5deg);
     }
+    30% {
+        transform: rotate(5.5deg);
+    }
     75% {
         transform: rotate(-5deg);
+    }
+    80% {
+        transform: rotate(-5.5deg);
     }
     100% {
         transform: rotate(0);

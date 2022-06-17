@@ -1,0 +1,5 @@
+.SkeletonLoadingCard {
+    background: linear-gradient(90deg, var(--light), var(--light-darkened), var(--light));
+    height: 200px;
+    margin-bottom: 10px;
+}

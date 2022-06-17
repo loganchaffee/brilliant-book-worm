@@ -14,6 +14,8 @@ import './Feed.css'
 import Post from './Post/Post'
 import FollowersSection from '../Profile/FollowersSection/FollowersSection'
 import UsersSearch from './UsersSearch/UsersSearch'
+import SkeletonLoadingCard from '../common/SkeletonLoadingCard/SkeletonLoadingCard'
+import SkeletonPost from './Post/SkeletonPost'
 
 function Feed() {
     const dispatch = useDispatch()
@@ -86,10 +88,14 @@ function Feed() {
                             ?
                             posts.map((post) => <Post key={'post-' + post._id} post={post} />)
                             :
-                            <div className='postsContainer__alternate-content'>
-                                <h3>No posts yet</h3>
-                            </div>
+                            <>
+                                <SkeletonPost />
+                                <SkeletonPost />
+                                <SkeletonPost />
+                                <SkeletonPost />
+                            </>
                         }
+                        
                     </div>
                 </Col>
                 <Col xs={12} sm={5} className='mb-10'>
