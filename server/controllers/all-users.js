@@ -6,8 +6,11 @@ export const fetchUsers = async (req, res) => {
     try {
         const query = req.body.query
 
-        const matchingDocuments = await User.find({"name" : { $regex: query }}, { name: 1 });
-
+        const matchingDocuments = await User.find(
+            { "name" : { $regex: query, $options: 'i' }, "private" : false }, 
+            { name: 1 }
+        );
+        
         res.status(200).json(matchingDocuments)
     } catch (error) {
         res.status(404).json(error)

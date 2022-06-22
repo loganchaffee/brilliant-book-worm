@@ -86,8 +86,23 @@ export const updateUser = async (req, res) => {
         }
        
         // Update user
-        const updatedUser = await User.findByIdAndUpdate(id,  { ...body }, { returnDocument: 'after' })
+        let updatedUser
+        if (body.private) {
+            updatedUser = await User.findByIdAndUpdate(id,  { ...body, followers: [], following: [] }, { returnDocument: 'after' })
+            .populate('following', 'name')
+            .populate('followers', 'name')
+        } else {
+            updatedUser = await User.findByIdAndUpdate(id,  { ...body }, { returnDocument: 'after' })
+            .populate('following', 'name')
+            .populate('followers', 'name')
+        }
+
         if (!updatedUser) return res.status(404).send('User not found')
+
+        // Remove user id from all other users following and followers arrays
+        if (body.private) {
+            await User.updateMany({}, { $pull: { followers: req.userId } })
+        }
 
         // Create new token if the email or name changed
         if (body.email) {

@@ -1,0 +1,52 @@
+.skeleton-profile-image-container {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: var(--light-darkened);
+}
+
+.skeleton-profile-name {
+    background-color: var(--light-darkened);
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.skeleton-profile-level {
+    background-color: var(--light-darkened);
+    width: 75px;
+    height: 25px;
+    margin-bottom: 30px;
+    border-radius: 25px;
+}
+
+.skeleton-profile-heading {
+    background-color: var(--light-darkened);
+    width: 400px;
+    height: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.skeleton-profile-image-container,
+.skeleton-profile-name,
+.skeleton-profile-level,
+.skeleton-profile-heading {
+    animation-name: skeletonProfileFlash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes skeletonProfileFlash {
+    0% {
+        background:  var(--light-darkened);
+    }
+    50% {
+        background: #b3b2b2;
+    }
+    100% {
+        background:  var(--light-darkened);
+    }
+}

@@ -30,6 +30,7 @@ function Feed() {
     const [users, setUsers] = useState([])
     const [lastPost, setLastPost] = useState(null)
     const [observer, setObserver] = useState(null)
+    const [showSkeletonLoading, setShowSkeletonLoading] = useState(true)
 
 
     // Get New Posts On Scroll---------------------------------------------------
@@ -39,6 +40,16 @@ function Feed() {
         rootMargin: '0px',
         threshold: .01
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setShowSkeletonLoading(false)
+        }, 3000);
+    }, [])
+
+    useEffect(() => {
+        if (user.following.length === 0) setShowSkeletonLoading(false)
+    }, [user.following.length])
 
     // Give the observer a target every time the last post changes
     useEffect(() => {
@@ -84,10 +95,8 @@ function Feed() {
                     <h1 className='title-1'>News Feed</h1>
                     <div id='postsContainer'>
                         {
-                            posts.length > 0
-                            ?
-                            posts.map((post) => <Post key={'post-' + post._id} post={post} />)
-                            :
+                            (posts.length === 0 && showSkeletonLoading)
+                            &&
                             <>
                                 <SkeletonPost />
                                 <SkeletonPost />
@@ -95,7 +104,16 @@ function Feed() {
                                 <SkeletonPost />
                             </>
                         }
-                        
+                        {
+                            (posts.length === 0 && !showSkeletonLoading)
+                            &&
+                            <h3 style={{textAlign: 'center', marginTop: '50px', color:'var(--secondary)'}}>No new posts</h3>
+                        }
+                        {
+                            posts.length > 0
+                            &&
+                            posts.map((post) => <Post key={'post-' + post._id} post={post} />)
+                        }
                     </div>
                 </Col>
                 <Col xs={12} sm={5} className='mb-10'>

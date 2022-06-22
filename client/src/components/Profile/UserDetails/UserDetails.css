@@ -86,10 +86,26 @@
 }
 
 .UserDetails__form label {
-    width: 120px;
+    width: 150px;
     margin: 0 5px 0 0;
 }
 
-.UserDetails__form input {
+.UserDetails__form input,
+.UserDetails__form textarea {
     flex: 1;
+}
+
+.private-radio-label {
+    margin-right: 5px;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.bio-label {
+    width: 100% !important;
+    margin-bottom: 5px !important;
+}
+
+.UserDetails__form textarea {
+    min-height: 100px;
 }

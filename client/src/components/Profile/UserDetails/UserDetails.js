@@ -17,8 +17,8 @@ const UserDetails = () => {
     const user = useSelector((state) => state.auth)
     const navigate = useNavigate()
 
-    const [formData, setFormData] = useState({ name: '', email: ''})
-    const [initialFormData, setInitialFormData] = useState({ name: '', email: ''})
+    const [formData, setFormData] = useState({ name: '', email: '', private: false, bio: ''})
+    const [initialFormData, setInitialFormData] = useState({ name: '', email: '', private: false, bio: ''})
     const [errorMessage, setErrorMessage] = useState('')
 
     const [showModal, setShowModal] = useState(false)
@@ -29,34 +29,34 @@ const UserDetails = () => {
 
     useEffect(() => {
         if (user._id) {
-            setFormData({ ...formData, name: user.name, email: user.email })
-            setInitialFormData({ ...formData, name: user.name, email: user.email })
+            setFormData({ ...formData, name: user.name, email: user.email, bio: user.bio, private: user.private })
+            setInitialFormData({ ...formData, name: user.name, email: user.email, bio: user.bio, private: user.private })
         }
     }, [])
 
     // CropperJS Functions----------------------------------------------------------------------
     const handleUpdateProfileImage = (e) => {
-        const reader = new FileReader()
-        reader.addEventListener('load', () =>  {
-            setImage(reader.result)
-            setShowModal(true)
-            document.getElementById('fileInput').value = null
-        })
-        reader.readAsDataURL(e.target.files[0])
+        // const reader = new FileReader()
+        // reader.addEventListener('load', () =>  {
+        //     setImage(reader.result)
+        //     setShowModal(true)
+        //     document.getElementById('fileInput').value = null
+        // })
+        // reader.readAsDataURL(e.target.files[0])
     }
 
     const firstUpdate = useRef(true);
     useEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false;
-            return;
-        }
+        // if (firstUpdate.current) {
+        //     firstUpdate.current = false;
+        //     return;
+        // }
 
-        const modalImage = document.getElementById('modalImage')
-        const cropper = new Cropper(modalImage, {
-            aspectRatio: 16 / 16,
-        })
-        setCropper(cropper)
+        // const modalImage = document.getElementById('modalImage')
+        // const cropper = new Cropper(modalImage, {
+        //     aspectRatio: 16 / 16,
+        // })
+        // setCropper(cropper)
     }, [showModal === true])
 
     const handleCropAndUpdate = () => {
@@ -74,8 +74,8 @@ const UserDetails = () => {
     
     const handleUpdateUserCred = () => {
         // dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
-        dispatch(updateUser({ ...formData}, setErrorMessage))
-        setInitialFormData({ ...formData})
+        dispatch(updateUser({ ...formData }, setErrorMessage))
+        setInitialFormData({ ...formData })
     }
 
     const handleSignout = () => {
@@ -120,17 +120,35 @@ const UserDetails = () => {
         
             <Form className="UserDetails__form main-form">
                 <Form.Group className="mb-3 d-flex align-items-center justify-content-start">
+                    <Form.Label>Profile Visibility</Form.Label>
+                    <div className='d-flex mr-10' >
+                        <span className='private-radio-label'>Public</span>
+                        <Form.Check type="radio" checked={!formData.private} onChange={() => setFormData({...formData, private: false})}/>
+                    </div>
+                    <div className='d-flex'>
+                        <span className='private-radio-label'>Private</span>
+                        <Form.Check type="radio" checked={formData.private} onChange={() => setFormData({...formData, private: true})}/>
+                    </div>
+                </Form.Group>
+                <Form.Group className="mb-3 d-flex align-items-center justify-content-start">
                     <Form.Label>Display Name</Form.Label>
-                    <Form.Control type="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value.toLowerCase()})} />
+                    <Form.Control type="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value })} />
                 </Form.Group>
                 <Form.Group className="mb-3 d-flex align-items-center justify-content-start">
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.toLowerCase()})} />
                 </Form.Group>
+                <Form.Group className="mb-3 d-flex align-items-center justify-content-start  flex-wrap">
+                    <Form.Label className='bio-label'>Bio</Form.Label>
+                    <Form.Control value={formData.bio} as="textarea" placeholder="Say something about yourself..." onChange={(e) => setFormData({...formData, bio: e.target.value })}/>
+                </Form.Group>
             </Form>
             
             {
-                initialFormData.name !== formData.name || initialFormData.email !== formData.email
+                initialFormData.name !== formData.name 
+                || initialFormData.email !== formData.email
+                || initialFormData.bio !== formData.bio
+                || initialFormData.private !== formData.private
                 ?
                 <div className='d-flex justify-content-end'>
                     <Button variant="primary" className='UserDetails__credentials__update-btn' onClick={handleUpdateUserCred}>Update Profile</Button>

@@ -69,7 +69,8 @@ const App = () => {
     }, [])
 
     useEffect(() => {
-    }, [])
+        console.log(user);
+    }, [user])
 
     if (isLoading) return null
     if (user) {

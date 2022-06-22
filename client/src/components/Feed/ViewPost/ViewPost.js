@@ -14,6 +14,7 @@ import CurrentPost from '../Post/CurrentPost'
 import Comment from './Comment/Comment'
 import { fetchCurrentPost, setCurrentPost } from '../../../actions/currentPost'
 import BackButton from '../../common/BackButton/BackButton'
+import SkeletonPost from '../Post/SkeletonPost'
 import './ViewPost.css'
 
 const ViewPost = () => {
@@ -36,24 +37,39 @@ const ViewPost = () => {
         return () => dispatch(setCurrentPost(null))
     }, [])
 
-    if (!currentPost?._id || !user?._id) return null
-    return (
-       <div className='ViewPost'>
-            <ScrollToTopOnMount />
-            <Row>
-                <Col xs={12}>
-                    <BackButton />
-                </Col>
-                <Col xs={12}>
-                    <CurrentPost />
-                </Col>
-                <Col xs={12}>
-                    { currentPost?.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
-                    <CommentForm /> 
-                </Col>
-            </Row>
-       </div>
-    )
+    if (!currentPost?._id || !user?._id) {
+        return (
+            <div className='ViewPost'>
+                    <ScrollToTopOnMount />
+                    <Row>
+                        <Col xs={12}>
+                            <BackButton />
+                        </Col>
+                        <Col xs={12}>
+                            <SkeletonPost />
+                        </Col>
+                    </Row>
+            </div>
+        )
+    } else {
+        return (
+            <div className='ViewPost'>
+                    <ScrollToTopOnMount />
+                    <Row>
+                        <Col xs={12}>
+                            <BackButton />
+                        </Col>
+                        <Col xs={12}>
+                            <CurrentPost />
+                        </Col>
+                        <Col xs={12}>
+                            { currentPost?.comments.map((comment, i) =>  <Comment key={'comment' + comment._id + i} comment={comment} /> ) }
+                            <CommentForm /> 
+                        </Col>
+                    </Row>
+            </div>
+        )
+    }
 }
 
 export default ViewPost

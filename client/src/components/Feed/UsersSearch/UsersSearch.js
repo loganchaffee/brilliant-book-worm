@@ -42,7 +42,7 @@ const UsersSearch = () => {
     }
 
     return (
-        <Form className="main-form UsersSearch">
+        <Form className="main-form UsersSearch" onSubmit={(e) => e.preventDefault()}>
             <Form.Group>
                 <Form.Label>See what other people are reading</Form.Label>
                 <Form.Control

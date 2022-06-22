@@ -11,6 +11,7 @@ import Statistics from './Statistics/Statistics'
 import FollowersSection from './FollowersSection/FollowersSection'
 import PublicProfileModal from './PublicProfileModal/PublicProfileModal'
 import './PublicProfile.css'
+import './SkeletonPublicProfile.css'
 import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 
 const PublicProfile = () => {
@@ -62,8 +63,23 @@ const PublicProfile = () => {
         setShowModalReview(false)
     }
 
+    if (visitedUser?.private) {
+        return <h3>This user is private</h3>
+    }
     if (!visitedUser) {
-        return <Spinner animation="border"  />
+        return <div>
+            <div className='d-flex mb-10'>
+                <div className='skeleton-profile-image-container'></div>
+                <div className='ml-10' style={{flex: '1',}}>
+                    <div className='skeleton-profile-name'></div>
+                    <div className='skeleton-profile-level'></div>
+                </div>
+            </div>
+            <div>
+                <div className='skeleton-profile-heading'></div>
+                <div className='skeleton-profile-heading'></div>
+            </div>
+        </div>
     } else {
         return (
             <div>
@@ -94,6 +110,16 @@ const PublicProfile = () => {
                                 }
                             </div>
                         </div>
+                        {
+                            visitedUser.bio
+                            &&
+                            <Row>
+                                <Col className='mb-10'>
+                                    <p className='PublicProfile__section-title'>{visitedUser.name}'s Bio</p>
+                                    <p>{visitedUser.bio}</p>
+                                </Col>
+                            </Row>
+                        }
                         <Row>
                             <Col xs={12}>
                                 <p className='PublicProfile__section-title'>{visitedUser.name} Is Currently Reading</p>

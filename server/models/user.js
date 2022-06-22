@@ -13,6 +13,14 @@ const userSchema = mongoose.Schema({
         type: String, 
         required: true
     },
+    bio: {
+        type: String,
+        default: ''
+    },
+    private: {
+        type: Boolean,
+        default: false
+    },
     profileImage: {
         type: String, 
         default: ''
