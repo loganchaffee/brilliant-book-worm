@@ -13,14 +13,14 @@ const ReadingSpeedTestResults = () => {
     const addPoints = useAddPoints()
     const user = useSelector((state) => state.auth)
     const wpm = useSelector((state) => state.wpm)
-    const [errorMessage, setErrorMessage] = useState('')
 
     const handleSave = async () => {
         if (user.wordsPerMinute < wpm) {
-            dispatch(updateUser({ wordsPerMinute: wpm }, setErrorMessage, navigate, '/profile'))
+            dispatch(updateUser({ wordsPerMinute: wpm }))
             addPoints(50)
+            navigate('/reading-speed-test')
         } else {
-            dispatch(updateUser({ wordsPerMinute: wpm }, setErrorMessage, navigate, '/profile'))
+            dispatch(updateUser({ wordsPerMinute: wpm }))
         }
     }
 
