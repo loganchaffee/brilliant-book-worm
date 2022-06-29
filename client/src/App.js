@@ -50,27 +50,27 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     // Check for token in local storage and request user details
-    useLayoutEffect(() => {
+    useEffect(() => {
+        console.log('fire');
         if (!user) {
             if (localStorage.getItem('user')) {
                 dispatch(getUserInfo(navigate, setIsLoading))
+                dispatch(getPosts(0))
+                dispatch(getBooks())
+                dispatch(getNotifications())
             } else {
                 setIsLoading(false)
             }
         } else {
             setIsLoading(false)
         }
-    }, [user])
+    }, [user?._id])
 
-    useEffect(() => {
-        dispatch(getPosts(0))
-        dispatch(getBooks())
-        dispatch(getNotifications())
-    }, [])
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
+    // useEffect(() => {
+    //     dispatch(getPosts(0))
+    //     dispatch(getBooks())
+    //     dispatch(getNotifications())
+    // }, [])
 
     if (isLoading) return null
     if (user) {
