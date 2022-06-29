@@ -51,13 +51,9 @@ const App = () => {
 
     // Check for token in local storage and request user details
     useEffect(() => {
-        console.log('fire');
         if (!user) {
             if (localStorage.getItem('user')) {
                 dispatch(getUserInfo(navigate, setIsLoading))
-                dispatch(getPosts(0))
-                dispatch(getBooks())
-                dispatch(getNotifications())
             } else {
                 setIsLoading(false)
             }
@@ -66,11 +62,15 @@ const App = () => {
         }
     }, [user?._id])
 
-    // useEffect(() => {
-    //     dispatch(getPosts(0))
-    //     dispatch(getBooks())
-    //     dispatch(getNotifications())
-    // }, [])
+    useEffect(() => {
+        // dispatch(getPosts(0))
+        // dispatch(getBooks())
+        // dispatch(getNotifications())
+    }, [])
+
+    useEffect(() => {
+        console.log(user);
+    }, [user])
 
     if (isLoading) return null
     if (user) {

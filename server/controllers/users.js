@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import User from '../models/user.js'
 import Book from '../models/book.js'
 import Post from '../models/post.js'
+import Notification from '../models/notification.js'
 
 
 export const signup = async (req, res) => {
@@ -39,6 +40,8 @@ export const signin = async (req, res) => {
 
         // Check for existing user
         const existingUser = await User.findOne({ email: email })
+        .populate('following', 'name')
+        .populate('followers', 'name')
 
         if (!existingUser) return res.status(404).json({ message: 'This user does not exist.' })
 
@@ -108,8 +111,6 @@ export const updateUser = async (req, res) => {
                 return res.status(200).json({ updatedUser, accessToken })
         }
 
-        console.log('skip user details');
-
         // Update user
         updatedUser = await User.findByIdAndUpdate(id,  { ...body, followers: [] }, { returnDocument: 'after' }).populate('following', 'name')
         if (!updatedUser) return res.status(404).send('User not found')
@@ -126,6 +127,7 @@ export const deleteUser = async (req, res) => {
         const removedUser = await User.findOneAndDelete({ _id: req.userId })
         await Post.deleteMany({ createdBy: req.userId })
         await Book.deleteMany({ createdBy: req.userId })
+        await Notification.deleteMany({ createdBy: req.userId })
         await User.updateMany({}, { $pull: { following: req.userId } })
         await User.updateMany({}, { $pull: { followers: req.userId } })
 
