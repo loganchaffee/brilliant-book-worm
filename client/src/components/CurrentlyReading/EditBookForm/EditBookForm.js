@@ -11,6 +11,7 @@ import BackButton from '../../common/BackButton/BackButton';
 import moment from 'moment'
 import './EditBookForm.css'
 import useAddPoints from '../../../hooks/use-add-points'
+import Alert from '../../common/Alert/Alert'
 
 function EditBookForm() {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ function EditBookForm() {
     const [formData, setFormData] = useState({ title: '', subtitle: '', author: '', publicationDate: '', numberOfPages: 0, currentPage: 60 })
     const [previousCurrentPage, setPreviousCurrentPage] = useState(null)
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
+    const [alert, setAlert] = useState('')
 
     // Reset the current book on page reload
     useEffect(() => {
@@ -42,6 +44,13 @@ function EditBookForm() {
     // Submit
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        let message = 'Please fill in:'
+        if (!formData.title ) message = message + ' -Title'
+        if (!formData.author) message = message + ' -Author '
+        if (!formData.numberOfPages > 0) message = message + ' -Page Number '
+        if (!formData.title || !formData.author || !formData.numberOfPages > 0) return setAlert(message)
+
         // Did user read this update?
         if (previousCurrentPage < formData.currentPage) {
             dispatch(updateUser({ dateOfLastReading: new Date().toISOString() }))
@@ -126,6 +135,7 @@ function EditBookForm() {
                     <Button variant="primary" className='full-width-btn' onClick={handleSubmit}>Update Book Details</Button>
                 </Col>
             </Row>
+            <Alert variant='warning' content={alert} onClose={() => setAlert('')} />
         </Container>
     );
 }

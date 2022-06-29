@@ -13,17 +13,17 @@ export const signup = async (req, res) => {
         const { email, password, name } = req.body
         
         // Check for existing user
-        const existingUser = await User.findOne({ email: email })
-        if (existingUser) return res.status(404).json({ message: 'User already exists.' })
+        const existingUser = await User.findOne({ $or: [{ email: email }, { name: name }] })
+        if (existingUser) return res.status(409).send('A user with that name or email already exists')
 
         // Hash user's password
         const hashedPassword = await bcrypt.hash(password, 12)
 
         // Create user in database
-        const newUser = new User({name: name, email: email, password: hashedPassword})
+        const newUser = new User({ name: name, email: email, password: hashedPassword })
         const returnedUser = await newUser.save()
         
-        // Serialize username/password with jsonwebtoken
+        // Serialize email/password with jsonwebtoken
         const accessToken = jwt.sign({ email: returnedUser.email, id: returnedUser._id }, process.env.ACCESS_TOKEN_SECRET)
         
         res.status(201).json({ accessToken, user: returnedUser })
@@ -78,37 +78,41 @@ export const updateUser = async (req, res) => {
         const id = req.userId
         const body = req.body
 
-        // Check for taken usernames and emails
-        const userWithCredMatch = await User.findOne({ $or: [ { name: body.name }, { email: body.email } ] })
-
-        if (userWithCredMatch) {
-            if (userWithCredMatch._id.toString() !== id ) return res.status(400).send('A user with that name or email already exists')
-        }
-       
-        // Update user
         let updatedUser
-        if (body.private) {
-            updatedUser = await User.findByIdAndUpdate(id,  { ...body, followers: [], following: [] }, { returnDocument: 'after' })
-            .populate('following', 'name')
-            .populate('followers', 'name')
-        } else {
-            updatedUser = await User.findByIdAndUpdate(id,  { ...body }, { returnDocument: 'after' })
-            .populate('following', 'name')
-            .populate('followers', 'name')
-        }
+        
+        // Handle user detail updates
+        if (body.name) {
+            // Check for taken usernames and emails
+            const userWithNameMatch = await User.findOne({ name: body.name }, { _id: 1 })
+            const userWithEmailMatch = await User.findOne({ email: body.email }, { _id: 1 })
+            if (userWithNameMatch) {
+                if (userWithNameMatch._id.toString() !== id ) return res.status(400).send('A user with that name already exists')
+            }
+            if (userWithEmailMatch) {
+                if (userWithEmailMatch._id.toString() !== id ) return res.status(400).send('A user with that email already exists')
+            }
 
-        if (!updatedUser) return res.status(404).send('User not found')
+            // Update user
+            if (body.private) {
+                updatedUser = await User.findByIdAndUpdate(id,  { ...body, followers: [] }, { returnDocument: 'after' }).populate('following', 'name')
+                await User.updateMany({}, { $pull: { following: req.userId } }) // Unfollow private user by all other users
+            } else {
+                updatedUser = await User.findByIdAndUpdate(id,  { ...body }, { returnDocument: 'after' })
+                .populate('following', 'name')
+                .populate('followers', 'name')
+            }
+            if (!updatedUser) return res.status(404).send('User not found')
 
-        // Remove user id from all other users following and followers arrays
-        if (body.private) {
-            await User.updateMany({}, { $pull: { followers: req.userId } })
-        }
-
-        // Create new token if the email or name changed
-        if (body.email) {
+            // Create new jwt
             const accessToken = jwt.sign({ email: updatedUser.email, id: updatedUser._id }, process.env.ACCESS_TOKEN_SECRET)
-            return res.status(200).json({ updatedUser, accessToken })
+                return res.status(200).json({ updatedUser, accessToken })
         }
+
+        console.log('skip user details');
+
+        // Update user
+        updatedUser = await User.findByIdAndUpdate(id,  { ...body, followers: [] }, { returnDocument: 'after' }).populate('following', 'name')
+        if (!updatedUser) return res.status(404).send('User not found')
 
         res.status(200).json({ updatedUser })
     } catch (error) {

@@ -8,6 +8,45 @@
     align-items: center;
     box-shadow: 0 3px 5px rgba(0,0,0,0.05);
     border: none;
+
+    animation-name: growIn;
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+
+@keyframes growIn {
+    0% {
+        transform: scale(.01);
+    }
+    55% {
+        transform: scale(1.03);
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    85% {
+        transform: scale(.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes leBounceZoomIn {
+    0%, 25%, 55%, 85%, 100% {
+        animation-timing-function: ease-out;
+        transform: scale(1);
+    }
+    41%, 44% {
+        animation-timing-function: ease-in;
+        transform: scale(1.7);
+    }
+    70% {
+        animation-timing-function: ease-in;
+        transform: scale(1.9);
+    }
+    90% { transform: scale(1.1) }
 }
 
 .alert .line {

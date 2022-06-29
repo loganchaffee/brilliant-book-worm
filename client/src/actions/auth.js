@@ -12,7 +12,7 @@ export const signup = (formData, navigate, handleErrorInComponent) => async (dis
         dispatch({ type: 'AUTH', payload: data.user })
     } catch (error) {
         console.log(error);
-        handleErrorInComponent('A user with that email already exists')
+        handleErrorInComponent(error.response.data)
     }
 }
  

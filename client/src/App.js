@@ -113,7 +113,7 @@ const App = () => {
             </div>
         )
     } else {
-        return <div style={{ width: '600px', margin: '300px, auto'}}><Auth /></div>
+        return <Auth />
     }
     
 }

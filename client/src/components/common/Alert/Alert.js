@@ -5,7 +5,7 @@ import { Alert as BootstrapAlert } from 'react-bootstrap';
 import './Alert.css'
 
 const Alert = ({ variant, content, onClose }) => {
-    return <BootstrapAlert variant={variant} className={`alert-${variant}`}>
+    return <BootstrapAlert variant={variant} className={`alert-${variant}`} style={ content === '' ? { display: 'none' } : {}}>
         <span className='line'/>
 
         { !variant && <FontAwesomeIcon icon={faCircle} /> }
@@ -15,7 +15,7 @@ const Alert = ({ variant, content, onClose }) => {
 
         { content }
 
-        <FontAwesomeIcon icon={faWindowClose} onClick={onClose}/>
+        <FontAwesomeIcon icon={faWindowClose} onClick={onClose} />
     </BootstrapAlert>
 }
 

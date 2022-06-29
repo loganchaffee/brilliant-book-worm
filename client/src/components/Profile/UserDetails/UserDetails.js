@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col, Button, Form, Alert, Card, Modal} from 'react-bootstrap'
+import { Container, Row, Col, Button, Form, Card, Modal} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
@@ -10,6 +10,7 @@ import { getCurrentVisitedUser,  } from '../../../actions/currentVisitedUser';
 import { fetchVisitedUserBooks } from '../../../actions/currentVisitedUserBooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faMinus, faPlus, faEllipsisH, faUser } from '@fortawesome/free-solid-svg-icons'
+import Alert from '../../common/Alert/Alert'
 import './UserDetails.css'
 
 const UserDetails = () => {
@@ -20,6 +21,7 @@ const UserDetails = () => {
     const [formData, setFormData] = useState({ name: '', email: '', private: false, bio: ''})
     const [initialFormData, setInitialFormData] = useState({ name: '', email: '', private: false, bio: ''})
     const [errorMessage, setErrorMessage] = useState('')
+    const [alert, setAlert] = useState('')
 
     const [showModal, setShowModal] = useState(false)
     const [showProfileDropDown, setShowProfileDropDown] = useState(false)
@@ -36,27 +38,27 @@ const UserDetails = () => {
 
     // CropperJS Functions----------------------------------------------------------------------
     const handleUpdateProfileImage = (e) => {
-        // const reader = new FileReader()
-        // reader.addEventListener('load', () =>  {
-        //     setImage(reader.result)
-        //     setShowModal(true)
-        //     document.getElementById('fileInput').value = null
-        // })
-        // reader.readAsDataURL(e.target.files[0])
+        const reader = new FileReader()
+        reader.addEventListener('load', () =>  {
+            setImage(reader.result)
+            setShowModal(true)
+            document.getElementById('fileInput').value = null
+        })
+        reader.readAsDataURL(e.target.files[0])
     }
 
     const firstUpdate = useRef(true);
     useEffect(() => {
-        // if (firstUpdate.current) {
-        //     firstUpdate.current = false;
-        //     return;
-        // }
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
 
-        // const modalImage = document.getElementById('modalImage')
-        // const cropper = new Cropper(modalImage, {
-        //     aspectRatio: 16 / 16,
-        // })
-        // setCropper(cropper)
+        const modalImage = document.getElementById('modalImage')
+        const cropper = new Cropper(modalImage, {
+            aspectRatio: 16 / 16,
+        })
+        setCropper(cropper)
     }, [showModal === true])
 
     const handleCropAndUpdate = () => {
@@ -73,7 +75,11 @@ const UserDetails = () => {
     }
     
     const handleUpdateUserCred = () => {
-        // dispatch(updateUser({ ...user, ...formData}, setErrorMessage))
+        let message = 'Please fill in:'
+        if (!formData.name) message = message + ' -Display Name'
+        if (!formData.email) message = message + ' -Email'
+        if (!formData.name || !formData.email) return setAlert(message)
+
         dispatch(updateUser({ ...formData }, setErrorMessage))
         setInitialFormData({ ...formData })
     }
@@ -157,7 +163,8 @@ const UserDetails = () => {
                 undefined
             }
 
-            { errorMessage && <Alert variant="warning">{errorMessage}</Alert> }
+            <Alert variant='danger' content={errorMessage} onClose={() => setErrorMessage('')} />
+            <Alert variant='warning' content={alert} onClose={() => setAlert('')} />
         </div>
 
         {/* Invisible input clicked when profile image is clicked */}
