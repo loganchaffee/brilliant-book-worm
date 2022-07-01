@@ -67,7 +67,7 @@ function Auth() {
                                     <Form.Control type="name" placeholder="Last Name" value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})}/>
                                 </Form.Group>
                                 <Form.Group className="mb-10">
-                                    <Form.Control type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/>
+                                    <Form.Control type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.toLowerCase()})}/>
                                 </Form.Group>
                                 <Form.Group className="mb-10">
                                     <Form.Control type="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
@@ -91,7 +91,7 @@ function Auth() {
                         : <>
                             <Form className='main-form'>
                                 <Form.Group className="mb-10">
-                                    <Form.Control type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/>
+                                    <Form.Control type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.toLowerCase()})}/>
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Control type="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
@@ -104,6 +104,7 @@ function Auth() {
                             </Row>
                             <Row>
                                 <Col className='switch-form-btn-container mb-10'>
+                                    <Link to='/request-password-reset' className="switch-form-btn" style={{marginRight: 'auto'}}>Forgot Password?</Link>
                                     <span className="switch-form-label">Don't have an account?</span>
                                     <a className="switch-form-btn" onClick={() => setIsSignup(true)}>Sign Up</a>
                                 </Col>

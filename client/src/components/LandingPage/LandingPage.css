@@ -1,0 +1,21 @@
+.LandingPage-navbar > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.LandingPage-navbar__left {
+    display: flex;
+    align-items: center;
+}
+
+.LandingPage-navbar__left .logo {
+    margin-bottom: 0;
+}
+
+.LandingPage__left {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const api = axios.create({ baseURL: 'http://localhost:5000'}) 
-const api = axios.create({ baseURL: '/'}) 
+const api = axios.create({ baseURL: '/' }) 
 
 api.interceptors.request.use((config) => {
     if (localStorage.getItem('user')) {
@@ -23,6 +23,8 @@ export const signup = (formData) => api.post('/users/signup', formData)
 export const getUserInfo = () => api.post('/users/get-info')
 export const updateUser = (formData) => api.post('/users/update', formData)
 export const deleteUser = () => api.post('/users/delete')
+export const requestResetEmail = (emailAddress) => api.post('/users/request-password-reset', emailAddress)
+export const resetPassword = (formData) => api.post('/users/reset-password', formData)
 
 export const follow = (data) => api.post('/users/follow', data)
 export const unfollow = (data) => api.post('/users/unfollow', data)

@@ -22,6 +22,7 @@ import ReadingDeadline from './components/Challenge/ReadingDeadline/ReadingDeadl
 import PublicProfile from './components/Profile/PublicProfile'
 import ViewPost from './components/Feed/ViewPost/ViewPost'
 import PointAnimation from './components/PointAnimation/PointAnimation'
+import LandingPage from './components/LandingPage/LandingPage'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from './actions/auth'
@@ -32,6 +33,8 @@ import currentPost from './reducers/currentPost'
 import LargeTopNavbar from './components/LargeTopNavbar/LargeTopNavbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import NotificationsModal from './components/NotificationsModal/NotificationsModal'
+import RequestPasswordReset from './components/RequestPasswordReset/RequestPasswordReset'
+import ResetPassword from './components/ResetPassword/ResetPassword'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -63,9 +66,9 @@ const App = () => {
     }, [user?._id])
 
     useEffect(() => {
-        // dispatch(getPosts(0))
-        // dispatch(getBooks())
-        // dispatch(getNotifications())
+        dispatch(getPosts(0))
+        dispatch(getBooks())
+        dispatch(getNotifications())
     }, [])
 
     useEffect(() => {
@@ -113,7 +116,11 @@ const App = () => {
             </div>
         )
     } else {
-        return <Auth />
+        return <Routes>
+            <Route path='/' element={<Auth />}/>
+            <Route path='/request-password-reset' element={<RequestPasswordReset />} />
+            <Route path='/reset-password/:token' element={<ResetPassword />} />
+        </Routes>
     }
     
 }

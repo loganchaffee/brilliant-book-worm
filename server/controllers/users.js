@@ -7,7 +7,9 @@ import User from '../models/user.js'
 import Book from '../models/book.js'
 import Post from '../models/post.js'
 import Notification from '../models/notification.js'
-
+import nodemailer from "nodemailer";
+import crypto from 'crypto'
+import ResetToken from '../models/reset-token.js';
 
 export const signup = async (req, res) => {
     try {
@@ -171,5 +173,80 @@ export const unfollow = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json(error)
+    }
+}
+
+export const requestPasswordReset = async (req, res) => {
+    try {
+        const { email } = req.body
+
+        const existingUser = await User.findOne({ email: email }, { _id: 1 })
+        if (!existingUser) return res.status(404).send('No user with that email')
+
+        let tokenString = crypto.randomBytes(32).toString("hex");
+
+        const hashedTokenString = await bcrypt.hash(tokenString, 12)
+
+        await ResetToken.deleteMany({ userId: existingUser._id })
+
+        const newResetToken = new ResetToken({ userId: existingUser._id, tokenString: hashedTokenString })
+        await newResetToken.save()
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'loganschaffee@gmail.com',
+                pass: 'mqxgybrptlnzrfjw' 
+            }
+        });
+
+        const options = {
+            from: 'Book Worm',
+            to: email,
+            subject: 'Password Reset',
+            html: `
+                <h1>Password Reset</h1>
+                <a href='http://localhost:3000/reset-password/${tokenString}'>Click here to reset password</a>
+            `
+        }
+
+        transporter.sendMail(options, function(err, info){
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.status(200).json({ message: 'success'})
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error)
+    }
+}
+
+export const resetPassword = async (req, res) => {
+    try {
+        const { email, password, token } = req.body
+
+        const existingUser = await User.findOne({ email }, { _id: 1 })
+        if (!existingUser) return res.status(404).send('No user with that email')
+
+        const resetToken = await ResetToken.findOne({ userId: existingUser._id })
+        if (!resetToken) return res.status(404).send('Reset token has expired')
+
+        const tokensMatch = await bcrypt.compare(token, resetToken.tokenString)
+        if (!tokensMatch) return res.status(404).send('Reset token has expired')
+
+        const newHashedPassword = await bcrypt.hash(password, 12)
+
+        await User.updateOne({ _id: existingUser._id }, { password: newHashedPassword })
+
+        await ResetToken.findByIdAndDelete(resetToken._id)
+
+        res.status(200).json({ message: 'success' })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('There was an error')
     }
 }

@@ -32,6 +32,9 @@ function Feed() {
     const [observer, setObserver] = useState(null)
     const [showSkeletonLoading, setShowSkeletonLoading] = useState(true)
 
+    useEffect(() => {
+        if (posts.length === 0) dispatch(getPosts(0))
+    }, [])
 
     // Get New Posts On Scroll---------------------------------------------------
     // Intersection observer options
@@ -48,7 +51,7 @@ function Feed() {
     }, [])
 
     useEffect(() => {
-        if (user.following.length === 0) setShowSkeletonLoading(false)
+        if (user.following.length === 0 && user.books.length === 0) setShowSkeletonLoading(false)
     }, [user.following.length])
 
     // Give the observer a target every time the last post changes
@@ -84,7 +87,7 @@ function Feed() {
             }
         }
 
-        // Creat new intersection observer every time the posts length changes
+        // Create new intersection observer every time the posts length changes
         setObserver(new IntersectionObserver(callback, options))
     }, [posts.length])
 
