@@ -1,0 +1,13 @@
+.BackButton {
+    color: var(--primary);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.BackButton > span {
+    font-size: 16px;
+    color: var(--primary);
+    margin-left: 5px;
+}

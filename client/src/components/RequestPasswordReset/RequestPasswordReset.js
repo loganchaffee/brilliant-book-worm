@@ -21,7 +21,7 @@ const RequestPasswordReset = () => {
     }
 
     return <div className='RequestPasswordReset'>
-        <BackButton />
+        <BackButton content='Back to Login' overrideURL='/' />
         <h3 className='Auth__title'>Request Password Reset Link</h3>
         <Form className='main-form'>
             <Form.Group className="mb-10">
