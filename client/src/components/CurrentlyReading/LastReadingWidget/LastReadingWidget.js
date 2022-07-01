@@ -10,10 +10,25 @@ const LastReadingWidget = () => {
 
     const [lastReading, setLastReading] = useState(0)
 
-    useEffect(() => {
+
+    const updateWidget = () => {
         let a = moment()
         let b = moment(user.dateOfLastReading)
-        setLastReading(a.diff(b, 'days'))
+
+        let diff = { num: a.diff(b, 'days'), unit: 'Day'};
+        if (diff.num < 1) {
+            diff =  { num: a.diff(b, 'hours'), unit: 'Hour'};
+            console.log(diff);
+            if (diff.num < 1) {
+                diff = { num: a.diff(b, 'minutes'), unit: 'Minute'};
+            }
+        }
+
+        setLastReading(diff)
+    }
+
+    useEffect(() => {
+        updateWidget()
     }, [user.dateOfLastReading])
 
     return (
@@ -23,7 +38,7 @@ const LastReadingWidget = () => {
             </div>
 
             <div className='d-flex justify-content-between'>
-                <span>{lastReading} {lastReading > 1 ? 'days': 'day'} Ago</span>
+                <span>{lastReading.num}{' '}{lastReading.unit}{lastReading.num !== 1 && 's'} Ago</span>
                 <span>{moment(user.dateOfLastReading).format('MMM Do')}</span>
             </div>
         </div>

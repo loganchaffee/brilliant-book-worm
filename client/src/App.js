@@ -71,10 +71,6 @@ const App = () => {
         dispatch(getNotifications())
     }, [])
 
-    useEffect(() => {
-        console.log(user);
-    }, [user])
-
     if (isLoading) return null
     if (user) {
         return (
