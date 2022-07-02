@@ -95,6 +95,18 @@ const UserDetails = () => {
 
     const toggleProfileDropdown = () => setShowProfileDropDown(!showProfileDropDown)
 
+    useEffect(() => {
+        if (initialFormData.private === formData.private) {
+            document.getElementsByClassName('UserDetails__private-warning')[0].style.height = '0'
+        }
+        if (initialFormData.private !== formData.private && formData.private) {
+            document.getElementsByClassName('UserDetails__private-warning')[0].style.height = '30px'
+        }
+        if (initialFormData.private !== formData.private && !formData.private) {
+            document.getElementsByClassName('UserDetails__private-warning')[0].style.height = '0'
+        }
+    }, [formData.private, initialFormData.private])
+
     return <>
         <div className='UserDetails'>
             <div className="UserDetails__credentials">
@@ -125,6 +137,7 @@ const UserDetails = () => {
             </div>
         
             <Form className="UserDetails__form main-form">
+                <div className='UserDetails__private-warning'>* Note: you will loose all followers if you are private</div>
                 <Form.Group className="mb-3 d-flex align-items-center justify-content-start">
                     <Form.Label>Profile Visibility</Form.Label>
                     <div className='d-flex mr-10' >
