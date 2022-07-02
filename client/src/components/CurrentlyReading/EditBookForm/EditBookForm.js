@@ -75,6 +75,7 @@ function EditBookForm() {
         }
 
         dispatch(updateBook(currentBook._id, { ...formData, isCompleted: true, currentPage: formData.numberOfPages }))
+        dispatch(updateUser({ dateOfLastReading: new Date().toISOString() }))
         navigate('/')
     }
 
