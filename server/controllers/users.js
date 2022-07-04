@@ -84,6 +84,8 @@ export const updateUser = async (req, res) => {
         const body = req.body
 
         let updatedUser
+
+        if (body.password) return res.status(403).send('Not authorized for password change')
         
         // Handle user detail updates
         if (body.name) {
