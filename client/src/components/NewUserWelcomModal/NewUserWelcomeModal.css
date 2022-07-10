@@ -1,0 +1,16 @@
+.NewUserWelcomeModal > .modal-dialog > .modal-content {
+    background: var(--light) !important;
+}
+
+.NewUserWelcomeModal__page {
+    max-width: 600px;
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.page-btn-container {
+    margin-top: auto;
+}

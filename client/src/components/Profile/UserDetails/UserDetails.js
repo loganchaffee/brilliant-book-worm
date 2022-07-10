@@ -137,7 +137,7 @@ const UserDetails = () => {
             </div>
         
             <Form className="UserDetails__form main-form">
-                <div className='UserDetails__private-warning'>* Note: you will loose all followers if you are private</div>
+                <div className='UserDetails__private-warning'>* Note: you will block all followers if you are private</div>
                 <Form.Group className="mb-3 d-flex align-items-center justify-content-start">
                     <Form.Label>Profile Visibility</Form.Label>
                     <div className='d-flex mr-10' >

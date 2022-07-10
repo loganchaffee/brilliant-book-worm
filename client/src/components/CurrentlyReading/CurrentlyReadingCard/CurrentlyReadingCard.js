@@ -13,8 +13,9 @@ import { faBook } from '@fortawesome/free-solid-svg-icons'
 
 import './CurrentlyReadingCard.css'
 
-function CurrentlyReadingCard({book}) {
-    const user = useSelector((state) => state.auth)
+function CurrentlyReadingCard({ book, disableZoom, overrideUser }) {
+    let user = useSelector((state) => state.auth)
+    if (overrideUser) user = overrideUser
     const books = useSelector((state) => state.books)
 
     const {title, subtitle, author, currentPage, numberOfPages, thumbnail } = book
@@ -38,7 +39,7 @@ function CurrentlyReadingCard({book}) {
     }, [books])
     
     return (
-        <Card className='CurrentlyReadingCard box-shadow'>
+        <Card className={disableZoom ? 'CurrentlyReadingCard-no-zoom  box-shadow' : 'CurrentlyReadingCard box-shadow'} >
             <Card.Body className="CurrentlyReadingCard__body">
                 <Col xs={2} className='CurrentlyReadingCard__book-icon-container'>
                     {

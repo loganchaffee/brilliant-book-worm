@@ -9,14 +9,13 @@ import Alert from 'react-bootstrap/esm/Alert';
 import Button from 'react-bootstrap/esm/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faLeaf } from '@fortawesome/free-solid-svg-icons'
-import './ReadingSpeedTest.css'
-import { getBookExcerpt } from '../../../api/index'
-import { updateWpm } from '../../../actions/wpm'
-import './ReadingSpeedTest.css'
-import StopWatch from './StopWatch/StopWatch';
-import SpeedTest from './SpeedTest/SpeedTest';
+import './SpeedTest.css'
+import { getBookExcerpt } from '../../../../api/index'
+import { updateWpm } from '../../../../actions/wpm'
+import StopWatch from '../StopWatch/StopWatch';
+import './SpeedTest.css'
 
-function ReadingSpeedTest() {
+const SpeedTest = ({ isInWelcomeModal, step, setStep }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth)
@@ -60,9 +59,11 @@ function ReadingSpeedTest() {
         const minutes = Math.round(100 * (timerDetails.totalTime / 60)) / 100
         const wordsPerMinute = Math.round( wordCount / minutes)
         dispatch(updateWpm(wordsPerMinute))
-        navigate('/reading-speed-test/results')
-
         endAnimation()
+        
+        if (isInWelcomeModal) return setStep(step + 1)
+
+        navigate('/reading-speed-test/results')
     }
 
     const fireAnimation = () => {
@@ -78,15 +79,34 @@ function ReadingSpeedTest() {
     }
 
     return (
-        <div>
-            <div style={{marginBottom: '-60px'}}>
-                <Link to="/challenge" className='back-arrow' onClick={() => clearInterval(timerDetails.id)}>
-                    <FontAwesomeIcon icon={faAngleLeft} />
-                </Link>
+        <div className='SpeedTest'>
+            <div className='d-flex justify-content-end' style={{marginBottom: '-55px'}}>
+                <StopWatch />
             </div>
-            <SpeedTest />
+            <div className='ReadingSpeedTest__content'>
+                <h3 style={{marginBottom: '30px'}}>Reading Speed Test</h3> 
+                <h5 >Instructions:</h5>
+                <p>Press start to reveal the book excerpt and start the timer. Read the text at your fastest speed while still comprehending.</p>
+                {
+                    !timerDetails.hasStarted 
+                    &&
+                    <Button variant='primary' onClick={handleStart}>Start</Button>
+                }
+                {
+                    timerDetails.hasStarted 
+                    &&
+                    <div className='ReadingSpeedTest__paper'>
+                        { timerDetails.hasStarted && <p>{text}</p> }
+                    </div>
+                }
+                {
+                    timerDetails.hasStarted 
+                    &&
+                    <Button variant='success' onClick={handleFinish}>Finish</Button>
+                }
+            </div>
         </div>
-    );
+    )
 }
 
-export default ReadingSpeedTest;
+export default SpeedTest

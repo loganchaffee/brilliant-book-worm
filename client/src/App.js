@@ -35,6 +35,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import NotificationsModal from './components/NotificationsModal/NotificationsModal'
 import RequestPasswordReset from './components/RequestPasswordReset/RequestPasswordReset'
 import ResetPassword from './components/ResetPassword/ResetPassword'
+import NewUserWelcomeModal from './components/NewUserWelcomModal/NewUserWelcomeModal'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -108,7 +109,8 @@ const App = () => {
                 </div>
                 <BottomNavbar />
                 <NotificationsModal />
-                {pointsJustScored > 0 && <PointAnimation />}
+                { pointsJustScored > 0 && <PointAnimation /> }
+                <NewUserWelcomeModal />
             </div>
         )
     } else {

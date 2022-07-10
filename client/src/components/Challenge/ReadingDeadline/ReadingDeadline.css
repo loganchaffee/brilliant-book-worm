@@ -79,6 +79,5 @@
 
 .ReadingDeadline__alternate-content h3 {
     color: var(--secondary-darkened);
-    max-width: 300px;
     text-align: center;
 }

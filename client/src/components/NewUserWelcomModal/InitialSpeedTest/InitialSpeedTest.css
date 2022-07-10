@@ -1,0 +1,48 @@
+.card-example-arrow {
+    color: var(--primary);
+    position: absolute;
+    bottom: 32px;
+    left: 48%;
+    z-index: 1;
+    
+    animation-name: swell;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@media (max-width: 600px) {
+    .card-example-arrow {
+        left: 50%;
+    }
+}
+
+@media (max-width: 550px) {
+    .card-example-arrow {
+        left: 55%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-example-arrow {
+        left: 60%;
+    }
+}
+
+@media (max-width: 430px) {
+    .card-example-arrow {
+        left: 70%;
+    }
+}
+
+@keyframes swell {
+    0%{
+        transform: translate(0)
+    }
+    50% { 
+        transform: translate(20%, 0)
+    }
+    100%{
+        transform: translate(0)
+    }
+}

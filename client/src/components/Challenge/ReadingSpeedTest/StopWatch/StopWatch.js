@@ -4,14 +4,17 @@ import './StopWatch.css'
 const StopWatch = () => {
     return (
         <div className='StopWatch-container'>
-            <div className='StopWatch'>
+            <div className='top-button'>
                 <div className='top-head'></div>
                 <div className='top-pin'></div>
                 <div className='top-ring'></div>
-                <div className='side-button'>
-                    <div className='side-head'></div>
-                    <div className='side-pin'></div>
-                </div>
+            </div>
+            <div className='side-button'>
+                <div className='side-head'></div>
+                <div className='side-pin'></div>
+            </div>
+            <div className='StopWatch'>
+                
                 <div className='tick-container tick-container-1'><div className='tick tick-1' /></div>
                 <div className='tick-container tick-container-2'><div className='tick tick-2' /></div>
                 <div className='tick-container tick-container-3'><div className='tick tick-3' /></div>
