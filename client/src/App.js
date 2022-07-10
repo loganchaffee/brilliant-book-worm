@@ -110,7 +110,7 @@ const App = () => {
                 <BottomNavbar />
                 <NotificationsModal />
                 { pointsJustScored > 0 && <PointAnimation /> }
-                <NewUserWelcomeModal />
+                {user.isNewUser && <NewUserWelcomeModal />}
             </div>
         )
     } else {

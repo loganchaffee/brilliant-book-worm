@@ -7,11 +7,11 @@ import './InitialSpeedTest.css'
 const InitialSpeedTest = ({ setCurrentPage, currentPage }) => {
     const [step, setStep] = useState(0)
 
-    return <>
-        {step === 0 && <SuggestSpeedTest step={step} setStep={setStep} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
-        {step === 1 && <SpeedTest isInWelcomeModal={true} step={step} setStep={setStep} />}
-        {step === 2 && <SpeedTestResults step={step} setStep={setStep} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
-    </>
+    return <div>
+        {step === 0 && <div className='animate-up-and-in'><SuggestSpeedTest step={step} setStep={setStep} currentPage={currentPage} setCurrentPage={setCurrentPage} /></div>}
+        {step === 1 && <div className='animate-up-and-in'><SpeedTest isInWelcomeModal={true} step={step} setStep={setStep} /></div>}
+        {step === 2 && <div className='animate-up-and-in'><SpeedTestResults step={step} setStep={setStep} currentPage={currentPage} setCurrentPage={setCurrentPage} /></div>}
+    </div>
 }
 
 export default InitialSpeedTest

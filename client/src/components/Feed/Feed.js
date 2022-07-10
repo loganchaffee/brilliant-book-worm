@@ -24,6 +24,7 @@ function Feed() {
     const currentPost = useSelector((state) => state.currentPost)
     const posts = useSelector((state) => state.posts)
     const user = useSelector((state) => state.auth)
+    const books = useSelector((state) => state.books)
 
     const [searchText, setSearchText] = useState('')
     const [currentTimeoutId, setCurrentTimeoutId] = useState(0)
@@ -51,7 +52,7 @@ function Feed() {
     }, [])
 
     useEffect(() => {
-        if (user.following.length === 0 && user.books.length === 0) setShowSkeletonLoading(false)
+        if (user.following.length === 0 && books.length === 0) setShowSkeletonLoading(false)
     }, [user.following.length])
 
     // Give the observer a target every time the last post changes

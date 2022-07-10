@@ -78,8 +78,8 @@ function ReadingSpeedTest() {
     }
 
     return (
-        <div>
-            <div style={{marginBottom: '-60px'}}>
+        <div className='ReadingSpeedTest'>
+            <div style={{marginBottom: '-40px'}}>
                 <Link to="/challenge" className='back-arrow' onClick={() => clearInterval(timerDetails.id)}>
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </Link>

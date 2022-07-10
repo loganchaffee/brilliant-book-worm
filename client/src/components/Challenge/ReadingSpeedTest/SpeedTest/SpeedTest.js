@@ -95,7 +95,7 @@ const SpeedTest = ({ isInWelcomeModal, step, setStep }) => {
                 {
                     timerDetails.hasStarted 
                     &&
-                    <div className='ReadingSpeedTest__paper'>
+                    <div className='ReadingSpeedTest__paper '>
                         { timerDetails.hasStarted && <p>{text}</p> }
                     </div>
                 }

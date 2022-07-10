@@ -1,6 +1,10 @@
 import mongoose from "mongoose"
 
 const userSchema = mongoose.Schema({
+    isNewUser: {
+        type: Boolean,
+        default: true
+    },
     name: { 
         type: String, 
         required: true

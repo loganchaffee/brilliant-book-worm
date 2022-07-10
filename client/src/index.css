@@ -221,3 +221,21 @@ select:focus {
 .color-secondary {
     color: var(--secondary);
 }
+
+.animate-up-and-in {
+    animation-name: animate-up-and-in;
+    animation-duration: .75s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+
+@keyframes animate-up-and-in {
+    0% {
+        opacity: 0%;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(0px);
+    }
+}

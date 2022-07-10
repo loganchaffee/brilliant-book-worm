@@ -7,7 +7,7 @@ const FinishProfileSetup = ({ setCurrentPage, currentPage}) => {
         document.getElementsByClassName('profile-more-btn')[0].style.display = 'none'
     }, [])
 
-    return <div>
+    return <div className='animate-up-and-in'>
         <h3>Finish setting up your profile</h3>
         <UserDetails />
         <div className='d-flex justify-content-between'>

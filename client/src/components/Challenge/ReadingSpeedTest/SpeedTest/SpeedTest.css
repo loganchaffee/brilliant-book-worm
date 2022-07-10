@@ -1,3 +1,10 @@
 .SpeedTest {
-    
+    width: 100%;
+}
+
+.ReadingSpeedTest__paper {
+    animation-name: growIn;
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
 }
