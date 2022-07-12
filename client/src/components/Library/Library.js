@@ -14,6 +14,11 @@ import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 function Library() {
     const dispatch = useDispatch()
     const books = useSelector((state) => state.books)
+    const [completedBooks, setCompletedBooks] = useState([])
+
+    useEffect(() => {
+        setCompletedBooks(books.filter((book) => book.isCompleted))
+    }, [books.length])
 
     useEffect(() => {
         dispatch(getBooks())
@@ -22,7 +27,7 @@ function Library() {
         window.addEventListener('resize', _.throttle(resizeLastBook), 200)
 
         return () => window.removeEventListener('resize', _.throttle)
-    }, [])
+    }, [completedBooks.length])
 
     useEffect(() => resizeLastBook(), [books.length])
 
@@ -30,7 +35,7 @@ function Library() {
         <div className="Library">
             <ScrollToTopOnMount />
             <Row>
-                <Col style={{padding: '0px'}}>
+                <Col>
                     <h1 >Library</h1>
                 </Col>
             </Row>
@@ -40,29 +45,27 @@ function Library() {
                 <Row className='Library__bookshelf'>
                     {
                         books.map((book, i) => {
-                            if (book.isCompleted) {
-                                return ( 
-                                    <Col key={book._id + 'library'} className='Library__book-container' xs={4} sm={4} md={3} lg={2}>
-                                        <Link 
-                                            to={`/library-form/${book._id}`} 
-                                            onClick={() => dispatch(setCurrentBook(book))} 
-                                            className='Library__book-link' 
-                                        >
-                                            {
-                                                book.thumbnail
-                                                ?
-                                                <img src={book?.thumbnail} className='Library__book-image' />
-                                                :
-                                                <div className='Library__book-alternate'>
-                                                    <FontAwesomeIcon icon={faBook}/>
-                                                    <p>{book?.title}</p>
-                                                    <p>{book?.subtitle}</p>
-                                                </div>
-                                            }
-                                        </Link>
-                                    </Col>
-                                )
-                            }
+                            return (
+                                <Col key={book._id + 'library'} className={completedBooks.length > 1 ? 'Library__book-container' : 'Library__book-container-single'} xs={4} sm={4} md={3} lg={2}>
+                                    <Link 
+                                        to={`/library-form/${book._id}`} 
+                                        onClick={() => dispatch(setCurrentBook(book))} 
+                                        className='Library__book-link'
+                                    >
+                                        {
+                                            book.thumbnail
+                                            ?
+                                            <img src={book?.thumbnail} className='Library__book-image' />
+                                            :
+                                            <div className='Library__book-alternate'>
+                                                <FontAwesomeIcon icon={faBook}/>
+                                                <p>{book?.title}</p>
+                                                <p>{book?.subtitle}</p>
+                                            </div>
+                                        }
+                                    </Link>
+                                </Col>
+                            )
                         })
                     }
                 </Row>
