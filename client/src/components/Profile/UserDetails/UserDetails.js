@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col, Button, Form, Card, Modal} from 'react-bootstrap'
+import { Container, Row, Col, Button, Form, Card, Modal, Spinner} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
@@ -20,8 +20,8 @@ const UserDetails = () => {
 
     const [formData, setFormData] = useState({ name: '', email: '', private: false, bio: ''})
     const [initialFormData, setInitialFormData] = useState({ name: '', email: '', private: false, bio: ''})
-    const [errorMessage, setErrorMessage] = useState('')
-    const [alert, setAlert] = useState('')
+    const [alert, setAlert] = useState({ variant: 'success', content: '' })
+    const [showSpinner, setShowSpinner] = useState(false)
 
     const [showModal, setShowModal] = useState(false)
     const [showProfileDropDown, setShowProfileDropDown] = useState(false)
@@ -63,7 +63,12 @@ const UserDetails = () => {
 
     const handleCropAndUpdate = () => {
         const croppedImageData = cropper.getCroppedCanvas().toDataURL('image/png')
-        dispatch(updateUser({ profileImage: croppedImageData }, setErrorMessage))
+        
+        setAlert({ variant: 'success', content: '' })
+        setShowSpinner(true)
+
+        dispatch(updateUser({ profileImage: croppedImageData }, setAlert, setShowSpinner))
+
         cropper.destroy()
         setCropper(null)
         setImage('')
@@ -75,12 +80,14 @@ const UserDetails = () => {
     }
     
     const handleUpdateUserCred = () => {
-        let message = 'Please fill in:'
-        if (!formData.name) message = message + ' -Display Name'
-        if (!formData.email) message = message + ' -Email'
-        if (!formData.name || !formData.email) return setAlert(message)
+        let content = 'Please fill in:'
+        if (!formData.name) content = content + ' -Display Name'
+        if (!formData.email) content = content + ' -Email'
+        if (!formData.name || !formData.email) return setAlert({ variant: 'warning', content })
 
-        dispatch(updateUser({ ...formData }, setErrorMessage))
+        setAlert({ variant: 'success', content: '' })
+        setShowSpinner(true)
+        dispatch(updateUser({ ...formData }, setAlert, setShowSpinner))
         setInitialFormData({ ...formData })
     }
 
@@ -176,8 +183,8 @@ const UserDetails = () => {
                 undefined
             }
 
-            <Alert variant='danger' content={errorMessage} onClose={() => setErrorMessage('')} />
-            <Alert variant='warning' content={alert} onClose={() => setAlert('')} />
+            {showSpinner && <Spinner animation="border" variant="primary"  />}
+            <Alert variant={alert.variant} content={alert.content} onClose={() => setAlert({ ...alert, content: '' })} />
         </div>
 
         {/* Invisible input clicked when profile image is clicked */}

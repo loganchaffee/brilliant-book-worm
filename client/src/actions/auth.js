@@ -71,17 +71,20 @@ export const deleteUser = () => async (dispatch, navigate) => {
  * @param {string} whereToNavigate page to redirect user to
  * @return {object} Use redux thunk method "dispatch" to return an action object to redux reducer
 */
-export const updateUser = (formData, setErrorMessage, navigate, whereToNavigate) => async (dispatch) => {
+export const updateUser = (formData, setAlert, setShowSpinner) => async (dispatch) => {
     try {
         const { data } = await api.updateUser(formData)
 
         if (data.accessToken) localStorage.setItem('user', JSON.stringify(data.accessToken))
 
         dispatch({ type: 'AUTH', payload: data.updatedUser })
-        if (setErrorMessage) setErrorMessage('')
-        if (navigate) navigate(whereToNavigate)
+
+        if (setAlert) setAlert({ variant: 'success', content: 'Profile successfully updated!'})
+
+        if (setShowSpinner) setShowSpinner(false)
+
     } catch (error) {
-        setErrorMessage(error.response.data)
+        setAlert({ variant: 'success', content: error.response.data })
     }
 }
 

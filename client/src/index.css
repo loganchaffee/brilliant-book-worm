@@ -40,6 +40,10 @@ body {
     background-color: var(--primary) !important;
 }
 
+.text-primary {
+    color: var(--primary) !important;
+}
+
 /* -----Buttons----- */
 .btn,
 .btn:hover,
