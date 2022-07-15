@@ -183,7 +183,13 @@ const UserDetails = () => {
                 undefined
             }
 
-            {showSpinner && <Spinner animation="border" variant="primary"  />}
+            {
+                showSpinner
+                &&
+                <div className='d-flex justify-content-center'>
+                    <Spinner animation="border" variant="primary" />
+                </div>
+            }
             <Alert variant={alert.variant} content={alert.content} onClose={() => setAlert({ ...alert, content: '' })} />
         </div>
 
