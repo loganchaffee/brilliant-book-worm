@@ -67,7 +67,7 @@ const App = () => {
     }, [user?._id])
 
     useEffect(() => {
-        dispatch(getPosts(0))
+        // dispatch(getPosts(0))
         dispatch(getBooks())
         dispatch(getNotifications())
     }, [])

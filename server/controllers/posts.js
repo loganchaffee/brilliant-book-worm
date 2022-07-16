@@ -37,18 +37,30 @@ export const fetchUsersPost = async (req, res) => {
 
 export const fetchPosts = async (req, res) => {
     try {
-        const userId = req.userId
+        console.log(req.body);
 
+        const userId = req.userId
         const user = await User.findById(userId, { following: 1 })
         const following = user.following
-        if (user.following.length <= 0) return res.status(200)
 
         const limit = 20
         const startIndex = Number(req.body.postsLength)
-        const totalPosts = await Post.countDocuments({ "createdBy" : { $in : following } })
+        const totalPosts = await Post.countDocuments({ $or: [{ "createdBy" : { $in : following } }, { createdBy : userId }] })
 
-        if (startIndex >= totalPosts) {
-            return res.status(200).json([])
+        if (startIndex >= totalPosts) return res.status(200).json([])
+
+        if (user.following.length <= 0) {
+            const posts = await Post.find({ createdBy : userId })
+            .sort({ createdAt: -1 })
+            .populate('createdBy', 'name level profileImage')
+            .populate('book', 'title subtitle author review thumbnail')
+            .populate('createdAt')
+            .populate('comments')
+            .populate('comments.createdBy', 'name level')
+            .limit(limit)
+            .skip(startIndex)
+
+            return res.status(200).json(posts)
         }
 
         const posts = await Post.find({ $or: [{ "createdBy" : { $in : following } }, { createdBy : userId }] })
