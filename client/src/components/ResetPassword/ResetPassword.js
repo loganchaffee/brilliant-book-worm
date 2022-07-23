@@ -49,7 +49,6 @@ const ResetPassword = () => {
                 </Button>       
             </div>
         </Form>
-
         <Alert variant={alert.variant} content={alert.content} onClose={() => setAlert({ variant: '', content: ''})} />
     </div>
 }

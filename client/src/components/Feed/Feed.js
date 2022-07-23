@@ -33,17 +33,13 @@ function Feed() {
     const [observer, setObserver] = useState(null)
     const [showSkeletonLoading, setShowSkeletonLoading] = useState(true)
 
-    // useEffect(() => {
-    //     if (posts.length === 0) dispatch(getPosts(0))
-    // }, [])
+    useEffect(() => {
+        if (posts.length === 0) dispatch(getPosts(0))
+    }, [])
 
     // Get New Posts On Scroll---------------------------------------------------
     // Intersection observer options
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: .01
-    }
+    const options = { root: null, rootMargin: '0px', threshold: .01 }
 
     useEffect(() => {
         setTimeout(() => {

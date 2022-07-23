@@ -1,18 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import './LandingPage.css'
-import './ScrollingBooks/ScrollingBooks.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import trackImg from '../../images/track.png'
-import levelUpImg from '../../images/level-up.png'
-import shareImg from '../../images/share.png'
-import ScrollingBooks from './ScrollingBooks/ScrollingBooks'
-import Auth from '../../Auth/Auth'
+import React from 'react'
+import './ScrollingBooks.css'
+import { Col } from 'react-bootstrap'
 
-
-const LandingPage = () => {
+const ScrollingBooks = () => {
     const books = [{
         "_id": "62d60fdd1e24dae70386f9ca",
         "thumbnail": "http://books.google.com/books/content?id=B6kl7WGhRKkC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
@@ -158,100 +148,45 @@ const LandingPage = () => {
         "thumbnail": "http://books.google.com/books/content?id=f_0m7WiulUMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
     }
     ]
- 
-    const [showAuth, setShowAuth] = useState(false)
 
-    return <div className='LandingPage'>
-        <div className='LandingPage__top-section'>
-            <Container>
-                <Row className='LandingPage__navbar'>
-                    <Col className='LandingPage-navbar__left'>
-                        <h3 className='logo'>BW</h3>
-                    </Col>
-                    <Col className='d-flex justify-content-end align-items-center'>
-                        <Link to='/' className='ml-10 LandingPage__navbar-link'>Sign In</Link>
-                        <Link to='/' className='ml-10 LandingPage__navbar-link'>Sign Up</Link>
-                    </Col>
-                </Row>
-                
-                <Row className='LandingPage__hero-section'>
-                    <Col xs={12} md={6} className='LandingPage__hero-section__left animate-up-and-in'>
-                        <h1>Up Your <br /><span>Reading Game</span></h1>
-                        <h2>Track your reading. Manage your library and book reviews. See what others are reading and share your ideas.</h2>
-                        {!showAuth && <Button className='call-to-action-btn' onClick={() => setShowAuth(true)}>Sign Up <FontAwesomeIcon icon={faArrowRight} className='ml-10'/></Button>}
-                    </Col>
-                    <Col xs={12} md={6} style={{ position: 'relative'}} className='animate-up-and-in'>
-                        {
-                            showAuth
-                            ?
-                            <Auth />
-                            :
-                            <ScrollingBooks />
-                        }
-                    </Col>
-                </Row>
-                <Row className='LandingPage__video-section'>
-                    <Col>
-                        <h1 className='tac'>Welcome To Brilliant BookWorm</h1>
-                        <h2 className='tac'>The all in one book tracking tool</h2>
-                        <div className='LandingPage__video'></div>
-                    </Col>
-                </Row>
-            </Container>
+
+    return <div  className='animate-up-and-in'>
+
+        <div className='LandingPage__books'>
+            <img src={books[0].thumbnail} className='book-placeholder' />
+            <div className='LandingPage__books__row-1'>
+                {
+                    books.map((book, i) => {
+                        if (i < 4) return <img src={book?.thumbnail} className='book' />
+                    })
+                }
+            </div>
+            <div className='LandingPage__books__row-2'>
+                {
+                    books.map((book, i) => {
+                        if (i < 8 && i > 3) return  <img src={book?.thumbnail} className='book' />
+                    })
+                }
+            </div>
         </div>
-        <div className='LandingPage__feature-section'>
-            <Container>
-                <Row>
-                    <Col xs={6}>
-                        <h1>Track Your Reading</h1>
-                        <p>Track your reading progress through the intuitive dashboard</p>
-                        <p>Easily find your book with the search tool powered by the google books API</p>
-                        <p>Get an estimated completion time based on your own reading speed</p>
-                    </Col>
-                    <Col xs={6}>
-                        <img src={trackImg} />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-        <div className='LandingPage__feature-section dark-feature-section'>
-            <Container>
-                <Row>
-                    <Col xs={6}>
-                        <img src={levelUpImg} className='br-10'/>
-                    </Col>
-                    <Col xs={6}>
-                        <h1>Level Up</h1>
-                        <p>Stay motivated by gamifying your reading</p>
-                        <p>Earn points and level up as your read more, meet your deadlines, and increase your reading speed</p>
-                        <p>Get some bragging rights as your interact with your friends and followers</p>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-        <div className='LandingPage__feature-section'>
-            <Container>
-                <Row>
-                    <Col xs={6}>
-                        <h1>Share your Ideas</h1>
-                        <p>Add followers to and see what others are reading</p>
-                        <p>Keep your finished books in your library where other people can read your reviews</p>
-                        <p>Interact with other's posts in your news feed and share your thoughts</p>
-                    </Col>
-                    <Col xs={6}>
-                        <img src={shareImg}/>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-        <div className='LandingPage__footer-container'>
-            <Container className='LandingPage__footer d-flex justify-content-center align-items-center'>
-                <p className='mr-10'>brilliantbookworm©</p>
-                <p className='mr-10'>Created by Logan Chaffee</p>
-                <a href='https://loganchaffee.com/'><p className='mr-10'>loganchaffee.com</p></a>
-            </Container>
+        <div className='LandingPage__books'>
+            <img src={books[0].thumbnail} className='book-placeholder' />
+            <div className='LandingPage__books__row-3'>
+                {
+                    books.map((book, i) => {
+                        if (i < 12 && i > 7) return  <img src={book?.thumbnail} className='book' />
+                    })
+                }
+            </div>
+            <div className='LandingPage__books__row-4'>
+                {
+                    books.map((book, i) => {
+                        if (i < 16 && i > 11) return  <img src={book?.thumbnail} className='book' />
+                    })
+                }
+            </div>
         </div>
     </div>
 }
 
-export default LandingPage
+export default ScrollingBooks

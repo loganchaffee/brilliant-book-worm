@@ -64,10 +64,12 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    font-size: 30px;
 }
 .Post__profile-image-container img {
     width: 100%;
 }
+
 
 .Post__header :last-child p {
     margin-bottom: 0;

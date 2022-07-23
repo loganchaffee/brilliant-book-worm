@@ -20,7 +20,7 @@ const RequestPasswordReset = () => {
         }
     }
 
-    return <div className='RequestPasswordReset'>
+    return <div className='RequestPasswordReset animate-up-and-in'>
         <BackButton content='Back to Login' overrideURL='/' />
         <h3 className='Auth__title'>Request Password Reset Link</h3>
         <Form className='main-form'>

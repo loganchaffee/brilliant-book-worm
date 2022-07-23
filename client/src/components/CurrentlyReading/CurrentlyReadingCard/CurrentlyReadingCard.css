@@ -91,7 +91,8 @@
 }
 
 .CurrentlyReadingCard__pages-col {
-    width: 75px;
+    min-width: 75px;
+    margin-right: 10px;
 }
 
 .CurrentlyReadingCard__pages {

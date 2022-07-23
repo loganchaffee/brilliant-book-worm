@@ -1,21 +1,226 @@
-.LandingPage-navbar > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+.LandingPage__top-section {
+    background: linear-gradient(var(--light), var(--light-darkened));
 }
 
-.LandingPage-navbar__left {
-    display: flex;
-    align-items: center;
+.LandingPage__navbar {
+    margin-bottom: 50px;
 }
 
-.LandingPage-navbar__left .logo {
-    margin-bottom: 0;
+.LandingPage .logo {
+    font-size: 40px;
+    border: 3px solid var(--secondary-darkened);
+    width: fit-content;
+    border-radius: 10px;
+    padding: 0 10px;
+    margin: 10px 0;
+    color: var(--dark);
 }
 
-.LandingPage__left {
-    min-height: 70vh;
+.LandingPage__navbar-link {
+    font-size: 18;
+    font-weight: 500;
+}
+
+.LandingPage__hero-section {
+    padding-bottom: 250px;
+}
+
+.LandingPage__hero-section__left h1 {
+    font-size: 70px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.LandingPage__hero-section__left h1 span {
+    color: #00000000;
+    background-image: linear-gradient(45deg, var(--primary), var(--danger));
+    background-clip: text;
+}
+
+.LandingPage__hero-section h2,
+.LandingPage__video-section h2 {
+    font-size: 25px;
+    font-weight: 400;
+    color: var(--secondary-darkened);
+    margin-bottom: 20px;
+}
+
+.call-to-action-btn {
+    font-size: 18px;
+    border-radius: 50px;
+    padding: 5px 30px;
+}
+
+.call-to-action-btn:hover,
+.call-to-action-btn:active,
+.call-to-action-btn:focus {
+    font-size: 18px;
+    border-radius: 50px;
+    padding: 5px 30px;
+}
+
+.LandingPage__books {
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-2, 
+.LandingPage__books__row-3,
+.LandingPage__books__row-4 {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+    min-width: none;
+    position: absolute;
+    left: 100%;
+
+
+    animation-duration: 30000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-2 {
+    animation-name: scrollBooks;
+}
+
+.LandingPage__books__row-3,
+.LandingPage__books__row-4 {
+    animation-name: scrollBooks2;
+}
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-3{
+    animation-delay: -15000ms;
+}
+
+
+.LandingPage__books__row-2,
+.LandingPage__books__row-4 {
+    /* animation-delay: 4000ms; */
+}
+
+.book {
+    border-radius: 10px;
+    width: 20%;
+    max-width: 125px;
+}
+
+.book-placeholder {
+    width: 20%;
+    max-width: 125px;
+    opacity: 0;
+}
+
+@keyframes scrollBooks {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-200%);
+    }
+}
+
+@keyframes scrollBooks2 {
+    0% {
+        left: -100%;
+    }
+    100%{
+        left: 100%;
+    }
+}
+
+.LandingPage__hero-section__right__overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(var(--danger) 0%, #00000000 50%, var(--danger) 100%);
+    position: absolute;
+    z-index: 1;
+}
+
+/* -----Vid Section----- */
+.LandingPage__vid-section {
+    background: var(--primary);
+}
+
+.LandingPage__video {
+    width: 50vw;
+    height: 30vw;
+    margin: 0 auto 200px auto;
+    background: black;
+}
+
+.LandingPage__vid-section > div > p {
+    font-size: 25px;
+    font-weight: 400;
+    color: var(--secondary-darkened);
+    margin-bottom: 20px;
+}
+
+
+.LandingPage__feature-section {
+    padding: 200px 0;
+}
+
+.LandingPage__feature-section img {
+    width: 100%;
+    padding: 10px;
+    background: var(--light)
+}
+
+
+.LandingPage__feature-section h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.LandingPage__feature-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.dark-feature-section {
+    background: linear-gradient(var(--dark), var(--dark-darkened));
+}
+
+.dark-feature-section h1 {
+    color: var(--white);
+}
+
+.dark-feature-section p {
+    color: rgb(219, 219, 219);
+}
+
+
+.LandingPage__footer {
+    height: 100px;
+}
+
+.LandingPage__footer-container {
+    background: var(--dark);
+}
+
+.LandingPage__footer {
+    height: 200px;
+}
+
+.LandingPage__footer a,
+.LandingPage__footer p {
+    color: var(--white);
+    font-size: 16px;
+}
+
+.LandingPage__footer a:hover {
+    color: var(--danger);
 }

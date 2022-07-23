@@ -1,0 +1,79 @@
+.LandingPage__books {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-2, 
+.LandingPage__books__row-3,
+.LandingPage__books__row-4 {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+    min-width: none;
+    position: absolute;
+    left: 100%;
+
+
+    animation-duration: 30000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-2 {
+    animation-name: scrollBooks;
+}
+
+.LandingPage__books__row-3,
+.LandingPage__books__row-4 {
+    animation-name: scrollBooks2;
+}
+
+.LandingPage__books__row-1,
+.LandingPage__books__row-3{
+    animation-delay: -15000ms;
+}
+
+
+.LandingPage__books__row-2,
+.LandingPage__books__row-4 {
+    /* animation-delay: 4000ms; */
+}
+
+.book {
+    border-radius: 10px;
+    width: 20%;
+    max-width: 125px;
+}
+
+.book-placeholder {
+    width: 20%;
+    max-width: 125px;
+    opacity: 0;
+}
+
+@keyframes scrollBooks {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-200%);
+    }
+}
+
+@keyframes scrollBooks2 {
+    0% {
+        left: -100%;
+    }
+    100%{
+        left: 100%;
+    }
+}

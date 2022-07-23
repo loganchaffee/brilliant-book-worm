@@ -46,8 +46,17 @@ const App = () => {
     const pointsJustScored = useSelector(state => state.pointsJustScored)
     const currentPost = useSelector((state) => state.currentPost)
     const currentVisitedUser = useSelector((state) => state.currentVisitedUser)
+    // const books = useSelector((state) => state.books)
 
-    // useEffect(() => console.log(posts), [posts])
+    // useEffect(() => {
+    //     let arr = []
+    //     for (let i = 0; i < books.length; i++) {
+    //         const book = books[i];
+    //         arr.push({ _id: book._id, thumbnail: book.thumbnail })
+    //     }
+    //     console.log(arr);
+    // }, [books])
+
 
     // The user data is stored in the redux store, but the boolean of isLoggedIn is stored here
     // In the main app component so that we can conditionally render the authentication form or the home page.
@@ -115,7 +124,8 @@ const App = () => {
         )
     } else {
         return <Routes>
-            <Route path='/' element={<Auth />}/>
+            {/* <Route path='/' element={<Auth />}/> */}
+            <Route path='/' element={<LandingPage />}/>
             <Route path='/request-password-reset' element={<RequestPasswordReset />} />
             <Route path='/reset-password/:token' element={<ResetPassword />} />
         </Routes>

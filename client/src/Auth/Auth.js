@@ -48,7 +48,7 @@ function Auth() {
     }
 
     return (
-        <div className='Auth'>
+        <div className='Auth animate-grow-in'>
             <Row>
                 <Col xs={12}>
                     <h3 className='Auth__title'>{isSignup ? 'Sign Up' : 'Sign In'}</h3>

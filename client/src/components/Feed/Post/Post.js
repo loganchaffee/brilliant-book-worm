@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import Card from 'react-bootstrap/esm/Card'
-import { FontAwesomeIcon as I } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faThumbsDown, faComment, faBook, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon, FontAwesomeIcon as I } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faThumbsDown, faComment, faBook, faAngleRight, faUser } from '@fortawesome/free-solid-svg-icons'
 import { dislikePost, likePost } from '../../../actions/posts'
 import { setCurrentPost, likeCurrentPost, dislikeCurrentPost  } from '../../../actions/currentPost'
 import moment from 'moment';
@@ -34,11 +34,17 @@ const Post = ({ post }) => {
         <Card key={'post-' + post._id} className="Post">
             <Card.Body>
                 <div className='Post__user-details'>
-                    <div className='Post__profile-image-container'>
-                        <Link to={`/public-profile/${post?.createdBy._id}`} >
-                            <img src={post?.createdBy?.profileImage} />
-                        </Link>
-                    </div>
+                    <Link to={`/public-profile/${post?.createdBy._id}`} >
+                        <div className='Post__profile-image-container'>
+                                {
+                                    post?.createdBy?.profileImage
+                                    ?
+                                    <img src={post?.createdBy?.profileImage} />
+                                    :
+                                    <FontAwesomeIcon icon={faUser} />
+                                }
+                        </div>
+                    </Link>
                     <div className='Post__user-cred'>
                         <Link to={`/public-profile/${post?.createdBy._id}`}>
                             <p>{post?.createdBy?.name}</p>
