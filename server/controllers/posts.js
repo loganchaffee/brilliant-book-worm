@@ -37,8 +37,6 @@ export const fetchUsersPost = async (req, res) => {
 
 export const fetchPosts = async (req, res) => {
     try {
-        console.log(req.body);
-
         const userId = req.userId
         const user = await User.findById(userId, { following: 1 })
         const following = user.following

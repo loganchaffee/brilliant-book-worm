@@ -197,13 +197,13 @@ export const requestPasswordReset = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'loganschaffee@gmail.com',
-                pass: 'mqxgybrptlnzrfjw' 
+                user: process.env.GMAIL_EMAIL_ADDRESS,
+                pass: process.env.GMAIL_APP_PASSWORD
             }
         });
 
         const options = {
-            from: 'Book Worm',
+            from: 'Brilliant Book Worm',
             to: email,
             subject: 'Password Reset',
             html: `
