@@ -8,10 +8,9 @@ import { signup, signin } from '../actions/auth.js';
 import Alert from '../components/common/Alert/Alert'
 import './Auth.css'
 
-function Auth() {
+function Auth({ isSignup, setIsSignup }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [isSignup, setIsSignup] = useState(true)
     const [formData, setFormData] = useState({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});
     const [error, setError] = useState('')
     const [alert, setAlert] = useState('')

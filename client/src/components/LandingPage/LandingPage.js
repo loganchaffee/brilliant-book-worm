@@ -10,6 +10,7 @@ import levelUpImg from '../../images/level-up.png'
 import shareImg from '../../images/share.png'
 import ScrollingBooks from './ScrollingBooks/ScrollingBooks'
 import Auth from '../../Auth/Auth'
+import logo from '../../images/logo.png'
 
 
 const LandingPage = () => {
@@ -160,17 +161,37 @@ const LandingPage = () => {
     ]
  
     const [showAuth, setShowAuth] = useState(false)
+    const [isSignup, setIsSignup] = useState(true)
+
+    const handleShowAuth = () => {
+        setShowAuth(true)
+        setTimeout(() => {
+            document.getElementsByClassName('form-control')[0].focus()
+        }, 250)
+        if (window.innerWidth < 600) {
+            setTimeout(() => {
+                document.getElementsByClassName('Auth__title')[0].scrollIntoView({ behavior: "smooth", block: "start", inline: 'nearest' })
+            }, 300)
+        }
+    }
 
     return <div className='LandingPage'>
         <div className='LandingPage__top-section'>
             <Container>
                 <Row className='LandingPage__navbar'>
-                    <Col className='LandingPage-navbar__left'>
-                        <h3 className='logo'>BW</h3>
+                    <Col xs={1} className='LandingPage-navbar__left'>
+                        <img className='logo' src={logo}/>
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
-                        <Link to='/' className='ml-10 LandingPage__navbar-link'>Sign In</Link>
-                        <Link to='/' className='ml-10 LandingPage__navbar-link'>Sign Up</Link>
+                        <a href='#about' className='ml-20 LandingPage__navbar-link'>About</a>
+                        <span className='ml-20 LandingPage__navbar-link' onClick={() => {
+                            setIsSignup(false)
+                            handleShowAuth(true)
+                        }}>Sign In</span>
+                        <span className='ml-20 LandingPage__navbar-link' onClick={() => {
+                            setIsSignup(true)
+                            handleShowAuth(true)
+                        }}>Sign Up</span>
                     </Col>
                 </Row>
                 
@@ -178,23 +199,26 @@ const LandingPage = () => {
                     <Col xs={12} md={6} className='LandingPage__hero-section__left animate-up-and-in'>
                         <h1>Up Your <br /><span>Reading Game</span></h1>
                         <h2>Track your reading. Manage your library and book reviews. See what others are reading and share your ideas.</h2>
-                        {!showAuth && <Button className='call-to-action-btn' onClick={() => setShowAuth(true)}>Sign Up <FontAwesomeIcon icon={faArrowRight} className='ml-10'/></Button>}
+                        {!showAuth && <Button className='call-to-action-btn' onClick={handleShowAuth}>Sign Up <FontAwesomeIcon icon={faArrowRight} className='ml-10'/></Button>}
                     </Col>
                     <Col xs={12} md={6} style={{ position: 'relative'}} className='animate-up-and-in'>
                         {
                             showAuth
                             ?
-                            <Auth />
+                            <Auth isSignup={isSignup} setIsSignup={setIsSignup} />
                             :
                             <ScrollingBooks />
                         }
                     </Col>
                 </Row>
-                <Row className='LandingPage__video-section'>
-                    <Col>
+                <a name="about"></a>
+                <Row >
+                    <Col className='LandingPage__video-section'>
                         <h1 className='tac'>Welcome To Brilliant BookWorm</h1>
                         <h2 className='tac'>The all in one book tracking tool</h2>
-                        <div className='LandingPage__video'></div>
+                        <div className='LandingPage__video'>
+                            <iframe  width="560" height="315" src="https://www.youtube.com/embed/r7qCY-_teg8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </Col>
                 </Row>
             </Container>
@@ -202,13 +226,13 @@ const LandingPage = () => {
         <div className='LandingPage__feature-section'>
             <Container>
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <h1>Track Your Reading</h1>
                         <p>Track your reading progress through the intuitive dashboard</p>
                         <p>Easily find your book with the search tool powered by the google books API</p>
                         <p>Get an estimated completion time based on your own reading speed</p>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <img src={trackImg} />
                     </Col>
                 </Row>
@@ -217,10 +241,10 @@ const LandingPage = () => {
         <div className='LandingPage__feature-section dark-feature-section'>
             <Container>
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <img src={levelUpImg} className='br-10'/>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <h1>Level Up</h1>
                         <p>Stay motivated by gamifying your reading</p>
                         <p>Earn points and level up as your read more, meet your deadlines, and increase your reading speed</p>
@@ -232,13 +256,13 @@ const LandingPage = () => {
         <div className='LandingPage__feature-section'>
             <Container>
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <h1>Share your Ideas</h1>
                         <p>Add followers to and see what others are reading</p>
                         <p>Keep your finished books in your library where other people can read your reviews</p>
                         <p>Interact with other's posts in your news feed and share your thoughts</p>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={12} md={6}>
                         <img src={shareImg}/>
                     </Col>
                 </Row>

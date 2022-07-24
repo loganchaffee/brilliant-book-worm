@@ -25,3 +25,13 @@ How Section -----------------------------------------------------------------
 5. Profile 
     1. Edit User Details
     2. Log out or Delete Account
+
+
+record video
+
+1. add book
+2. update book
+3. write review
+4. speed test
+5. set deadline
+6. Add friend

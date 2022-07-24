@@ -59,7 +59,7 @@ body {
     border: var(--primary);
 }
 .btn-primary:hover {
-    background: var(--primary-darkened);
+    background: var(--white);
 }
 .btn-primary:active,
 .btn-primary:focus {
@@ -218,6 +218,10 @@ select:focus {
     margin-right: 10px;
 }
 
+.ml-20 {
+    margin-left: 20px;
+}
+
 .ml-10 {
     margin-left: 10px;
 }
@@ -261,4 +265,34 @@ select:focus {
     animation-duration: .5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
+}
+
+
+
+
+
+.demonstration {
+    background: var(--white);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.demonstration img {
+    margin-bottom: 20px;
+}
+
+.demonstration h1 {
+    text-align: center;
+    color: var(--dark-darkened);
+    font-size: 75px;
+    font-weight: 600;
+}
+
+.demonstration p {
+    color: var(--dark-darkened);
+    font-size: 20px;
 }

@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import './index.css'
+import logo from './images/logo.png'
 
 import TopNavbar from './components/TopNavbar/TopNavbar'
 import BottomNavbar from './components/BottomNavbar/BottomNavbar'
@@ -128,6 +129,10 @@ const App = () => {
             <Route path='/' element={<LandingPage />}/>
             <Route path='/request-password-reset' element={<RequestPasswordReset />} />
             <Route path='/reset-password/:token' element={<ResetPassword />} />
+            <Route path='/demonstration' element={<div className='demonstration'>
+                <img src={logo} />
+                <h1>Welcome To <br></br>Brilliant Bookworm</h1>
+            </div>} />
         </Routes>
     }
     

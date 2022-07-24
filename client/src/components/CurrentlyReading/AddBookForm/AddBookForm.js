@@ -123,7 +123,7 @@ function AddBookForm() {
                     <Form.Control 
                         id='titleInput'
                         className={ googleBooks.length > 0 ? 'no-bottom-border-radius' : '' }
-                        type="name" 
+                        type="text" 
                         placeholder="Book Title" 
                         value={formData.title} 
                         onChange={(e) => {

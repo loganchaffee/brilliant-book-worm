@@ -16,6 +16,8 @@ function Library() {
     const books = useSelector((state) => state.books)
     const [completedBooks, setCompletedBooks] = useState([])
 
+    console.log(books.filter((book) => book.isCompleted))
+
     useEffect(() => {
         setCompletedBooks(books.filter((book) => book.isCompleted))
     }, [books.length])
@@ -44,7 +46,7 @@ function Library() {
                 ?
                 <Row className='Library__bookshelf'>
                     {
-                        books.map((book, i) => {
+                        completedBooks.map((book, i) => {
                             return (
                                 <Col key={book._id + 'library'} className={completedBooks.length > 1 ? 'Library__book-container' : 'Library__book-container-single'} xs={4} sm={4} md={3} lg={2}>
                                     <Link 

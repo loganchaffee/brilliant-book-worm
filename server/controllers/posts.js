@@ -5,16 +5,6 @@ import Book from "../models/book.js"
 import User from '../models/user.js'
 import Notification from '../models/notification.js';
 
-export const createPost = async (req, res) => { 
-    // try {
-
-    //     res.status(200)
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500)
-    // }
-}
-
 export const fetchPost = async (req, res) => {
     try {
         const post = await Post.findById(req.body.id)
