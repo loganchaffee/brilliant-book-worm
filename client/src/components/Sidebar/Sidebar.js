@@ -103,9 +103,9 @@ const Sidebar = () => {
                 </a>
             </div>
             <div className='Sidebar__bottom-links'>
-                <Link to='/challenge' className='Sidebar__bottom-link'>
+                {/* <Link to='/challenge' className='Sidebar__bottom-link'>
                     <Button><FontAwesomeIcon icon={faCog} /></Button>
-                </Link>
+                </Link> */}
                 <div className='Sidebar__bottom-link'>
                     <Button onClick={() => setShowSignOutModal(true)}><FontAwesomeIcon icon={faDoorOpen} /></Button>
                 </div>

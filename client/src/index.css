@@ -59,7 +59,7 @@ body {
     border: var(--primary);
 }
 .btn-primary:hover {
-    background: var(--white);
+    background: var(--primary-darkened);
 }
 .btn-primary:active,
 .btn-primary:focus {
