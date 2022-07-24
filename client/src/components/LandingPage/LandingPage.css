@@ -108,12 +108,6 @@
     animation-delay: -15000ms;
 }
 
-
-.LandingPage__books__row-2,
-.LandingPage__books__row-4 {
-    /* animation-delay: 4000ms; */
-}
-
 .book {
     border-radius: 10px;
     width: 20%;
