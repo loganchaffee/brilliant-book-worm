@@ -5,12 +5,8 @@ import './LandingPage.css'
 import './ScrollingBooks/ScrollingBooks.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import trackImg from '../../images/track.png'
-import levelUpImg from '../../images/level-up.png'
-import shareImg from '../../images/share.png'
 import ScrollingBooks from './ScrollingBooks/ScrollingBooks'
 import Auth from '../../Auth/Auth'
-import logo from '../../images/logo.png'
 
 
 const LandingPage = () => {
@@ -180,7 +176,7 @@ const LandingPage = () => {
             <Container>
                 <Row className='LandingPage__navbar'>
                     <Col xs={1} className='LandingPage-navbar__left'>
-                        <img className='logo' src={logo}/>
+                        <img className='logo' src='https://www.loganchaffee.com/images/bw-logo.png' />
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
                         <a href='#about' className='ml-20 LandingPage__navbar-link'>About</a>
@@ -233,7 +229,7 @@ const LandingPage = () => {
                         <p>Get an estimated completion time based on your own reading speed</p>
                     </Col>
                     <Col xs={12} md={6}>
-                        <img src={trackImg} />
+                        <img src='https://www.loganchaffee.com/images/bw-track.png' />
                     </Col>
                 </Row>
             </Container>
@@ -242,7 +238,7 @@ const LandingPage = () => {
             <Container>
                 <Row>
                     <Col xs={12} md={6}>
-                        <img src={levelUpImg} className='br-10'/>
+                        <img src='https://www.loganchaffee.com/images/bw-level-up.png' className='br-10'/>
                     </Col>
                     <Col xs={12} md={6}>
                         <h1>Level Up</h1>
@@ -263,7 +259,7 @@ const LandingPage = () => {
                         <p>Interact with other's posts in your news feed and share your thoughts</p>
                     </Col>
                     <Col xs={12} md={6}>
-                        <img src={shareImg}/>
+                        <img src='https://www.loganchaffee.com/images/bw-share.png'/>
                     </Col>
                 </Row>
             </Container>
