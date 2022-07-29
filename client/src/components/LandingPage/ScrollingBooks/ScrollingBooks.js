@@ -157,14 +157,14 @@ const ScrollingBooks = () => {
             <div className='LandingPage__books__row-1'>
                 {
                     books.map((book, i) => {
-                        if (i < 4) return <img src={book?.thumbnail} className='book' />
+                        if (i < 4) return <img key={book._id + '1'} src={book?.thumbnail} className='book' />
                     })
                 }
             </div>
             <div className='LandingPage__books__row-2'>
                 {
                     books.map((book, i) => {
-                        if (i < 8 && i > 3) return  <img src={book?.thumbnail} className='book' />
+                        if (i < 8 && i > 3) return  <img key={book._id + '2'} src={book?.thumbnail} className='book' />
                     })
                 }
             </div>
@@ -174,14 +174,14 @@ const ScrollingBooks = () => {
             <div className='LandingPage__books__row-3'>
                 {
                     books.map((book, i) => {
-                        if (i < 12 && i > 7) return  <img src={book?.thumbnail} className='book' />
+                        if (i < 12 && i > 7) return  <img key={book._id + '3'} src={book?.thumbnail} className='book' />
                     })
                 }
             </div>
             <div className='LandingPage__books__row-4'>
                 {
                     books.map((book, i) => {
-                        if (i < 16 && i > 11) return  <img src={book?.thumbnail} className='book' />
+                        if (i < 16 && i > 11) return  <img key={book._id + '4'} src={book?.thumbnail} className='book' />
                     })
                 }
             </div>

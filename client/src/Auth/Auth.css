@@ -22,6 +22,12 @@
     margin-right: 10px;
 }
 
+@media (max-width: 600px) {
+    .switch-form-label {
+        display: none;
+    }
+}
+
 .switch-form-btn {
     text-decoration: underline;
     cursor: pointer;

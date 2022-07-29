@@ -15,6 +15,7 @@ import useAddPoints from '../../../hooks/use-add-points'
 import './AddBookForm.css'
 import BackButton from '../../common/BackButton/BackButton';
 import Alert from '../../common/Alert/Alert'
+import ScrollToTopOnMount from '../../common/ScrollToTopOnMount/ScrollToTopOnMount';
 
 function AddBookForm() {
     const dispatch = useDispatch()
@@ -103,6 +104,7 @@ function AddBookForm() {
 
     return (
         <div className='AddBookForm'>
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={6} className='d-flex align-items-between flex-column'>
                     <BackButton />

@@ -11,6 +11,17 @@
     flex-direction: column;
 }
 
+.WelcomePage__last-button {
+    padding: 10px 120px;
+    margin: 0 auto;
+    font-size: 20px;
+}
+@media (max-width: 600px) {
+    .WelcomePage__last-button {
+        padding: 10px 50px;
+    }
+}
+
 .page-btn-container {
     margin-top: auto;
 }

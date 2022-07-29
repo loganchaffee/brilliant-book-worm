@@ -100,15 +100,20 @@ const PublicProfile = () => {
                                 <p className="profile-name">{visitedUser.name}</p>
                                 { <span className={`profile-level-${visitedUser.level}`}>Level {visitedUser.level}</span> }
                             </div>
-                            <div>
-                                { 
-                                    user.following.findIndex((followee) => followee._id === visitedUser._id) === -1
-                                    ? 
-                                    <Button className='follow-btn' onClick={handleFollow}><FontAwesomeIcon icon={faPlus} /> Follow</Button>
-                                    :
-                                    <Button className='unfollow-btn' variant='secondary' onClick={handleUnfollow}><FontAwesomeIcon icon={faMinus} /> Unfollow</Button>
-                                }
-                            </div>
+                            {
+                                user._id !== visitedUser._id
+                                &&
+                                <div>
+                                    { 
+                                        user.following.findIndex((followee) => followee._id === visitedUser._id) === -1
+                                        ? 
+                                        <Button className='follow-btn' onClick={handleFollow}><FontAwesomeIcon icon={faPlus} /> Follow</Button>
+                                        :
+                                        <Button className='unfollow-btn' variant='secondary' onClick={handleUnfollow}><FontAwesomeIcon icon={faMinus} /> Unfollow</Button>
+                                    }
+                                </div>
+                            }
+                            
                         </div>
                         {
                             visitedUser.bio

@@ -192,7 +192,7 @@ const LandingPage = () => {
                 </Row>
                 
                 <Row className='LandingPage__hero-section'>
-                    <Col xs={12} md={6} className='LandingPage__hero-section__left animate-up-and-in'>
+                    <Col xs={12} md={6} className='LandingPage__hero-section__left animate-up-and-in d-flex flex-column'>
                         <h1>Up Your <br /><span>Reading Game</span></h1>
                         <h2>Track your reading. Manage your library and book reviews. See what others are reading and share your ideas.</h2>
                         {!showAuth && <Button className='call-to-action-btn' onClick={handleShowAuth}>Sign Up <FontAwesomeIcon icon={faArrowRight} className='ml-10'/></Button>}
@@ -213,7 +213,7 @@ const LandingPage = () => {
                         <h1 className='tac'>Welcome To Brilliant BookWorm</h1>
                         <h2 className='tac'>The all in one book tracking tool</h2>
                         <div className='LandingPage__video'>
-                            <iframe  width="560" height="315" src="https://www.youtube.com/embed/r7qCY-_teg8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe  width="560" height="315" src="https://www.youtube.com/embed/r7qCY-_teg8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                     </Col>
                 </Row>

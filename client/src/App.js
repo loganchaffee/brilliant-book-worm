@@ -35,7 +35,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import NotificationsModal from './components/NotificationsModal/NotificationsModal'
 import RequestPasswordReset from './components/RequestPasswordReset/RequestPasswordReset'
 import ResetPassword from './components/ResetPassword/ResetPassword'
-import NewUserWelcomeModal from './components/NewUserWelcomModal/NewUserWelcomeModal'
+import NewUserWelcomeModal from './components/NewUserWelcomeModal/NewUserWelcomeModal'
 
 const App = () => {
     const dispatch = useDispatch()

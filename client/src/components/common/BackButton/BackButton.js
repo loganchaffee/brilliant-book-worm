@@ -16,9 +16,9 @@ const BackButton = ({ content, overrideURL }) => {
         navigate(-1)
     }
 
-    return  <span className='BackButton' onClick={handleClick}>
+    return  <span className='BackButton d-flex' onClick={handleClick}>
         <FontAwesomeIcon icon={faAngleLeft} />
-        { content && <span>{content}</span> }
+        { content ? <span>{content}</span> : <span>Back</span> }
     </span>
 }
 

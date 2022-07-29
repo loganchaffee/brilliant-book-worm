@@ -6,6 +6,9 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { updateUser } from '../../../../actions/auth'
 import useAddPoints from '../../../../hooks/use-add-points'
 import './ReadingSpeedTestResults.css'
+import ScrollToTopOnMount from '../../../common/ScrollToTopOnMount/ScrollToTopOnMount'
+import Alert from '../../../common/Alert/Alert'
+import BackButton from '../../../common/BackButton/BackButton'
 
 const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
     const dispatch = useDispatch()
@@ -13,6 +16,8 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
     const addPoints = useAddPoints()
     const user = useSelector((state) => state.auth)
     const wpm = useSelector((state) => state.wpm)
+    const [alertMessage, setAlertMessage] = useState('')
+
 
     useEffect(() => {
         if (isInWelcomeModal) {
@@ -24,10 +29,10 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
         if (user.wordsPerMinute < wpm) {
             dispatch(updateUser({ wordsPerMinute: wpm }))
             addPoints(50)
-            navigate('/reading-speed-test')
         } else {
             dispatch(updateUser({ wordsPerMinute: wpm }))
         }
+        setAlertMessage('Results saved to profile!')
     }
 
     const handleDiscard = () => navigate('/challenge')
@@ -36,8 +41,10 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
 
     return (
         <div className='ReadingSpeedTestResults' >
+            <ScrollToTopOnMount />
             <Row>
                 <Col xs={12} className='ReadingSpeedTestResults__info' >
+                    <BackButton content='Back' />
                     <p className='text-center '>Your Score:</p>
                     <h1 className='text-center ReadingSpeedTestResults__score' style={{ color: wpm >= user.wordsPerMinute ? 'var(--success)' : 'var(--danger)' }}>{wpm}</h1>
                     {wpm < user.wordsPerMinute && <p style={{textAlign:'center'}}>Your personal best is {user.wordsPerMinute}.<br /><span>Are you sure you wish to overwrite your record?</span></p>}
@@ -54,6 +61,8 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
                     </Col>
                 </Row>
             }
+            <Alert variant='success' content={alertMessage} onClose={() => setAlertMessage('')} />
+
         </div>
     );
 }

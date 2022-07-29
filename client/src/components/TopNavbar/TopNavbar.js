@@ -1,12 +1,13 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Navbar, Nav, Container, Row, Dropdown } from 'react-bootstrap'
+import { Navbar, Nav, Container, Row, Modal, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faSearch, faCog, faBell, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faDoorOpen, faCog, faBell, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { markNotificationAsRead } from '../../actions/notifications'
 import { toggleNotificationsModal } from '../../actions/notificationsModal';
+import { signout } from '../../actions/auth'
 import './TopNavbar.css'
 
 function TopNavbar() {
@@ -15,6 +16,7 @@ function TopNavbar() {
     const params = useParams()
     const user = useSelector((state) => state.auth)
     const notifications = useSelector((state) => state.notifications)
+    const [showSignOutModal, setShowSignOutModal] = useState(false);
 
     const [numOfNotifications, setNumOfNotifications] = useState(0)
 
@@ -24,6 +26,11 @@ function TopNavbar() {
     }
 
     const toggleModal = () => dispatch(toggleNotificationsModal())
+
+    const handleSignout = () => {
+        dispatch(signout())
+        navigate('/')
+    }
 
     useEffect(() => {
         const arr = [];
@@ -35,9 +42,9 @@ function TopNavbar() {
     }, [params])
 
 
-    return (
+    return <>
         <div className="TopNavbar" >
-            <Link to="/profile" className='TopNavbar__profile'>
+            <Link to="/profile" className='TopNavbar__profile' style={ user.profileImage ? {} : { border: '1px solid var(--white)' }}>
                 <div className='TopNavbar__profile__image'>
                     {user.profileImage ? <img src={user.profileImage} /> : <FontAwesomeIcon icon={faUser} />}
                 </div>
@@ -51,12 +58,25 @@ function TopNavbar() {
                     </div>
                     <span>Notifications</span>
                 </a>
-                <Link to='/' className='TopNavbar__link'>
-                    <div><FontAwesomeIcon icon={faCog} /></div>
-                </Link>
+               
+                <a className='Sidebar__link' >
+                    <div style={{position: 'relative'}} onClick={() => setShowSignOutModal(true)}>
+                        <FontAwesomeIcon icon={faDoorOpen} color="var(--white)" />
+                    </div>
+                </a>
             </div>
         </div>
-    )
+
+        <Modal size='sm' centered show={showSignOutModal} onHide={() => setShowSignOutModal(false)}>
+            <Modal.Header closeButton>
+                <h3 className='nm'>Sign Out?</h3>
+            </Modal.Header>
+            <Modal.Body className='d-flex flex-wrap justify-content-center'>
+                <Button className='mr-10' onClick={handleSignout}>Yes, Sign Out</Button>
+                <Button variant='secondary' onClick={() => setShowSignOutModal(false)}>No, Cancel</Button>
+            </Modal.Body>
+        </Modal>
+    </>
 }
 
 export default TopNavbar;

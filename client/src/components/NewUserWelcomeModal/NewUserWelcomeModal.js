@@ -28,7 +28,7 @@ const NewUserWelcomeModal = () => {
         <div className='animate-up-and-in' style={{marginTop: '30vh'}}>
             <h2 style={{ textAlign: 'center'}}>Your All Set, {user.name.split(' ')[0]}!</h2>
             <div className='d-flex justify-content-center'>
-                <Button className='WelcomePage__last-button' onClick={handleFinish}>Begin Using Bookworm</Button>
+                <Button className='WelcomePage__last-button' onClick={handleFinish}>Begin</Button>
             </div>
         </div>
     ]

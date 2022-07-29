@@ -26,3 +26,12 @@
     width: fit-content;
     margin-left: 10px;
 }
+@media (max-width: 600px) {
+    .EditBookForm__bottom-row > button {
+        width: 50%;
+        margin-left: 0;
+    }
+    .EditBookForm__bottom-row > button:last-of-type {
+        margin-left: 10px;
+    }
+}

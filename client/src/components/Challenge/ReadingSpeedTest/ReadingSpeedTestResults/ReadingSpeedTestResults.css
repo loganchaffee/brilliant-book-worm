@@ -23,6 +23,11 @@
     font-size: 150px;
     font-weight: 700;
 }
+@media (max-width: 600px) {
+    .ReadingSpeedTestResults__score {
+        font-size: 120px;
+    }
+}
 
 .ReadingSpeedTestResults__buttons {
     display: flex;

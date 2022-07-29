@@ -1,6 +1,6 @@
 .BackButton {
     color: var(--primary);
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     display: flex;
     align-items: center;

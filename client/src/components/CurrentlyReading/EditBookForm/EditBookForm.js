@@ -133,7 +133,7 @@ function EditBookForm() {
             <Row>
                 <Col xs={12} className='EditBookForm__bottom-row'>
                     <Button variant="success" className='full-width-btn' onClick={handleCompleteBook}>Complete Book</Button>
-                    <Button variant="primary" className='full-width-btn' onClick={handleSubmit}>Update Book Details</Button>
+                    <Button variant="primary" className='full-width-btn' onClick={handleSubmit}>Update Details</Button>
                 </Col>
             </Row>
             <Alert variant='warning' content={alert} onClose={() => setAlert('')} />

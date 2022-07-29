@@ -1,9 +1,5 @@
 /* Styles for both forms linked to from this page */
 
-.CurrentlyReading {
-
-}
-
 /* Forms (Move these into their components) */
 .short-form-label {
     width: 50%;
@@ -26,6 +22,15 @@
     margin-bottom: 10px;
     width: fit-content;
 }
+@media (max-width: 600px) {
+    .add-new-book-btn__text {
+        display: none;
+    }
+    .add-new-book-btn__text-sm {
+        display: inline;
+    }
+}
+
 
 .Dashboard__stats-row > div {
     margin-bottom: 10px;

@@ -53,10 +53,14 @@ function CurrentlyReading() {
             </Row>
 
             <Row>
-                <Col xs={12} className='d-flex justify-content-between'>
+                <Col xs={12} className='d-flex justify-content-between align-items-center'>
                     <h4 style={{width: 'fit-content'}}>Currently Reading</h4>
                     <Link to="/add-book" style={{marginLeft: '10px'}}>
-                        <Button className='add-new-book-btn full-width-btn'><Icon icon={faPlus} /> Add New Book</Button>
+                        <Button className='add-new-book-btn full-width-btn'>
+                            <Icon icon={faPlus} />{' '}
+                            <span className='add-new-book-btn__text'>Add New Book</span>
+                            <span className='add-new-book-btn__text-sm'>New</span>
+                        </Button>
                     </Link>
                 </Col>
                 {
@@ -75,7 +79,7 @@ function CurrentlyReading() {
                     })
                     :
                     <div className='CurrentlyReading__alternate-content'>
-                        <h3>Add a book to track your reading</h3>
+                        <h3 className='tac'>Add a book to track your reading</h3>
                     </div>
                 }
             </Row>
