@@ -32,7 +32,8 @@
 
 /* -----Hero----- */
 .LandingPage__hero-section {
-    padding-bottom: 250px;
+    margin-bottom: 250px;
+    min-height: 422px;
 }
 @media (max-width: 600px) {
     .LandingPage__hero-section {
