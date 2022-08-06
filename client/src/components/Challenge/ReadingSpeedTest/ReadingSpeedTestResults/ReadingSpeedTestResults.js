@@ -62,7 +62,6 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
                 </Row>
             }
             <Alert variant='success' content={alertMessage} onClose={() => setAlertMessage('')} />
-
         </div>
     );
 }
