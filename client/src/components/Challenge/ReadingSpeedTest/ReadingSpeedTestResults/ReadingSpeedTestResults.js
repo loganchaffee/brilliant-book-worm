@@ -44,7 +44,7 @@ const ReadingSpeedTestResults = ({ isInWelcomeModal }) => {
             <ScrollToTopOnMount />
             <Row>
                 <Col xs={12} className='ReadingSpeedTestResults__info' >
-                    <BackButton content='Back' />
+                    { !isInWelcomeModal && <BackButton content='Back' /> }
                     <p className='text-center '>Your Score:</p>
                     <h1 className='text-center ReadingSpeedTestResults__score' style={{ color: wpm >= user.wordsPerMinute ? 'var(--success)' : 'var(--danger)' }}>{wpm}</h1>
                     {wpm < user.wordsPerMinute && <p style={{textAlign:'center'}}>Your personal best is {user.wordsPerMinute}.<br /><span>Are you sure you wish to overwrite your record?</span></p>}
