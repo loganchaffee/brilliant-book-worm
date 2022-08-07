@@ -47,11 +47,11 @@ function Feed() {
     // Intersection observer options
     const options = { root: null, rootMargin: '0px', threshold: .01 }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setShowSkeletonLoading(false)
-        }, 10000);
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setShowSkeletonLoading(false)
+    //     }, 10000);
+    // }, [])
 
     useEffect(() => {
         if (user.following.length === 0 && books.length === 0) setShowSkeletonLoading(false)
