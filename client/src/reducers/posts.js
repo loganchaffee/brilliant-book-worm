@@ -5,6 +5,8 @@ let indexOfPostCommentedOn
 
 export default (posts = [], action) => {
     switch (action.type) {
+        case 'RESET_POSTS':
+            return []
         case 'FETCH_ALL_POSTS':
             return [...posts, ...action.payload]
         case 'LIKE_POST':

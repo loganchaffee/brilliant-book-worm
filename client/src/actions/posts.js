@@ -1,5 +1,9 @@
 import * as api from '../api'
 
+export const resetPosts = () => {
+    return { type: 'RESET_POSTS' }
+}
+
 export const getPosts = (postsLength) => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts({ postsLength })

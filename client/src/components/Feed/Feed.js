@@ -8,7 +8,7 @@ import { Col, Container, Row, Form, Card, Button } from 'react-bootstrap'
 import { fetchUsersNamesAndIds, fetchPosts } from '../../api'
 import { getCurrentVisitedUser } from '../../actions/currentVisitedUser'
 import { fetchVisitedUserBooks } from '../../actions/currentVisitedUserBooks'
-import { getPosts } from '../../actions/posts'
+import { getPosts, resetPosts } from '../../actions/posts'
 // Styles
 import './Feed.css'
 import Post from './Post/Post'
@@ -34,8 +34,14 @@ function Feed() {
     const [showSkeletonLoading, setShowSkeletonLoading] = useState(true)
 
     useEffect(() => {
-        if (posts.length === 0) dispatch(getPosts(0))
+        dispatch(getPosts(0))
+
+        return () => dispatch(resetPosts())
     }, [])
+
+    useEffect(() => {
+        if (posts.length > 0) setShowSkeletonLoading(false)
+    }, [posts])
 
     // Get New Posts On Scroll---------------------------------------------------
     // Intersection observer options
@@ -44,7 +50,7 @@ function Feed() {
     useEffect(() => {
         setTimeout(() => {
             setShowSkeletonLoading(false)
-        }, 3000);
+        }, 10000);
     }, [])
 
     useEffect(() => {
@@ -79,6 +85,8 @@ function Feed() {
         const callback = (entries) => {
             const [entry] = entries
             if (entry.isIntersecting) {
+                if (posts.length === 0) return 
+
                 setLastPost(null)
                 dispatch(getPosts(posts.length)) // Fetch more posts (needs the current length of posts)
             }
@@ -95,7 +103,7 @@ function Feed() {
                     <h1 className='title-1'>News Feed</h1>
                     <div id='postsContainer'>
                         {
-                            (posts.length === 0 && showSkeletonLoading)
+                            showSkeletonLoading
                             &&
                             <>
                                 <SkeletonPost />
@@ -105,14 +113,14 @@ function Feed() {
                             </>
                         }
                         {
-                            (posts.length === 0 && !showSkeletonLoading)
-                            &&
-                            <h3 style={{textAlign: 'center', marginTop: '50px', color:'var(--secondary)'}}>No new posts</h3>
-                        }
-                        {
                             posts.length > 0
                             &&
                             posts.map((post) => <Post key={'post-' + post._id} post={post} />)
+                        }
+                        {
+                            (posts.length === 0 && !showSkeletonLoading)
+                            &&
+                            <h3 style={{textAlign: 'center', marginTop: '50px', color:'var(--secondary)'}}>No new posts</h3>
                         }
                     </div>
                 </Col>
