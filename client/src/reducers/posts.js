@@ -8,7 +8,11 @@ export default (posts = [], action) => {
         case 'RESET_POSTS':
             return []
         case 'FETCH_ALL_POSTS':
-            return [...posts, ...action.payload]
+            let postsWithDuplicates = [...posts, ...action.payload]
+
+            let distinctPosts = [ ...new Map(postsWithDuplicates.map(post => [JSON.stringify(post), post])).values()]
+
+            return distinctPosts
         case 'LIKE_POST':
             updatedPosts = [...posts]
             indexOfPost = posts.findIndex((post) => post._id === action.payload.postId)

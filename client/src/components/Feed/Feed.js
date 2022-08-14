@@ -34,9 +34,9 @@ function Feed() {
     const [showSkeletonLoading, setShowSkeletonLoading] = useState(true)
 
     useEffect(() => {
-        dispatch(getPosts(0))
+        dispatch(getPosts(posts.length))
 
-        return () => dispatch(resetPosts())
+        // return () => dispatch(resetPosts())
     }, [])
 
     useEffect(() => {
@@ -46,12 +46,6 @@ function Feed() {
     // Get New Posts On Scroll---------------------------------------------------
     // Intersection observer options
     const options = { root: null, rootMargin: '0px', threshold: .01 }
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setShowSkeletonLoading(false)
-    //     }, 10000);
-    // }, [])
 
     useEffect(() => {
         if (user.following.length === 0 && books.length === 0) setShowSkeletonLoading(false)
