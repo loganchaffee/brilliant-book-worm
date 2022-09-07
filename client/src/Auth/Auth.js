@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap/esm';
+import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap/esm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { signup, signin } from '../actions/auth.js';
@@ -14,9 +14,17 @@ function Auth({ isSignup, setIsSignup }) {
     const [formData, setFormData] = useState({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});
     const [error, setError] = useState('')
     const [alert, setAlert] = useState('')
+    const [showSpinner, setShowSpinner] = useState(false)
+
+    const setAlertAndClearSpinner = (data) => {
+        setAlert(data)
+        setShowSpinner(false)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        setShowSpinner(true)
 
         let { firstName, lastName, email, password, confirmPassword } = formData
 
@@ -26,14 +34,16 @@ function Auth({ isSignup, setIsSignup }) {
         password = password.trim()
         confirmPassword = confirmPassword.trim()
 
-        if (!firstName || !lastName || !email || !password || !confirmPassword) return setAlert('Please fill in all fields')
-        if (password !== confirmPassword) return setAlert('Passwords must match')
-        if (!email.includes('@') || !email.includes('.')) return setAlert('Please use valid email address')
+        if (!firstName || !lastName || !email || !password || !confirmPassword) return setAlertAndClearSpinner('Please fill in all fields')
+        if (password !== confirmPassword) return setAlertAndClearSpinner('Passwords must match')
+        if (!email.includes('@') || !email.includes('.')) return setAlertAndClearSpinner('Please use valid email address')
 
-        dispatch(signup({ firstName, lastName, email, password, confirmPassword, name: `${firstName} ${lastName}` }, navigate, setError))
+        dispatch(signup({ firstName, lastName, email, password, confirmPassword, name: `${firstName} ${lastName}` }, navigate, setError, setShowSpinner))
     }
 
     const handleSignin = async (e) => {
+        setShowSpinner(true)
+
         e.preventDefault()
 
         let { email, password } = formData
@@ -41,9 +51,9 @@ function Auth({ isSignup, setIsSignup }) {
         email = email.trim()
         password = password.trim()
 
-        if (!formData.email || !formData.password) return setAlert('Please fill in both fields')
-        if (!formData.email.includes('@') || !formData.email.includes('.')) return setAlert('Please use valid email address')
-        dispatch(signin({ email, password }, navigate, setError))
+        if (!formData.email || !formData.password) return setAlertAndClearSpinner('Please fill in both fields')
+        if (!formData.email.includes('@') || !formData.email.includes('.')) return setAlertAndClearSpinner('Please use valid email address')
+        dispatch(signin({ email, password }, navigate, setError, setShowSpinner))
     }
 
     return (
@@ -108,13 +118,13 @@ function Auth({ isSignup, setIsSignup }) {
                                     <a className="switch-form-btn" onClick={() => setIsSignup(true)}>Sign Up</a>
                                 </Col>
                             </Row>
-                            
                         </>
                     }
                 </Col>
             </Row>
             <Row>
                 <Col xs={12}>
+                    {showSpinner && <Spinner animation='border' variant='primary' style={{ marginRight: 'auto'}} />}
                     <Alert variant='danger' content={error} onClose={() => setError('')} />
                     <Alert variant='warning' content={alert} onClose={() => setAlert('')} />
                 </Col>

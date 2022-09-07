@@ -1,6 +1,6 @@
 import * as api from '../api'
 
-export const signup = (formData, navigate, handleErrorInComponent) => async (dispatch) => {
+export const signup = (formData, navigate, handleErrorInComponent, setShowSpinner) => async (dispatch) => {
     try {
         const res = await api.signup(formData)
         const data = res.data
@@ -10,13 +10,18 @@ export const signup = (formData, navigate, handleErrorInComponent) => async (dis
         navigate('/')
 
         dispatch({ type: 'AUTH', payload: data.user })
+
+        if (setShowSpinner) setShowSpinner(false)
+
     } catch (error) {
         console.log(error);
         handleErrorInComponent(error.response.data)
+        if (setShowSpinner) setShowSpinner(false)
+
     }
 }
  
-export const signin = (formData, navigate, handleErrorInComponent) => async (dispatch) => {
+export const signin = (formData, navigate, handleErrorInComponent, setShowSpinner) => async (dispatch) => {
     try {
         const res = await api.signin(formData)
         const data = res.data
@@ -26,9 +31,13 @@ export const signin = (formData, navigate, handleErrorInComponent) => async (dis
         navigate('/')
 
         dispatch({ type: 'AUTH', payload: data.user })
+        if (setShowSpinner) setShowSpinner(false)
+
     } catch (error) {
         console.log(error.message);
         handleErrorInComponent('Wrong user name or password')
+        if (setShowSpinner) setShowSpinner(false)
+
     }
 }
 
