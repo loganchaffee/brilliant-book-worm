@@ -22,6 +22,9 @@
     margin-bottom: 10px;
     width: fit-content;
 }
+.add-new-book-btn__text-sm {
+    display: none;
+}
 @media (max-width: 600px) {
     .add-new-book-btn__text {
         display: none;
