@@ -51,14 +51,12 @@ const App = () => {
         setIsLoading(true)
 
         if (localStorage.getItem('user')) {
-            console.log('There is a user, fetching all his shit');
             dispatch(getUserInfo(navigate, setIsLoading))
             dispatch(getBooks())
             dispatch(getNotifications())
         } 
         
         if (!localStorage.getItem('user')) {
-            console.log('There is no user. Show the landing page');
             setIsLoading(false)
         }
     }, [user?._id])
