@@ -296,3 +296,27 @@ select:focus {
     color: var(--dark-darkened);
     font-size: 20px;
 }
+
+.skeleton-loading {
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-name: skeletonFlash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+@keyframes skeletonFlash {
+    0% {
+        background: var(--light);
+    }
+    50% {
+        background: var(--light-darkened);
+    }
+    100% {
+        background: var(--light);
+    }
+}

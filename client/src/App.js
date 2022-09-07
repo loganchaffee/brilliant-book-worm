@@ -36,6 +36,7 @@ import NotificationsModal from './components/NotificationsModal/NotificationsMod
 import RequestPasswordReset from './components/RequestPasswordReset/RequestPasswordReset'
 import ResetPassword from './components/ResetPassword/ResetPassword'
 import NewUserWelcomeModal from './components/NewUserWelcomeModal/NewUserWelcomeModal'
+import SkeletonDashboard from './components/SkeletonDashboard/SkeletonDashboard'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -43,8 +44,6 @@ const App = () => {
     const user = useSelector((state) => state.auth)
     const pointsJustScored = useSelector(state => state.pointsJustScored)
 
-    // The user data is stored in the redux store, but the boolean of isLoggedIn is stored here
-    // In the main app component so that we can conditionally render the authentication form or the home page.
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -62,7 +61,7 @@ const App = () => {
     }, [user?._id])
 
 
-    if (isLoading) return null
+    if (isLoading) return <SkeletonDashboard />
 
     if (!user) return <Routes>
         {/* <Route path='/' element={<Auth />}/> */}
