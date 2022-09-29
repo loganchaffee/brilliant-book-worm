@@ -24,6 +24,7 @@ const UserDetails = () => {
     const [showSpinner, setShowSpinner] = useState(false)
 
     const [showModal, setShowModal] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showProfileDropDown, setShowProfileDropDown] = useState(false)
 
     const [cropper, setCropper] = useState(null)
@@ -138,7 +139,7 @@ const UserDetails = () => {
                     &&
                     <div className='profile-dropdown box-shadow'>
                         <Button variant="secondary" className='full-width-btn' onClick={handleSignout}>Sign Out</Button>
-                        <Button variant="danger" className='full-width-btn' onClick={handleDeleteUser}>Delete Account</Button>
+                        <Button variant="danger" className='full-width-btn' onClick={() => setShowDeleteModal(true)}>Delete Account</Button>
                     </div>
                 }
             </div>
@@ -205,6 +206,21 @@ const UserDetails = () => {
             </div>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleCropAndUpdate}>Save Changes</Button>
+            </Modal.Footer>
+        </Modal>
+
+        <Modal size='sm' centered show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal.Header closeButton>
+                <div>
+                    <Modal.Title>Delete Account?</Modal.Title>
+                    <p>All your data will be lost</p>
+                </div>
+            </Modal.Header>
+            <Modal.Footer>
+                <div className='d-flex justify-content-between' style={{ width: '100%' }}>
+                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>Cancel</Button>
+                    <Button variant="danger" onClick={handleDeleteUser}>Delete</Button>
+                </div>
             </Modal.Footer>
         </Modal>
     </>

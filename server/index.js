@@ -5,6 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import auth from './middleware/auth.js'
 import path from 'path'
+
 const __dirname = path.resolve();
 
 const app = express()
@@ -35,6 +36,8 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000
+
+
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => app.listen(PORT, () => console.log(`Server running on ${PORT} and the database connection is good`)))

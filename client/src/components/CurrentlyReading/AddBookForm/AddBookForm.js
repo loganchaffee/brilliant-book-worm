@@ -74,7 +74,6 @@ function AddBookForm() {
                 const book = data.items[i];
                 books.push(book.volumeInfo)
             }
-            console.log(books);
             setGoogleBooks(books)
         } catch (error) {
             console.log(error);
@@ -82,8 +81,6 @@ function AddBookForm() {
     }
 
     const handleFillForm = (book) => {
-        console.log(book);
-
         let authors = ''
         let thumbnail = ''
         if (book?.authors) authors = book.authors[0]
@@ -140,7 +137,6 @@ function AddBookForm() {
                         <div className='AddBookForm__results' id='titleResults'>
                             { 
                                 googleBooks.map((book, i) => {
-                                    console.log(book);
                                     if (i > 4) return
                                     return (
                                         <div 

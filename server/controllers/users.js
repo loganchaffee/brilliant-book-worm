@@ -182,7 +182,10 @@ export const requestPasswordReset = async (req, res) => {
     try {
         const { email } = req.body
 
+        console.log(email);
+
         const existingUser = await User.findOne({ email: email }, { _id: 1 })
+        console.log(existingUser);
         if (!existingUser) return res.status(404).send('No user with that email')
 
         let tokenString = crypto.randomBytes(32).toString("hex");

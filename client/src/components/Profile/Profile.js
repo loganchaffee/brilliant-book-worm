@@ -17,20 +17,11 @@ import Statistics from './Statistics/Statistics';
 import ScrollToTopOnMount from '../common/ScrollToTopOnMount/ScrollToTopOnMount'
 
 const Profile = () => {
-    const dispatch = useDispatch()
     const user = useSelector((state) => state.auth)
     const books = useSelector((state) => state.books)
-    const navigate = useNavigate()
 
-    const [showFollowers, setShowFollowers] = useState(false)
-    const [showFollowing, setShowFollowing] = useState(false)
     const [bookData, setBookData] = useState({ completedBooks: [], reviewedBooks: [] }) // Capitalized Name
     const [formData, setFormData] = useState({ name: '', email: ''})
-    const [errorMessage, setErrorMessage] = useState('')
-
-    const [showModal, setShowModal] = useState(false)
-    const [cropper, setCropper] = useState(null)
-    const [image, setImage] =  useState('')
 
 
     // Set Initial Data----------------------------------------------------------------------
@@ -44,16 +35,6 @@ const Profile = () => {
             setBookData({ ...bookData, completedBooks: completedBooks, reviewedBooks: reviewedBooks })
         }
     }, [user])
-
-    const handleDeleteUser = () => {
-        dispatch(deleteUser(navigate))
-    }
-
-    // Visit another user's public profile page
-    const handleClickUser = (userId) => {
-        dispatch(fetchVisitedUserBooks(userId))
-        dispatch(getCurrentVisitedUser(userId))
-    }
         
     return (
         <div className="Profile">

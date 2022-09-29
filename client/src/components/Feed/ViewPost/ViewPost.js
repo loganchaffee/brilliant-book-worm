@@ -24,8 +24,6 @@ const ViewPost = () => {
     const posts = useSelector((state) => state.posts)
     const currentPost = useSelector((state) => state.currentPost)
 
-    // useEffect(() => console.log(currentPost), [currentPost])
-
     useEffect(() => {
         setTimeout(() => {
             if (!currentPost?._id) {

@@ -21,8 +21,6 @@ const Comment = ({ comment }) => {
         dispatch(deleteComment(currentPost._id, comment._id))
     }
 
-    console.log();
-
     return (
        <Card className="Comment">
            <Card.Body>

@@ -8,7 +8,6 @@ export default (notifications = [], action) => {
             arr[index].viewed = true
             return arr
         case 'DELETE_NOTIFICATION':
-            console.log('fire');
             const arr2 = [...notifications]
             const index2 = arr2.findIndex((notification) => notification._id === action.payload)
             if (index2 === -1) return notifications

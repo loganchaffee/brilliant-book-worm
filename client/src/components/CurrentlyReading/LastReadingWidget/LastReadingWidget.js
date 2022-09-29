@@ -18,7 +18,6 @@ const LastReadingWidget = () => {
         let diff = { num: a.diff(b, 'days'), unit: 'Day'};
         if (diff.num < 1) {
             diff =  { num: a.diff(b, 'hours'), unit: 'Hour'};
-            console.log(diff);
             if (diff.num < 1) {
                 diff = { num: a.diff(b, 'minutes'), unit: 'Minute'};
             }

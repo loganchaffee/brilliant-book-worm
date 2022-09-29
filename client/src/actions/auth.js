@@ -48,6 +48,7 @@ export const getUserInfo = (navigate, setIsLoading) => async (dispatch) => {
         setIsLoading(false)
     } catch (error) {
         console.log('get user info error: ', error);
+        setIsLoading(false)
         // navigate('/auth')
     }
 }
@@ -61,11 +62,12 @@ export const signout = () => async (dispatch) => {
     }
 }
 
-export const deleteUser = () => async (dispatch, navigate) => {
+export const deleteUser = (navigate) => async (dispatch) => {
     try {
         const deletedUser = await api.deleteUser()
         localStorage.clear()
         dispatch({ type: 'AUTH', payload: null })
+        if (navigate) navigate('/')
     } catch (error) {
         console.log(error);
     }

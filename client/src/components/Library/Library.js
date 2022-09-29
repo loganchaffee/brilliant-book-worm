@@ -16,8 +16,6 @@ function Library() {
     const books = useSelector((state) => state.books)
     const [completedBooks, setCompletedBooks] = useState([])
 
-    console.log(books.filter((book) => book.isCompleted))
-
     useEffect(() => {
         setCompletedBooks(books.filter((book) => book.isCompleted))
     }, [books.length])

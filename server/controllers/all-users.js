@@ -10,7 +10,7 @@ export const fetchUsers = async (req, res) => {
             { "name" : { $regex: query, $options: 'i' }, "private" : false }, 
             { name: 1 }
         );
-        
+
         res.status(200).json(matchingDocuments)
     } catch (error) {
         res.status(404).json(error)
