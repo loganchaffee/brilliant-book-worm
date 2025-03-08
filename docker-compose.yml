@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  brilliant_bookworm_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:5000"
+    depends_on:
+      brilliant_bookworm_db:
+        condition: service_started
+    env_file:
+      - .env
+
+  brilliant_bookworm_db:
+    image: mongo:latest
+    container_name: brilliant_bookworm_db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - brilliant_bookworm_db_data:/data/db
+    env_file:
+      - .env
+
+volumes:
+  brilliant_bookworm_db_data:

@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,9 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
-    "nodemailer": "^6.7.6",
-    "nodemon": "^2.0.15"
+    "nodemailer": "^6.7.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
